@@ -1,0 +1,34 @@
+#calHeader{
+  text-align: center;
+}
+#calendarDiv{
+  width: 100%;
+  height: 70%;
+  display: flex;
+  justify-content: space-between;
+}
+.dayDiv{
+  border-style: solid;
+  width:  20%;
+  text-align: center;
+}
+#monDiv{
+margin-left: 1rem;
+
+}
+#tueDiv{
+  margin-left: 1rem;
+}
+#wedDiv{
+  margin-left: 1rem;
+}
+#thuDiv{
+  margin-left: 1rem;
+}
+#friDiv{
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+
+

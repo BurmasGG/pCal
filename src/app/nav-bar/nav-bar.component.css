@@ -1,0 +1,14 @@
+#navMenu{
+  top: 0;
+  position: sticky;
+  height: 10%;
+  width: 100;
+  overflow: hidden;
+  background-color: #16168b;
+}
+#newPlan{
+  background-color: red;
+  position: absolute;
+  right: 2%;
+  height: 45px;
+}

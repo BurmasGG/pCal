@@ -11,6 +11,9 @@ import { NextWeekComponent } from './next-week/next-week.component';
 import { PrevWeekComponent } from './prev-week/prev-week.component';
 import { EventViewComponent } from './event-view/event-view.component';
 import { MonthViewComponent } from './month-view/month-view.component';
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { MatFormFieldModule, MatInputModule} from '@angular/material';
+import {MatToolbarModule} from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -26,8 +29,13 @@ import { MonthViewComponent } from './month-view/month-view.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
-  ],
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatToolbarModule
+     ],
   providers: [],
   bootstrap: [AppComponent]
 })
