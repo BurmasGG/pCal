@@ -14,6 +14,11 @@ import { MonthViewComponent } from './month-view/month-view.component';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MatFormFieldModule, MatInputModule} from '@angular/material';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { DateComponent } from './new-appointment/date/date.component';
+import { PlaceComponent } from './new-appointment/place/place.component';
+import { TimeComponent } from './new-appointment/time/time.component';
+import { ParticipantComponent } from './new-appointment/participant/participant.component';
+import { NoteComponent } from './new-appointment/note/note.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +30,11 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     PrevWeekComponent,
     EventViewComponent,
     MonthViewComponent,
+    DateComponent,
+    PlaceComponent,
+    TimeComponent,
+    ParticipantComponent,
+    NoteComponent,
       ],
   imports: [
     BrowserModule,
