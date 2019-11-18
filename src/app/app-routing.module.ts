@@ -9,7 +9,7 @@ import { PrevWeekComponent } from './prev-week/prev-week.component';
 
 const routes: Routes = [{path: '', component: HomeViewComponent},
     {path: 'month', component: MonthViewComponent },
-    {path: 'home', component: MonthViewComponent},
+    {path: 'home', component: HomeViewComponent},
     {path: 'makeAppointment', component: NewAppointmentComponent},
     {path: 'nextWeek', component: NextWeekComponent},
     {path: 'prevWeek' , component: PrevWeekComponent}

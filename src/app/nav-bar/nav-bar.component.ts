@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavService } from '../nav.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-nav-bar',
@@ -6,10 +8,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav-bar.component.css']
 })
 export class NavBarComponent implements OnInit {
+  private name = '';
 
-  constructor() { }
+
+  constructor(
+    private navservice: NavService,
+    private router: Router,
+
+  ) { }
 
   ngOnInit() {
   }
-
+  routeToAppointment() {
+    this.router.navigate(['/makeAppointment']);
+  }
+  routeToHome() {
+    this.router.navigate(['/home']);
+  }
+  routeToNextWeek() {
+    this.router.navigate(['/nextWeek']);
+  }
 }
+

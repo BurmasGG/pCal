@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavService } from '../nav.service';
 
 @Component({
   selector: 'app-home-view',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeViewComponent implements OnInit {
 
-  constructor() { }
+  constructor(private navservice: NavService) { }
 
   ngOnInit() {
+    this.navservice.wasHome = true;
   }
 
 }
