@@ -19,6 +19,7 @@ import { PlaceComponent } from './new-appointment/place/place.component';
 import { TimeComponent } from './new-appointment/time/time.component';
 import { ParticipantComponent } from './new-appointment/participant/participant.component';
 import { NoteComponent } from './new-appointment/note/note.component';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { NoteComponent } from './new-appointment/note/note.component';
     ReactiveFormsModule,
     MatFormFieldModule,
     MatInputModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatDatepickerModule
      ],
   providers: [],
   bootstrap: [AppComponent]
