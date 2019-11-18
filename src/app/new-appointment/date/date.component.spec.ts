@@ -2,7 +2,6 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DateComponent } from './date.component';
 
-import {Component} from '@angular/core';
 
 describe('DateComponent', () => {
   let component: DateComponent;
@@ -27,10 +26,3 @@ describe('DateComponent', () => {
 });
 
 
-/** @title Datepicker touch UI */
-@Component({
-  selector: 'date.component',
-  templateUrl: 'date.component.html',
-  styleUrls: ['date.component.css'],
-})
-export class date {}
