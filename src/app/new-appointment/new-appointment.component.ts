@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class NewAppointmentComponent implements OnInit {
 
-  constructor(private navservice: NavService,
+  constructor(public navservice: NavService,
     private router: Router
   ) { }
 
