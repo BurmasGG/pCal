@@ -12,14 +12,13 @@ import { PrevWeekComponent } from './prev-week/prev-week.component';
 import { EventViewComponent } from './event-view/event-view.component';
 import { MonthViewComponent } from './month-view/month-view.component';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule} from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule} from '@angular/material';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { DateComponent } from './new-appointment/date/date.component';
 import { PlaceComponent } from './new-appointment/place/place.component';
 import { TimeComponent } from './new-appointment/time/time.component';
 import { ParticipantComponent } from './new-appointment/participant/participant.component';
 import { NoteComponent } from './new-appointment/note/note.component';
-import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
   declarations: [
@@ -46,7 +45,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatFormFieldModule,
     MatInputModule,
     MatToolbarModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatNativeDateModule
      ],
   providers: [],
   bootstrap: [AppComponent]

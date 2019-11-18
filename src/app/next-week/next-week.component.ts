@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { NavService } from '../nav.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-next-week',
@@ -7,9 +9,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NextWeekComponent implements OnInit {
 
-  constructor() { }
+  constructor(private navservice: NavService,
+              private router: Router) {
+
+    }
 
   ngOnInit() {
+    if (this.navservice.wasHome === false) {
+      this.router.navigate(['/home']);
   }
-
+  }
 }

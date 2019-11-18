@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavService } from 'src/app/nav.service';
 
 @Component({
   selector: 'app-participant',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ParticipantComponent implements OnInit {
 
-  constructor() { }
+  constructor(public navservice: NavService) { }
 
   ngOnInit() {
   }
-
+  buttonClicked() {
+    this.navservice.Toggle = 4;
+}
 }

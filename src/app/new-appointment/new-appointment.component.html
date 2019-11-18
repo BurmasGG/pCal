@@ -1,1 +1,9 @@
-<p>new-appointment works!</p>
+<app-date *ngIf='this.navservice.Toggle === 0'></app-date>
+
+<app-note *ngIf='this.navservice.Toggle === 1'> </app-note>
+
+<app-time *ngIf='this.navservice.Toggle === 2'></app-time>
+
+<app-participant *ngIf='this.navservice.Toggle === 3'></app-participant>
+
+<app-place *ngIf='this.navservice.Toggle === 4'></app-place>

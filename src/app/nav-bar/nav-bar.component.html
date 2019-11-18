@@ -1,5 +1,7 @@
 <mat-toolbar id ="navMenu" >
-  <p>Menu</p>
-  <button mat-raised-button id="newPlan" >Ny aftale</button>
+  <button mat-button id="newPlan" (click)="routeToAppointment()" >Ny aftale</button>
+  <button mat-button class ="menubttn" (click)="routeToHome()">Denne uge</button>
+  <button mat-button class ="menubttn" (click)="routeToNextWeek()">Næste uge</button>
+
 </mat-toolbar>
 
