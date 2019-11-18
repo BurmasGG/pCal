@@ -11,24 +11,11 @@
   border-style: solid;
   width:  20%;
   text-align: center;
-}
-#monDiv{
-margin-left: 1rem;
-
-}
-#tueDiv{
-  margin-left: 1rem;
-}
-#wedDiv{
-  margin-left: 1rem;
-}
-#thuDiv{
-  margin-left: 1rem;
-}
-#friDiv{
-  margin-left: 1rem;
-  margin-right: 1rem;
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
 }
 
-
+.event {
+  background: cornflowerblue;
+}
 

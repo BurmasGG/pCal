@@ -12,7 +12,7 @@ import { PrevWeekComponent } from './prev-week/prev-week.component';
 import { EventViewComponent } from './event-view/event-view.component';
 import { MonthViewComponent } from './month-view/month-view.component';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { MatFormFieldModule, MatInputModule} from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatCardModule, MatButtonModule} from '@angular/material';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { DateComponent } from './new-appointment/date/date.component';
 import { PlaceComponent } from './new-appointment/place/place.component';
