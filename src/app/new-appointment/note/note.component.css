@@ -1,0 +1,16 @@
+#nextbttn{
+  height: 70px;
+  width: 70px;
+  background-color: chartreuse;
+  margin-left: 90%;
+  }
+#textBox{
+}
+#noteBox{
+  width: 50%;
+  height: 20;
+}
+#textDiv{
+  align-content: center;
+  text-align: Center;
+}

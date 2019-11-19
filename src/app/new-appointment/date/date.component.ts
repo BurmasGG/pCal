@@ -15,6 +15,6 @@ export class DateComponent implements OnInit {
   ngOnInit() {
   }
 buttonClicked() {
-  this.navservice.Toggle = 1;
+  this.navservice.Toggle = 2;
 }
 }

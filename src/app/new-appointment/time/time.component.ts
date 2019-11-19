@@ -13,6 +13,6 @@ export class TimeComponent implements OnInit {
   ngOnInit() {
   }
   buttonClicked() {
-    this.navservice.Toggle = 3;
+    this.navservice.Toggle = 4;
   }
 }
