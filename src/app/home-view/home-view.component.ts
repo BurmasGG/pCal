@@ -12,14 +12,14 @@ export class HomeViewComponent implements OnInit {
   public days = ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag"];
   public eventsSorted = [[], [], [], [], []];
 
-  constructor(private navservice: NavService) { }
+  constructor(private navservice: NavService) {}
 
   
   ngOnInit()
   {
     this.navservice.wasHome = true;
 
-    this.AddEvent("Kaffe med Ulla", "Vi skal have kaffe.", "18-11-2019", "12:30", "Ulla", "Torvecaféen");
+    this.AddEvent("Kaffe med Ulla", "Vi skal have kaffe.", "20-11-2019", "12:30", "Ulla", "Torvecaféen");
     this.AddEvent("Frisør lol", "Jeg skal klippes.", "19-11-2019", "13:00", "", "Herregodt Hår");
   }
 
@@ -48,7 +48,8 @@ export class HomeViewComponent implements OnInit {
     if (eMonth == curMonth)
     {
       let dayInt = eDay - curDay;
-      if (dayInt < 5)
+      console.log("dayInt: " + dayInt)
+      if (dayInt < 5 && dayInt > -1)
       {
         this.eventsSorted[dayInt].push(e);
 
