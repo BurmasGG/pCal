@@ -13,6 +13,6 @@ export class ParticipantComponent implements OnInit {
   ngOnInit() {
   }
   buttonClicked() {
-    this.navservice.Toggle = 4;
+    this.navservice.Toggle = 5;
 }
 }

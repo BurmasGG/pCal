@@ -19,6 +19,8 @@ import { PlaceComponent } from './new-appointment/place/place.component';
 import { TimeComponent } from './new-appointment/time/time.component';
 import { ParticipantComponent } from './new-appointment/participant/participant.component';
 import { NoteComponent } from './new-appointment/note/note.component';
+import { EventTypeComponent } from './new-appointment/event-type/event-type.component';
+import { MatCardModule } from '@angular/material/card';
 import { EventDialogComponent } from './event-dialog/event-dialog.component';
 
 @NgModule({
@@ -37,6 +39,7 @@ import { EventDialogComponent } from './event-dialog/event-dialog.component';
     ParticipantComponent,
     NoteComponent,
     EventDialogComponent,
+    EventTypeComponent,
       ],
   imports: [
     BrowserModule,
@@ -49,7 +52,9 @@ import { EventDialogComponent } from './event-dialog/event-dialog.component';
     MatToolbarModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatDialogModule,
+    MatCardModule,
+    MatNativeDateModule,
+    MatDialogModule
      ],
   providers: [EventDialogComponent, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true, disableClose: false, autoFocus: true, width: 600, height: 600}}],
   bootstrap: [AppComponent],

@@ -15,6 +15,6 @@ export class NoteComponent implements OnInit {
   ngOnInit() {
   }
   buttonClicked() {
-    this.navservice.Toggle = 2;
+    this.navservice.Toggle = 3;
   }
 }

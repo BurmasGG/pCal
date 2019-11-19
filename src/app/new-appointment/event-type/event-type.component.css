@@ -1,0 +1,62 @@
+#header{
+  text-align: center;
+}
+#nextbttn{
+  height: 70px;
+  width: 70px;
+  background-color: chartreuse;
+  margin-left: 90%;
+  }
+#top{
+  display: flex;
+  height: 50%;
+}
+#bottom{
+  display: flex;
+  height: 50%;
+
+}
+  #SCN{
+    background-color: rgb(96, 119, 221);
+    width: 40%;
+    height: 80%;
+    margin-right: 5%;
+
+  }
+  #Ulla{
+    background-color: chartreuse;
+    width: 40%;
+    height: 80%;
+    margin-right: 10%;
+    margin-left: 5%;
+
+  }
+  #Bold{
+    background-color: chocolate;
+    width: 40%;
+    height: 80%;
+    margin-right: 5%;
+
+  }
+#Læge{
+  background-color: rgb(196, 9, 9);
+  width: 40%;
+  height: 80%;
+  margin-right: 10%;
+  margin-left: 5%;
+
+}
+#famImg{
+  background: url('src/assets/img/fam.png') 50% 50% no-repeat;
+}
+
+#SCNImg{
+  background: url('src/assets/img/smile.png') 50% 50% no-repeat;
+}
+#ballImg{
+  background: url('src/assets/img/football.png') 50% 50% no-repeat;
+}
+#lægeImg{
+  background: url('src/assets/img/heart.png') 50% 50% no-repeat;
+
+}

@@ -1,9 +1,11 @@
-<app-date *ngIf='this.navservice.Toggle === 0'></app-date>
+<app-event-type *ngIf='this.navservice.Toggle === 0'> </app-event-type>
 
-<app-note *ngIf='this.navservice.Toggle === 1'> </app-note>
+<app-date *ngIf='this.navservice.Toggle === 1'></app-date>
 
-<app-time *ngIf='this.navservice.Toggle === 2'></app-time>
+<app-note *ngIf='this.navservice.Toggle === 2'> </app-note>
 
-<app-participant *ngIf='this.navservice.Toggle === 3'></app-participant>
+<app-time *ngIf='this.navservice.Toggle === 3'></app-time>
 
-<app-place *ngIf='this.navservice.Toggle === 4'></app-place>
+<app-participant *ngIf='this.navservice.Toggle === 4'></app-participant>
+
+<app-place *ngIf='this.navservice.Toggle === 5'></app-place>

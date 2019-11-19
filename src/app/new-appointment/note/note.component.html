@@ -1,2 +1,8 @@
-<p>note works!</p>
-<button mat-button id="nextbttn" (click)="buttonClicked()"></button>
+<div id="textDiv">
+  <h2>Skriv en note til aftalen nedenunder</h2>
+<mat-form-field id="noteBox">
+  <input matInput id="textBox" #input maxlength="30" value="" matInput placeholder="">
+</mat-form-field>
+
+<button mat-button id="nextbttn" (click)="buttonClicked()">Næste</button>
+</div>
