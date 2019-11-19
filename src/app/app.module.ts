@@ -12,13 +12,14 @@ import { PrevWeekComponent } from './prev-week/prev-week.component';
 import { EventViewComponent } from './event-view/event-view.component';
 import { MonthViewComponent } from './month-view/month-view.component';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule} from '@angular/material';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule, MAT_DIALOG_DATA, MatDialog, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { DateComponent } from './new-appointment/date/date.component';
 import { PlaceComponent } from './new-appointment/place/place.component';
 import { TimeComponent } from './new-appointment/time/time.component';
 import { ParticipantComponent } from './new-appointment/participant/participant.component';
 import { NoteComponent } from './new-appointment/note/note.component';
+import { EventDialogComponent } from './event-dialog/event-dialog.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { NoteComponent } from './new-appointment/note/note.component';
     TimeComponent,
     ParticipantComponent,
     NoteComponent,
+    EventDialogComponent,
       ],
   imports: [
     BrowserModule,
@@ -46,9 +48,11 @@ import { NoteComponent } from './new-appointment/note/note.component';
     MatInputModule,
     MatToolbarModule,
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatDialogModule,
      ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [EventDialogComponent, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true, disableClose: false, autoFocus: true, width: 600, height: 600}}],
+  bootstrap: [AppComponent],
+  entryComponents: [EventDialogComponent]
 })
 export class AppModule { }
