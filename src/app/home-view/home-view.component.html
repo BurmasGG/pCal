@@ -1,9 +1,10 @@
-<h1 id="calHeader">Denne uge</h1>
+<h1 id="calHeader">5 døgns oversigt</h1>
 <div id="calendarDiv">
   <div class="dayDiv" *ngFor="let day of days; let i = index">
-    <p>{{day}}</p>
+    <p><b>{{day}}</b></p>
+    <hr>
     <span *ngIf="eventsSorted">
-      <div class="event" *ngFor="let event of eventsSorted[i]; let j = index" (click)="ShowEvent(i, j)">
+      <div class="event" *ngFor="let event of eventsSorted[i]; let j = index" (click)="eventView.ShowEvent(i, j, eventsSorted)">
         <p id="title">{{event.title}}</p>
         <p id="note" hidden>{{event.note}}</p>
         <p id="time" hidden>{{event.time}}</p>

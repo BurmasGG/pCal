@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavService } from '../nav.service';
-import { MatDialog } from '@angular/material';
-import { EventDialogComponent } from '../event-dialog/event-dialog.component';
+import { DatePipe } from '@angular/common';
+import { EventViewComponent } from '../event-view/event-view.component';
 
 @Component({
   selector: 'app-home-view',
@@ -11,45 +11,47 @@ import { EventDialogComponent } from '../event-dialog/event-dialog.component';
 
 export class HomeViewComponent implements OnInit {
 
-  public days = ["Mandag", "Tirsdag", "Onsdag", "Torsdag", "Fredag"];
-  public eventsSorted = [[], [], [], [], []];
+  // week view
+  date = new Date();
+  dp = new DatePipe('en-DK');
+  public day = this.dp.transform(this.date, 'd');
+  public week = this.dp.transform(this.date, 'w');
+  public weekday = this.date.getUTCDay();
+  public month = this.dp.transform(this.date, 'M')
 
-  constructor(private navservice: NavService, public dialog: MatDialog) { }
+  // 5 day view
+  public days = ["I dag", "I morgen", "Om 2 dage", "Om 3 dage", "Om 4 dage"];
 
-  ngOnInit() {
-    this.navservice.wasHome = true;
+  constructor(private navservice: NavService, private eventView: EventViewComponent) {}
+  
+  public eventsSorted = [[], [], [], [], []]; // dagene events skal ind under
 
-    this.AddEvent("Kaffe med Ulla", "Vi skal have kaffe.", "20-11-2019", "12:30", "Ulla", "Torvecaféen");
-    this.AddEvent("Frisør lol", "Jeg skal klippes.", "21-11-2019", "13:00", "", "Herregodt Hår");
+  public AddEvent(_title, _note, _date, _time, _people = "", _place = "")
+  { 
+    const event = {title: _title, note: _note, date: _date, time: _time, people: _people, place: _place};
+    this.UpdateEventListFive(event);
   }
 
-  public ShowEvent(day, event) {
-    let t = this.eventsSorted[day][event];
+  public UpdateEventListFive(e)
+  {
+    let curMonth = new Date().getUTCMonth() + 1; // 0 = Januar, 1 = Februar
+    let curDay = new Date().getUTCDate();
 
-    let dialogRef = this.dialog.open(EventDialogComponent, {
-      autoFocus: true,
-      disableClose: false,
+    let eDay = e.date.substring(0,2);
+    let eMonth = e.date.substring(3,5);
 
-      data: {
-        title: t.title,
-        note: t.note,
-        date: t.date,
-        time: t.time,
-        people: t.people,
-        place: t.place
+    if (eMonth == curMonth)
+    {
+      let dayInt = eDay - curDay;
+      if (dayInt < 5 && dayInt > -1)
+      {
+        this.eventsSorted[dayInt].push(e);
       }
-    });
-
-
+    }
   }
 
-  public AddEvent(_title, _note, _date, _time, _people, _place) {
-    const event = { title: _title, note: _note, date: _date, time: _time, people: _people, place: _place };
-    this.UpdateEventList(event);
-  }
-
-
-  public UpdateEventList(e) {
+  public UpdateEventListWeek(e)
+  {
     let curMonth = new Date().getUTCMonth() + 1; // 0 = Januar, 1 = Februar
     let curDay = new Date().getUTCDate();
 
@@ -63,4 +65,14 @@ export class HomeViewComponent implements OnInit {
       }
     }
   }
+
+  ngOnInit()
+  {
+    this.navservice.wasHome = true;
+
+    this.AddEvent("Ny bil", "Rundtur i den nye bil.", "21-11-2019", "12:30", "Ulla", "Torvecaféen");
+    this.AddEvent("Frisør", "Ulla kommer og henter mig.", "23-11-2019", "13:00", "", "Herregodt Hår");
+    this.AddEvent("Stress Testing this event thingi because I wanna see how it handles long stuff (hehe)", "Pulvinar neque laoreet suspendisse interdum. Risus nullam eget felis eget nunc lobortis.", "22-11-2019", "12:30", "Ulla og Oliver", "Min lejlighed");
+  }
+  
 }

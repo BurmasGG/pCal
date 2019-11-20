@@ -1,7 +1,30 @@
 body {
     text-align: center;
+    position: relative;
+    top: -10%;
 }
 
 button {
-    margin-top: 10%;
+    position: absolute;
+    font-size: 150%;
+    height: 80px;
+    width: 100px;
+}
+
+#butEdit {
+    bottom: 0px;
+    left: 15px;
+}
+
+#butClose {
+    bottom: 0px;
+    right: 15px;
+}
+
+#butDelete {
+    position: absolute;
+    top: 0px;
+    right: -17px;
+    background-color: red;
+    /*background: url(); Trashcan Icon*/
 }

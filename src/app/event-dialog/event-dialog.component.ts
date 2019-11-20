@@ -15,4 +15,11 @@ export class EventDialogComponent {
   // For default customization of the window go to app.module.ts and look under 'providers'
 
   // for content customization go to event-dialog.component.css or .html
+
+  public dialogResult;
+
+  ReturnResult(_result)
+  {
+    this.dialogResult = _result;
+  }
 }

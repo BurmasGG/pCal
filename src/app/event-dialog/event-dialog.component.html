@@ -1,12 +1,13 @@
 <body>
 <h1>{{data.date}}</h1>
-<h2>Kl. {{data.time}}</h2>
+<h1>Kl. {{data.time}}</h1>
 <h2>{{data.title}}</h2>
-<p *ngIf=data.note>{{data.note}}</p>
+<p *ngIf=data.note><b>Note:</b> {{data.note}}</p>
 <p *ngIf=data.people><b>Med:</b> {{data.people}}</p>
 <p *ngIf=data.place><b>Ved:</b> {{data.place}}</p>
 
   <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button mat-button [mat-dialog-close]="true">Redigér</button>
-  <button mat-button mat-dialog-close>Luk</button>
+  <button id='butDelete' (click)="ReturnResult('delete')" [mat-dialog-close]>Slet</button>
+  <button id='butEdit' (click)="ReturnResult('edit')" [mat-dialog-close]>Redigér</button>
+  <button id='butClose' [mat-dialog-close]>Luk</button>
 </body>

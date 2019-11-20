@@ -8,11 +8,9 @@
   justify-content: space-between;
 }
 .dayDiv{
-  border-style: solid;
+  border-right: 1px solid;
   width:  20%;
   text-align: center;
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
 }
 
 .event {
