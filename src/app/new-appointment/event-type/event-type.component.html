@@ -1,28 +1,29 @@
 <h2 id="header">Vælg type af aftale</h2>
 <div id="top">
-  <mat-card id="Ulla" title="Familie">
+  <mat-card id="fam" title="Familie" (click)="pickFam()">
     <mat-card-header>
-      <div mat-card-avatar id="famImg"> </div>
+
+      <div mat-card-avatar id="famImg" class="famImg"> </div>
       <mat-card-title>Familie</mat-card-title>
     </mat-card-header>
   </mat-card>
-  <mat-card id="SCN" title="SCN">
+  <mat-card id="SCN" title="SCN" (click)="pickSCN()">
     <mat-card-header>
-        <div mat-card-avatar id="SCNImg"> </div>
+      <div mat-card-avatar id="SCNImg" class="SCNImg"> </div>
       <mat-card-title>SCN</mat-card-title>
     </mat-card-header>
   </mat-card>
 </div>
 <div id="bottom">
-  <mat-card id="Læge" title="Læge">
+  <mat-card id="læge" title="læge" (click)="pickHealth()">
     <mat-card-header>
-        <div mat-card-avatar id="lægeImg"> </div>
+      <div mat-card-avatar id="healthImg" class="healthImg"> </div>
       <mat-card-title>Læge</mat-card-title>
     </mat-card-header>
   </mat-card>
-  <mat-card id="Bold" title="Underholdning">
+  <mat-card id="bold" title="Underholdning" (click)="pickBall()">
     <mat-card-header>
-        <div mat-card-avatar id="ballImg"> </div>
+      <div mat-card-avatar id="ballImg" class="ballImg"> </div>
       <mat-card-title>Underholdning</mat-card-title>
     </mat-card-header>
   </mat-card>
