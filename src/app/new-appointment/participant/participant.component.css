@@ -6,7 +6,10 @@
 }
 #contentDiv {
   align-content: center;
-  margin-left: 25%;
+  margin-left: 20%;
   margin-top: 10%;
-  width: 40%;
+  width: auto !important;
+
 }
+
+

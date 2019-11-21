@@ -58,9 +58,9 @@ import { MatSelectModule } from '@angular/material/select';
     MatNativeDateModule,
     MatDialogModule,
     MatFormFieldModule,
-    MatSelectModule
-  ],
-  providers: [EventDialogComponent, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true, disableClose: false, autoFocus: true, width: 600, height: 600 } }],
+    MatSelectModule,
+    ],
+  providers: [EventDialogComponent, EventViewComponent, HomeViewComponent, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true, disableClose: false, autoFocus: true, width: 450, height: 450}}],
   bootstrap: [AppComponent],
   entryComponents: [EventDialogComponent]
 })

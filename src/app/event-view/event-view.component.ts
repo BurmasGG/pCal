@@ -1,7 +1,6 @@
 import { Component, Injector } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { EventDialogComponent } from '../event-dialog/event-dialog.component';
-import { HomeViewComponent } from '../home-view/home-view.component';
 
 @Component({
   selector: 'app-event-view',
@@ -25,7 +24,7 @@ export class EventViewComponent {
 
       data:{
         title: t.title,
-        note: t.note, 
+        note: t.note,
         date: t.date,
         time: t.time,
         people: t.people,
