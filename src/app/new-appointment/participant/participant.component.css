@@ -1,0 +1,12 @@
+#nextbttn {
+  height: 100px;
+  width: 70px;
+  background-color: chartreuse;
+  margin-left: 90%;
+}
+#contentDiv {
+  align-content: center;
+  margin-left: 25%;
+  margin-top: 10%;
+  width: 40%;
+}

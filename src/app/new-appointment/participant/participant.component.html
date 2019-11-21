@@ -1,2 +1,15 @@
-<p>participant works!</p>
-<button mat-button id="nextbttn" (click)="buttonClicked()"></button>
+<div id="contentDiv">
+<mat-form-field id="contentDiv">
+  <mat-select placeholder="Deltagere" [formControl] ="participants" multiple>
+  <mat-select-trigger placeholder="Select">
+    {{participants.value ? participants.value[0] : ''}}
+    <span *ngIf="participants.value?.length > 1">
+    (+{{participants.value.length - 1}} {{participants.value?.length === 2 ? 'anden' : 'andre'}})</span>
+    <mat-option value="">Hvem kommer?</mat-option>
+  </mat-select-trigger>
+  <mat-option *ngFor="let participants of participantList"
+  [value]="participants">{{participants}}</mat-option>
+</mat-select>
+</mat-form-field>
+</div>
+<button mat-button id="nextbttn" (click)="buttonClicked()">Videre</button>

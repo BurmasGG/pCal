@@ -11,8 +11,8 @@ import { NextWeekComponent } from './next-week/next-week.component';
 import { PrevWeekComponent } from './prev-week/prev-week.component';
 import { EventViewComponent } from './event-view/event-view.component';
 import { MonthViewComponent } from './month-view/month-view.component';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { MatFormFieldModule, MatInputModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule, MAT_DIALOG_DATA, MatDialog, MAT_DIALOG_DEFAULT_OPTIONS} from '@angular/material';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule, MAT_DIALOG_DATA, MatDialog, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DateComponent } from './new-appointment/date/date.component';
 import { PlaceComponent } from './new-appointment/place/place.component';
@@ -22,6 +22,8 @@ import { NoteComponent } from './new-appointment/note/note.component';
 import { EventTypeComponent } from './new-appointment/event-type/event-type.component';
 import { MatCardModule } from '@angular/material/card';
 import { EventDialogComponent } from './event-dialog/event-dialog.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,7 @@ import { EventDialogComponent } from './event-dialog/event-dialog.component';
     NoteComponent,
     EventDialogComponent,
     EventTypeComponent,
-      ],
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -54,9 +56,11 @@ import { EventDialogComponent } from './event-dialog/event-dialog.component';
     MatNativeDateModule,
     MatCardModule,
     MatNativeDateModule,
-    MatDialogModule
-     ],
-  providers: [EventDialogComponent, EventViewComponent, HomeViewComponent, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true, disableClose: false, autoFocus: true, width: 450, height: 450}}],
+    MatDialogModule,
+    MatFormFieldModule,
+    MatSelectModule
+  ],
+  providers: [EventDialogComponent, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true, disableClose: false, autoFocus: true, width: 600, height: 600 } }],
   bootstrap: [AppComponent],
   entryComponents: [EventDialogComponent]
 })

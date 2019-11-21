@@ -2,10 +2,11 @@
   text-align: center;
 }
 #nextbttn {
-  height: 70px;
+  height: 105px;
   width: 70px;
   background-color: chartreuse;
-  margin-left: 90%;
+  margin-right: 1%;
+  font-weight: bold;
 }
 #top {
   display: flex;
@@ -33,7 +34,7 @@
   background-color: chocolate;
   width: 35%;
   height: 80%;
-  margin-right: 5%;
+  margin-right: 1%;
 }
 #læge {
   background-color: rgb(196, 9, 9);
