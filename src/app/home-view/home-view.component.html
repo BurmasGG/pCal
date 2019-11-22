@@ -1,10 +1,10 @@
 <h1 id="calHeader">5 døgns oversigt</h1>
 <div id="calendarDiv">
-  <div class="dayDiv" *ngFor="let day of days; let i = index">
+  <div class="dayDiv" *ngFor="let day of dayTitles; let i = index">
     <p><b>{{day}}</b></p>
     <hr>
     <span *ngIf="eventsSorted">
-      <div class="event" *ngFor="let event of eventsSorted[i]; let j = index" (click)="eventView.ShowEvent(i, j, eventsSorted)">
+      <div class="event" *ngFor="let event of eventsSorted[i]; let j = index" (click)="eventView.ShowEvent(i, j, eventsSorted)"> <!--Viser fejl, men SKAL være der.-->
         <p id="title">{{event.title}}</p>
         <p id="note" hidden>{{event.note}}</p>
         <p id="time" hidden>{{event.time}}</p>
@@ -15,3 +15,6 @@
     </span>
   </div>
 </div>
+
+<button (click)="RefreshView('next')">Next</button>
+<button (click)="RefreshView('back')">Back</button>

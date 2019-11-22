@@ -11,8 +11,6 @@ export class EventViewComponent {
 
   constructor(public dialog: MatDialog, private injector: Injector) { }
 
-  result = "";
-
   // Få dag, event, array af events, og (hvis det er uge/månedsvisning) uge nummer
   public ShowEvent(day, event, eventList, week = "") // 'week' er optional; så er det 5 dagsvisning
   {
@@ -28,29 +26,28 @@ export class EventViewComponent {
         date: t.date,
         time: t.time,
         people: t.people,
-        place: t.place,
-        result: ""
+        place: t.place
       }
     });
 
     dialogRef.afterClosed().subscribe(_result => {
-      this.result = dialogRef.componentInstance.dialogResult;
+      const dialogResult = dialogRef.componentInstance.dialogResult;
 
-      if (this.result == "delete")
+      if (dialogResult == "delete")
       {
         alert('"Sikker på du vil slette?"-besked her.');
       }
-      else if (this.result == "edit")
+      else if (dialogResult == "edit")
       {
         alert('Start "new appointment" ting.');
       }
-  });
+    });
   }
 
   public EditEvent(day, event, eventList, week = "")
   {
     let t = this.SetT(day, event, eventList, week);
-    alert('Smid info over til "new appoiintmen" wizard\n' + t.title + ", " + t.date);
+    alert('Smid info over til "new appointment" wizard\n' + t.title + ", " + t.date);
   }
 
   public DeleteEvent(day, event, eventList, week = "")
