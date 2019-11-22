@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,7 +13,7 @@ import { PrevWeekComponent } from './prev-week/prev-week.component';
 import { EventViewComponent } from './event-view/event-view.component';
 import { MonthViewComponent } from './month-view/month-view.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule, MatDatepickerModule, MatNativeDateModule, MatDialogModule, MAT_DIALOG_DATA, MatDialog, MAT_DIALOG_DEFAULT_OPTIONS } from '@angular/material';
+import { MatInputModule, MatNativeDateModule, MatDialogModule, MAT_DIALOG_DATA, MatDialog, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DATE_LOCALE} from '@angular/material';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DateComponent } from './new-appointment/date/date.component';
 import { PlaceComponent } from './new-appointment/place/place.component';
@@ -24,6 +25,9 @@ import { MatCardModule } from '@angular/material/card';
 import { EventDialogComponent } from './event-dialog/event-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
+import { NgbdTimepickerBasic } from './new-appointment/timepicker/timepicker-basic';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
 
 @NgModule({
   declarations: [
@@ -42,8 +46,10 @@ import { MatSelectModule } from '@angular/material/select';
     NoteComponent,
     EventDialogComponent,
     EventTypeComponent,
+    NgbdTimepickerBasic,
   ],
   imports: [
+    NgbModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
@@ -60,7 +66,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatFormFieldModule,
     MatSelectModule,
     ],
-  providers: [EventDialogComponent, EventViewComponent, HomeViewComponent, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true, disableClose: false, autoFocus: true, width: 450, height: 450}}],
+  providers: [EventDialogComponent, EventViewComponent, HomeViewComponent, {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true, disableClose: false, autoFocus: true, width: 450, height: 450}}],
   bootstrap: [AppComponent],
   entryComponents: [EventDialogComponent]
 })
