@@ -1,5 +1,5 @@
 <h1>Her kommer du til at vælge tidspunkt</h1>
-<button mat-button id="nextbttn" (click)="buttonClicked()">Videre</button>
-
-<!--Time-picker-->
-<ngbd-timepicker-basic></ngbd-timepicker-basic>
+<mat-form-field >
+<input matInput="time" type="time" [(ngModel)]="this.newappointmentservice.date">
+</mat-form-field>
+<button mat-button id="nextbttn" type="submit" (click)="buttonClicked()" (click)="test()">Videre</button>

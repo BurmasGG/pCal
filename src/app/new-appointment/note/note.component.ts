@@ -13,14 +13,13 @@ export class NoteComponent implements OnInit {
 
   }
 
-  note: string;
   ngOnInit() {
   }
   buttonClicked() {
     this.navservice.Toggle = 3;
 
   }
-  test(){
+  test() {
     this.newappointmentservice.clearAll();
   }
 }

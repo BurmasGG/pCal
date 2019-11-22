@@ -12,6 +12,7 @@ export class AppointmentService {
   people: string[] = [];
   place: string;
   type: string;
+  time: string;
 
   constructor() {
   }
@@ -24,14 +25,16 @@ export class AppointmentService {
     console.log(this.place);
     console.log(this.type);
   }
-  public printTester(){
+  public printTester() {
 
   }
   public clearAll() {
     console.log(this.note);
+    console.log(this.date);
+    console.log(this.time);
     this.date = '';
     this.note = '';
-    this.people = '';
+    //this.people = ;
     this.place = '';
     this.type = '';
     this.week = '';

@@ -25,7 +25,6 @@ import { MatCardModule } from '@angular/material/card';
 import { EventDialogComponent } from './event-dialog/event-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
-import { NgbdTimepickerBasic } from './new-appointment/timepicker/timepicker-basic';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 
 
@@ -46,7 +45,6 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     NoteComponent,
     EventDialogComponent,
     EventTypeComponent,
-    NgbdTimepickerBasic,
   ],
   imports: [
     NgbModule,
