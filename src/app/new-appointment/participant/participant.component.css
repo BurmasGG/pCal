@@ -5,11 +5,13 @@
   margin-left: 90%;
 }
 #contentDiv {
-  align-content: center;
-  margin-left: 20%;
+  width: inherit;
   margin-top: 10%;
-  width: auto !important;
+  margin-right: 60%;
 
+}
+#formID {
+   width:100%;
 }
 
 
