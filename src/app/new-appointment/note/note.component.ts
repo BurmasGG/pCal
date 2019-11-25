@@ -20,6 +20,5 @@ export class NoteComponent implements OnInit {
 
   }
   test() {
-    this.newappointmentservice.clearAll();
   }
 }

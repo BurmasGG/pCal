@@ -26,7 +26,7 @@ import { EventDialogComponent } from './event-dialog/event-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
-
+import {MatStepperModule} from '@angular/material/stepper';
 
 @NgModule({
   declarations: [
@@ -63,6 +63,7 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
     MatDialogModule,
     MatFormFieldModule,
     MatSelectModule,
+    MatStepperModule
     ],
   providers: [EventDialogComponent, EventViewComponent, HomeViewComponent, {provide: MAT_DATE_LOCALE, useValue: 'en-GB'}, {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: true, disableClose: false, autoFocus: true, width: 450, height: 450}}],
   bootstrap: [AppComponent],

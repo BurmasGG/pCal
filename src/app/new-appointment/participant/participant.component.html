@@ -1,17 +1,27 @@
-<div id="contentDiv">
-  <h2>Vælg hvem der skal med</h2>
-  <mat-form-field id="formID">
-    <mat-select placeholder="Deltagere" [formControl]="participants" multiple class="mat-select-content">
+<!--<div id="bigBoi">
+  <div id="leftContentDiv">
+    <h2>Vælg hvem der skal med</h2>
+    <mat-form-field id="formID">
+      <mat-select placeholder="Deltagere" [formControl]="participants" multiple class="mat-select-content"
+        [(ngModel)]="this.newappointmentservice.people">
         <mat-select-trigger>
           {{participants.value ? participants.value[0] : ''}}
           <span *ngIf="participants.value?.length > 1" style="width: 200px;">
             (+{{participants.value.length - 1}} {{participants.value?.length === 2 ? 'anden' : 'andre'}})
           </span>
         </mat-select-trigger>
-      <mat-option *ngFor="let participants of participantList" [value]="participants">
-        {{participants}}
-      </mat-option>
-    </mat-select>
-  </mat-form-field>
-</div>
-<button mat-button id="nextbttn" (click)="buttonClicked()">Videre</button>
+        <mat-option *ngFor="let participants of participantList" [value]="participants">
+          {{participants}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>-->
+  <div id="rightDiv">
+    <h2 class="content">Skriv hvem der skal med</h2>
+    <mat-form-field class="content">
+    <input matInput id="textBox" #input maxlength="30" value="" matInput placeholder="Skriv her"
+      [(ngModel)]="this.newappointmentservice.people">
+    </mat-form-field>
+    <button (click)="test()">Tilføj</button>
+  </div>
+<button mat-button id="nextbttn" (click)="buttonClicked()" >Videre</button>

@@ -4,11 +4,21 @@
   background-color: chartreuse;
   margin-left: 90%;
 }
-#contentDiv {
-  width: inherit;
-  margin-top: 10%;
-  margin-right: 60%;
 
+
+#leftContentDiv {
+  width: 35%;
+  margin-top: 10%;
+
+}
+.content{
+  align-content: center;
+
+}
+#rightDiv{
+margin-top: 10%;
+margin-left: 25%;
+width: inherit;
 }
 #formID {
    width:100%;

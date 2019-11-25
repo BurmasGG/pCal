@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NavService } from 'src/app/nav.service';
-import { NewAppointmentComponent } from '../new-appointment.component';
 import { AppointmentService } from 'src/app/newAppointment.service';
 import { FormControl } from '@angular/forms';
 
@@ -21,6 +20,5 @@ date = new FormControl();
     this.navservice.Toggle = 2;
   }
   test() {
-    this.newappointmentservice.clearAll();
   }
 }

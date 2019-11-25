@@ -7,9 +7,8 @@ import { NavService } from './nav.service';
 
 export class AppointmentService {
   date: string;
-  week: string;
   note: string;
-  people: string[] = [];
+  people: string;
   place: string;
   type: string;
   time: string;
@@ -18,26 +17,23 @@ export class AppointmentService {
   }
   public makeNewNotifier() {
     this.clearAll();
-    console.log(this.note);
-    console.log(this.week);
+
+  }
+  public printTester() {
+    console.log('Emil er en flot mand')
     console.log(this.date);
+    console.log(this.note);
+    console.log(this.time);
     console.log(this.people);
     console.log(this.place);
     console.log(this.type);
   }
-  public printTester() {
-
-  }
   public clearAll() {
-    console.log(this.note);
-    console.log(this.date);
-    console.log(this.time);
     this.date = '';
     this.note = '';
-    //this.people = ;
+    this.people = '';
     this.place = '';
     this.type = '';
-    this.week = '';
   }
 
 }

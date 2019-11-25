@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavService } from 'src/app/nav.service';
 import { FormControl } from '@angular/forms';
+import { AppointmentService } from 'src/app/newAppointment.service';
 
 @Component({
   selector: 'app-participant',
@@ -12,11 +13,13 @@ export class ParticipantComponent implements OnInit {
 
   participantList: string[] = ['Ulla', 'Oliver', 'Chatrine'];
 
-  constructor(public navservice: NavService) { }
+  constructor(public navservice: NavService, public newappointmentservice: AppointmentService) { }
 
   ngOnInit() {
   }
   buttonClicked() {
     this.navservice.Toggle = 5;
+  }
+  test() {
   }
 }

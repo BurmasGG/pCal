@@ -19,6 +19,5 @@ export class TimeComponent implements OnInit {
     this.navservice.Toggle = 4;
   }
   test() {
-    this.newappointmentservice.clearAll();
   }
 }

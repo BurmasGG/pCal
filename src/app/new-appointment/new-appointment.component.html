@@ -1,4 +1,92 @@
-<app-event-type *ngIf='this.navservice.Toggle === 0'> </app-event-type>
+<mat-horizontal-stepper>
+  <mat-step [stepControl]="firstForm">
+    <form [formGroup]="firstForm">
+      <ng-template matStepLabel>Dato</ng-template>
+      <h4>Vælg dato</h4>
+      <mat-form-field class="example-full-width">
+        <input matInput [matDatepicker]="picker" placeholder="klik her for at vælge" required
+          [(ngModel)]="this.newappointmentservice.date" formControlName="firstCtrl">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker touchUi #picker></mat-datepicker>
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperNext>Næste trin</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="secondForm">
+    <form [formGroup]="secondForm">
+      <ng-template matStepLabel>Note</ng-template>
+      <h4>Skriv en note nedenunder</h4>
+      <mat-form-field id="noteBox">
+        <input matInput id="textBox" #input maxlength="30" value="" matInput placeholder="Skriv her"
+          [(ngModel)]="this.newappointmentservice.note" formControlName="secondCtrl">
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Tilbage</button>
+        <button mat-button matStepperNext>Næste</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="thirdForm">
+    <form [formGroup]="thirdForm">
+      <ng-template matStepLabel>Tidspunkt</ng-template>
+      <h4>Vælg tidspunkt</h4>
+      <mat-form-field>
+        <input id="time" matInput="time" type="time" [(ngModel)]="this.newappointmentservice.time"
+          formControlName="thirdCtrl">
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Tilbage</button>
+        <button mat-button matStepperNext>Næste</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="fourthForm">
+    <form [formGroup]="fourthForm">
+      <ng-template matStepLabel>Deltagere</ng-template>
+      <h4>Skriv hvem der skal med</h4>
+      <mat-form-field class="content">
+        <input matInput id="textBox" #input maxlength="30" value="" matInput placeholder="Skriv her"
+          [(ngModel)]="this.newappointmentservice.people" formControlName="fourthCtrl">
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Tilbage</button>
+        <button mat-button matStepperNext>Næste</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step [stepControl]="fifthForm">
+    <form [formGroup]="fifthForm">
+      <ng-template matStepLabel>Sted</ng-template>
+      <h4>Skriv hvor det skal være</h4>
+      <mat-form-field class="content">
+        <input matInput id="textBox" #input maxlength="30" value="" matInput placeholder="Skriv her"
+          [(ngModel)]="this.newappointmentservice.place" formControlName="fifthCtrl">
+      </mat-form-field>
+      <div>
+        <button mat-button matStepperPrevious>Tilbage</button>
+        <button mat-button matStepperNext>Næste</button>
+      </div>
+    </form>
+  </mat-step>
+
+  <mat-step>
+    <ng-template matStepLabel>Færdig</ng-template>
+    Det var det!
+    <div>
+      <button mat-button matStepperPrevious>Tilbage</button>
+      <button mat-button (click)="finishAppointment()">Gem aftale</button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>
+
+
+<!--<app-event-type *ngIf='this.navservice.Toggle === 0'> </app-event-type>
 
 <app-date *ngIf='this.navservice.Toggle === 1'></app-date>
 
@@ -8,4 +96,4 @@
 
 <app-participant *ngIf='this.navservice.Toggle === 4'></app-participant>
 
-<app-place *ngIf='this.navservice.Toggle === 5'></app-place>
+<app-place *ngIf='this.navservice.Toggle === 5'></app-place>-->

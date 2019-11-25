@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavService } from 'src/app/nav.service';
+import { AppointmentService } from 'src/app/newAppointment.service';
 
 @Component({
   selector: 'app-place',
@@ -8,11 +9,14 @@ import { NavService } from 'src/app/nav.service';
 })
 export class PlaceComponent implements OnInit {
 
-  constructor(public navservice: NavService) { }
+  constructor(public navservice: NavService, public newappointmentservice: AppointmentService) { }
 
   ngOnInit() {
   }
-  buttonClicked() {
-    this.navservice.Toggle = 6;
-}
+  saveAppointment() {
+    console.log('this doesnt work yet!');
+  }
+  addPlace() {
+    this.newappointmentservice.printTester();
+  }
 }
