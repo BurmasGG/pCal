@@ -1,6 +1,29 @@
-#calHeader{
+.inline {
+  display: inline;
+}
+
+#calTop {
   text-align: center;
 }
+
+#calHeader{
+  width: 60%;
+}
+
+#leftMonthName {
+  float: left;
+  text-align: left;
+  width: 20%;
+  padding-top: 22px;
+}
+
+#rightMonthName {
+  float: right;
+  text-align: right;
+  width: 20%;
+  padding-top: 22px;
+}
+
 #calendarDiv{
   width: 100%;
   height: 70%;

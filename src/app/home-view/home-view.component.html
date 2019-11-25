@@ -1,5 +1,9 @@
-<h1 id="calHeader">5 døgns oversigt</h1>
-<div id="calendarDiv">
+<div id="calTop">
+<p id="leftMonthName" class="inline">{{prevMonthName}}</p>
+<h1 id="calHeader" class="inline">5 døgns oversigt</h1>
+<p id="rightMonthName" class="inline">{{nextMonthName}}</p>
+</div>
+  <div id="calendarDiv">
   <div class="dayDiv" *ngFor="let day of dayTitles; let i = index">
     <p><b>{{day}}</b></p>
     <hr>
@@ -16,5 +20,5 @@
   </div>
 </div>
 
-<button (click)="RefreshView('next')">Next</button>
 <button (click)="RefreshView('back')">Back</button>
+<button (click)="RefreshView('next')">Next</button>
