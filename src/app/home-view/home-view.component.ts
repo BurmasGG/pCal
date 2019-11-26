@@ -13,7 +13,7 @@ export class HomeViewComponent implements OnInit {
 
   constructor(
     private navservice: NavService,
-    private eventView: EventViewComponent, 
+    public eventView: EventViewComponent, 
   ) { }
 
   ngOnInit() {
@@ -65,7 +65,7 @@ export class HomeViewComponent implements OnInit {
     this.UpdateEventListFive(event);
   }
 
-  public UpdateEventListFive(e) {    
+  public UpdateEventListFive(e) {
     this.curDay = Number(this.dp.transform(this.date, 'd'));
     this.curWeek = Number(this.dp.transform(this.date, 'w'));
     this.curWeekday = Number(this.date.getUTCDay());
@@ -89,7 +89,7 @@ export class HomeViewComponent implements OnInit {
     {
       month = 1;
       this.displayYear++;
-    } 
+    }
     else if (month < 1)
     {
       month = 12;
@@ -98,40 +98,40 @@ export class HomeViewComponent implements OnInit {
 
     switch (month)
     {
-      case 1: 
+      case 1:
         month = "Januar";
         break;
-      case 2: 
+      case 2:
         month = "Februar";
         break;
-      case 3: 
+      case 3:
         month = "Marts";
         break;
       case 4:
         month = "April";
         break;
-      case 5: 
+      case 5:
         month = "Maj";
         break;
-      case 6: 
+      case 6:
         month = "Juni";
         break;
-      case 7: 
+      case 7:
         month = "Juli";
         break;
-      case 8: 
+      case 8:
         month = "August";
         break;
-      case 9: 
+      case 9:
         month = "September";
         break;
-      case 10: 
+      case 10:
         month = "Oktober";
         break;
-      case 11: 
+      case 11:
         month = "November";
         break;
-      case 12: 
+      case 12:
         month = "December";
         break;
     }
@@ -174,12 +174,12 @@ export class HomeViewComponent implements OnInit {
   }
 
   GetMaxDaysOfMonth(month)
-  {    
+  {
     if (month > 12 )
     {
       month = 1;
       this.displayYear++;
-    } 
+    }
     else if (month < 1)
     {
       month = 12;
@@ -190,7 +190,7 @@ export class HomeViewComponent implements OnInit {
     this.maxDays = 31;
 
     // Figure out what month we are in to adjust amount of days in month
-    if (month == 2) 
+    if (month == 2)
     { // Feb has 28 ...
       this.maxDays = 28;
 
@@ -199,11 +199,11 @@ export class HomeViewComponent implements OnInit {
     else // not Feb
     {
       // month is one of those with 30 days?
-      this.normMonths.forEach(_month => { 
+      this.normMonths.forEach(_month => {
         if (month == _month)
         {
           this.maxDays = 30;
-        } 
+        }
       });
     }
 
@@ -271,17 +271,17 @@ export class HomeViewComponent implements OnInit {
       {
         this.prevMonthName = this.GetMonthName(this.displayMonth);
       }
-    
+
       this.justChangedMonthBack = false;
 
-      for (let i = 0; i < this.daysToDisplay; i++) 
+      for (let i = 0; i < this.daysToDisplay; i++)
       {
         if (dayToDisplayFrom + i > this.maxDays) // Exceeded max days?
         {
           newMonth = true; // moved into another month
-          
+
           // start from 1 for the new month
-          j++; 
+          j++;
           this.dayTitles.push(j);
         }
         else // still within max days
@@ -341,7 +341,7 @@ export class HomeViewComponent implements OnInit {
             this.GetMaxDaysOfMonth(this.displayMonth - 1); // update month
             newMonth = true; // moved into another month
           }
-          
+
           // Check for Today when moved into new month
           if (this.maxDays + (dayToDisplayFrom - i) == this.curDay && this.b_WithinMonth() && this.curYear == this.displayYear)
           {
@@ -370,7 +370,7 @@ export class HomeViewComponent implements OnInit {
       }
 
       this.prevMonthName = this.GetMonthName(this.displayMonth);
-    } 
+    }
 
     // Update the current displayed date variable
     if (this.dayTitles[0] == this.today)
@@ -393,7 +393,7 @@ export class HomeViewComponent implements OnInit {
 
     // within one month (when the crossing of months are being displayed)
     if (this.curMonth + 1 == this.displayMonth || this.curMonth - 1 == this.displayMonth) return true;
-    
+
     // within one month, but at year changes
     if (this.curYear != this.displayYear)
     {
