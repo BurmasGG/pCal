@@ -16,11 +16,11 @@ export class AppointmentService {
   constructor() {
   }
   public makeNewNotifier() {
+
     this.clearAll();
 
   }
   public printTester() {
-    console.log('Emil er en flot mand')
     console.log(this.date);
     console.log(this.note);
     console.log(this.time);

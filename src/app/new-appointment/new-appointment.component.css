@@ -1,0 +1,27 @@
+
+.nextBttn{
+  height: 50px;
+  width: 100px;
+  font-weight: bold;
+}
+.backBttn{
+  height: 50px;
+  width: 100px;
+  font-weight: bold;
+float: left;
+}
+#firstNext{
+
+}
+#timePicker{
+  width: 50%;
+}
+.owl-dt-container-row{
+  width: 300px;
+}
+.owl-dt-timer-box{
+  width: 150px;
+}
+#oof{
+  width: 50%;
+}

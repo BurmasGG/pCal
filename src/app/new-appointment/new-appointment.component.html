@@ -1,16 +1,16 @@
 <mat-horizontal-stepper>
   <mat-step [stepControl]="firstForm">
-    <form [formGroup]="firstForm">
+    <form [formGroup]="firstForm" (ngSubmit)="dateSubmit(firstForm.value)">
       <ng-template matStepLabel>Dato</ng-template>
       <h4>Vælg dato</h4>
       <mat-form-field class="example-full-width">
         <input matInput [matDatepicker]="picker" placeholder="klik her for at vælge" required
-          [(ngModel)]="this.newappointmentservice.date" formControlName="firstCtrl">
+          formControlName="firstCtrl">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker touchUi #picker></mat-datepicker>
       </mat-form-field>
       <div>
-        <button mat-button matStepperNext>Næste trin</button>
+        <button mat-button type="submit" matStepperNext class="nextBttn">Næste</button>
       </div>
     </form>
   </mat-step>
@@ -24,8 +24,8 @@
           [(ngModel)]="this.newappointmentservice.note" formControlName="secondCtrl">
       </mat-form-field>
       <div>
-        <button mat-button matStepperPrevious>Tilbage</button>
-        <button mat-button matStepperNext>Næste</button>
+        <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
+        <button mat-button matStepperNext class="nextBttn">Næste</button>
       </div>
     </form>
   </mat-step>
@@ -34,13 +34,12 @@
     <form [formGroup]="thirdForm">
       <ng-template matStepLabel>Tidspunkt</ng-template>
       <h4>Vælg tidspunkt</h4>
-      <mat-form-field>
-        <input id="time" matInput="time" type="time" [(ngModel)]="this.newappointmentservice.time"
-          formControlName="thirdCtrl">
-      </mat-form-field>
+      <input id="timePicker" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" placeholder="Tid"
+        [(ngModel)]="this.newappointmentservice.time" formControlName="thirdCtrl">
+      <owl-date-time #oof id ="oof" [pickerType]="'timer'" #dt1 id="timePicker" class="timePicker"></owl-date-time>
       <div>
-        <button mat-button matStepperPrevious>Tilbage</button>
-        <button mat-button matStepperNext>Næste</button>
+        <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
+        <button mat-button matStepperNext (click)="timeSubmit()" class="nextBttn">Næste</button>
       </div>
     </form>
   </mat-step>
@@ -54,8 +53,8 @@
           [(ngModel)]="this.newappointmentservice.people" formControlName="fourthCtrl">
       </mat-form-field>
       <div>
-        <button mat-button matStepperPrevious>Tilbage</button>
-        <button mat-button matStepperNext>Næste</button>
+        <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
+        <button mat-button matStepperNext class="nextBttn">Næste</button>
       </div>
     </form>
   </mat-step>
@@ -69,22 +68,28 @@
           [(ngModel)]="this.newappointmentservice.place" formControlName="fifthCtrl">
       </mat-form-field>
       <div>
-        <button mat-button matStepperPrevious>Tilbage</button>
-        <button mat-button matStepperNext>Næste</button>
+        <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
+        <button mat-button matStepperNext class="nextBttn">Næste</button>
       </div>
     </form>
   </mat-step>
 
   <mat-step>
-    <ng-template matStepLabel>Færdig</ng-template>
-    Det var det!
+    <ng-template matStepLabel>Oversigt</ng-template>
+    <em><b>Din aftale er som følgende:</b></em><br><br>
+    <b>Dato:</b> {{oof}}<br>
+    <b>Note:</b> {{this.newappointmentservice.note}}<br>
+    <b>Kl:</b> {{time}}<br>
+    <b>Deltagere:</b> {{this.newappointmentservice.people}}<br>
+    <b>Sted:</b> {{this.newappointmentservice.place}}<br>
+
     <div>
-      <button mat-button matStepperPrevious>Tilbage</button>
+      <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
       <button mat-button (click)="finishAppointment()">Gem aftale</button>
     </div>
   </mat-step>
 </mat-horizontal-stepper>
-
+<!--[(ngModel)]="this.newappointmentservice.date"-->
 
 <!--<app-event-type *ngIf='this.navservice.Toggle === 0'> </app-event-type>
 

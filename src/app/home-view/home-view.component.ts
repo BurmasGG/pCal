@@ -1,7 +1,8 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavService } from '../nav.service';
 import { DatePipe } from '@angular/common';
 import { EventViewComponent } from '../event-view/event-view.component';
+import { AppointmentService } from '../newAppointment.service';
 
 @Component({
   selector: 'app-home-view',
@@ -13,7 +14,8 @@ export class HomeViewComponent implements OnInit {
 
   constructor(
     private navservice: NavService,
-    public eventView: EventViewComponent, 
+    private eventView: EventViewComponent,
+    private newappointmentservice: AppointmentService,
   ) { }
 
   ngOnInit() {
@@ -28,6 +30,7 @@ export class HomeViewComponent implements OnInit {
     this.months = [this.curMonth, this.curMonth];
 
     this.RefreshView('home');
+    this.AddEvent('Dette er en test', 'En rigtig fin beskrivelse', '21-11-2019', '12:30', 'person', 'sted');
   }
 
   months = []; // keep track of whether we are showing the crossing of months
@@ -167,8 +170,7 @@ export class HomeViewComponent implements OnInit {
       this.displayMonth = this.curMonth;
       this.displayYear = this.curYear;
     }
-    else
-    {
+    else {
       console.log("ERROR: unknown 'operation' in 'RefreshView' (home-view-component).");
       return;
     }
