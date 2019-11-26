@@ -22,7 +22,7 @@ export class NewAppointmentComponent implements OnInit {
   month;
   day;
   year;
-  oof;
+  realDate: string;
   dt1;
   hour;
   minutes;
@@ -32,7 +32,7 @@ export class NewAppointmentComponent implements OnInit {
   constructor(public navservice: NavService,
     private router: Router, public newappointmentservice: AppointmentService, private formBuilder: FormBuilder) { }
 
-  @ViewChild(OwlDateTimeInlineComponent, {static: false})
+ // @ViewChild(OwlDateTimeInlineComponent, {static: false})
 
   ngOnInit() {
     if (this.navservice.wasHome === false) {
@@ -59,8 +59,8 @@ export class NewAppointmentComponent implements OnInit {
     this.day = this.firstForm.value.firstCtrl.getDate();
     this.month = this.firstForm.value.firstCtrl.getMonth() + 1;
     this.year = this.firstForm.value.firstCtrl.getFullYear();
-    this.oof = this.day +'/'+ this.month +'/'+ this.year;
-    //console.log(oof);
+    this.realDate = this.day +'/'+ this.month +'/'+ this.year;
+    console.log(this.realDate);
   }
   timeSubmit(){
     this.hour = this.thirdForm.value.thirdCtrl.getHours() ;

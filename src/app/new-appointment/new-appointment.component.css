@@ -3,6 +3,7 @@
   height: 50px;
   width: 100px;
   font-weight: bold;
+  float: right;
 }
 .backBttn{
   height: 50px;
@@ -24,4 +25,8 @@ float: left;
 }
 #oof{
   width: 50%;
+}
+.inputField{
+align-content: center;
+margin-left: 25 !important;
 }

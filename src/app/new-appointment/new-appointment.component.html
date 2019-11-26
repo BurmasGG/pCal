@@ -2,15 +2,17 @@
   <mat-step [stepControl]="firstForm">
     <form [formGroup]="firstForm" (ngSubmit)="dateSubmit(firstForm.value)">
       <ng-template matStepLabel>Dato</ng-template>
-      <h4>Vælg dato</h4>
+      <h4 class="inputField">Vælg dato</h4>
+      <div class="inputField">
       <mat-form-field class="example-full-width">
         <input matInput [matDatepicker]="picker" placeholder="klik her for at vælge" required
           formControlName="firstCtrl">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker touchUi #picker></mat-datepicker>
       </mat-form-field>
+    </div>
       <div>
-        <button mat-button type="submit" matStepperNext class="nextBttn">Næste</button>
+        <button mat-button type="submit" matStepperNext id="firstNext" class="nextBttn">Næste</button>
       </div>
     </form>
   </mat-step>
@@ -18,11 +20,13 @@
   <mat-step [stepControl]="secondForm">
     <form [formGroup]="secondForm">
       <ng-template matStepLabel>Note</ng-template>
+      <div class="inputField">
       <h4>Skriv en note nedenunder</h4>
       <mat-form-field id="noteBox">
         <input matInput id="textBox" #input maxlength="30" value="" matInput placeholder="Skriv her"
           [(ngModel)]="this.newappointmentservice.note" formControlName="secondCtrl">
       </mat-form-field>
+    </div>
       <div>
         <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
         <button mat-button matStepperNext class="nextBttn">Næste</button>
@@ -36,7 +40,7 @@
       <h4>Vælg tidspunkt</h4>
       <input id="timePicker" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" placeholder="Tid"
         [(ngModel)]="this.newappointmentservice.time" formControlName="thirdCtrl">
-      <owl-date-time #oof id ="oof" [pickerType]="'timer'" #dt1 id="timePicker" class="timePicker"></owl-date-time>
+      <owl-date-time #oof id="oof" [pickerType]="'timer'" #dt1 id="timePicker" class="timePicker"></owl-date-time>
       <div>
         <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
         <button mat-button matStepperNext (click)="timeSubmit()" class="nextBttn">Næste</button>
@@ -77,7 +81,7 @@
   <mat-step>
     <ng-template matStepLabel>Oversigt</ng-template>
     <em><b>Din aftale er som følgende:</b></em><br><br>
-    <b>Dato:</b> {{oof}}<br>
+    <b>Dato:</b> {{realDate}}<br>
     <b>Note:</b> {{this.newappointmentservice.note}}<br>
     <b>Kl:</b> {{time}}<br>
     <b>Deltagere:</b> {{this.newappointmentservice.people}}<br>
