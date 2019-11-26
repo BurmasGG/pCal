@@ -19,30 +19,33 @@ export class HomeViewComponent implements OnInit {
   ngOnInit() {
     this.navservice.wasHome = true;
 
-    this.AddEvent("Dette er en test", "En rigtig fin beskrivelse", "21-11-2019", "12:30", "person", "sted");
+    this.AddEvent("Dette er en test", "En rigtig fin beskrivelse", "27-11-2019", "12:30", "person", "sted");
 
-    this.GetMaxDaysOfMonth(this.curMonth);
+    // Init default values
+    this.maxDays = this.GetMaxDaysOfMonth(this.curMonth);
     this.prevMonthName = this.GetMonthName(this.curMonth);
     this.nextMonthName = this.GetMonthName(this.curMonth);
+    this.months = [this.curMonth, this.curMonth];
 
     this.RefreshView('home');
   }
+
+  months = []; // keep track of whether we are showing the crossing of months
+  maxDaysToDisplay = 5;
+  daysToDisplay = this.maxDaysToDisplay;
 
   today = "I dag";
   public prevMonthName = "default";
   public nextMonthName = "default";
 
-  // Fixes for when changing back and forth between months
+  // when changing back and forth between months
   justChangedMonthNext = false;
   justChangedMonthBack = false;
 
   maxDays = 31; // assume long months bu default
   normMonths = [4, 6, 9, 11] // April, Juni ... have 30 days
-  maxDaysToDisplay = 5;
   public eventsSorted = [[], [], [], [], []]; // dagene events skal ind under
   public dayTitles = [];
-
-  daysToDisplay = this.maxDaysToDisplay;
 
   // week view
   date = new Date();
@@ -76,7 +79,7 @@ export class HomeViewComponent implements OnInit {
     let eMonth = Number(e.date.substring(3, 5));
 
     if (eMonth == this.curMonth) {
-      let dayInt = this.curDay - eDay;
+      let dayInt = eDay - this.curDay;
       if (dayInt < 5 && dayInt > -1) {
         this.eventsSorted[dayInt].push(e);
       }
@@ -145,7 +148,7 @@ export class HomeViewComponent implements OnInit {
 
     if (operation == 'next')
     {
-      newDisplayDay = this.dayTitles[this.dayTitles.length - 1] + 1
+      newDisplayDay = this.displayDate + 5;
     }
     else if (operation == 'back')
     {
@@ -155,7 +158,7 @@ export class HomeViewComponent implements OnInit {
       }
       else
       {
-        newDisplayDay = this.dayTitles[0];
+        newDisplayDay = this.displayDate;
       }
     }
     else if (operation == 'home')
@@ -170,11 +173,14 @@ export class HomeViewComponent implements OnInit {
       return;
     }
 
+    console.log("--------------------------------------------------");
     this.UpdateDayTitles(newDisplayDay, operation);
   }
 
   GetMaxDaysOfMonth(month)
-  {
+  {    
+    let daysOfMonth;
+
     if (month > 12 )
     {
       month = 1;
@@ -187,14 +193,14 @@ export class HomeViewComponent implements OnInit {
     }
 
     // Assume its a long month
-    this.maxDays = 31;
+    daysOfMonth = 31;
 
     // Figure out what month we are in to adjust amount of days in month
     if (month == 2)
     { // Feb has 28 ...
-      this.maxDays = 28;
+      daysOfMonth = 28;
 
-      if (this.IsLeapYear()) this.maxDays = 29; // ... unless leapyear
+      if (this.IsLeapYear()) daysOfMonth = 29; // ... unless leapyear
     }
     else // not Feb
     {
@@ -202,34 +208,25 @@ export class HomeViewComponent implements OnInit {
       this.normMonths.forEach(_month => {
         if (month == _month)
         {
-          this.maxDays = 30;
-        }
+          daysOfMonth = 30;
+        } 
       });
     }
 
-    // if (this.displayMonth < month)
-    // {
-    //   console.log(this.displayMonth + " < " + month + " -- updating Next Month Name");
-    //   this.nextMonthName = this.GetMonthName(month)
-    // }
-    // else if (this.displayMonth > month)
-    // {
-    //   console.log(this.displayMonth + " > " + month + " -- updating Prev Month Name");
-    //   this.prevMonthName = this.GetMonthName(month);
-    // }
-    // else
-    // {
-    //   console.log(this.displayMonth + " == " + month + " -- updating Both Month Names");
-    //   this.nextMonthName = this.GetMonthName(month);
-    //   this.prevMonthName = this.GetMonthName(month);
-    // }
-
     this.displayMonth = month;
-    console.log("Days in Month (" + this.displayMonth + "): " + this.maxDays);
+    console.log("Days in Month (" + this.displayMonth + "): " + daysOfMonth);
+    return daysOfMonth;
   }
 
   UpdateDayTitles(dayToDisplayFrom, operation){
-    console.log("Date to Display from: " + dayToDisplayFrom + ", operation = " + operation)
+    console.log("justChangedNext: " + this.justChangedMonthNext + ", Date to Display from: " + dayToDisplayFrom + ", operation = " + operation)
+    if (dayToDisplayFrom > this.maxDays && this.justChangedMonthNext)
+    {
+      console.log("Exceeded month by: " + (dayToDisplayFrom - this.maxDays) + " days");
+      dayToDisplayFrom = dayToDisplayFrom - this.maxDays;
+      console.log("New dayToDisplayFrom: " + dayToDisplayFrom);
+  }
+
     this.dayTitles = []; // reset titles
     let j = 0; // what date to display, when going over or under the days of the month
     // ^ starts from 0 so we can check if it changed (j != 0) in either direction (prev/next month)
@@ -240,49 +237,57 @@ export class HomeViewComponent implements OnInit {
     if (operation == "home")
     {
       this.dayTitles.push(this.today); // For current week we wanna display "I dag";
-      for (let i = 1; i < this.daysToDisplay; i++) // start from 1 due to "I dag"
+      for (let i = 1; i < this.daysToDisplay; i++) // i = 1 due to "I dag"
       {
         if (dayToDisplayFrom + i > this.maxDays) // Moving straight into another month ?
         {
+          console.log("Moving into next month immediately, month + 1")
           operation = "next"; // change operation
           this.daysToDisplay = this.maxDaysToDisplay - i; // adjust days to display based on how many has already been displayed
+          this.maxDays = this.GetMaxDaysOfMonth(this.displayMonth + 1)
           dayToDisplayFrom = 1;
           newMonth = true;
-          this.nextMonthName = this.GetMonthName(this.displayMonth + 1)
+          this.justChangedMonthNext = true;
           break; // exit for-loop
         }
         else
         {
-          this.dayTitles.push(dayToDisplayFrom + i);
+          let day = (dayToDisplayFrom + i);
+          this.dayTitles.push(day + "/" + this.displayMonth);
         }
       }
     }
     // For other weeks we want to display the date.
     //  -- Future weeks -- DONE
-    if (operation == "next") // not 'else if', because we want to be able to update above
+    if (operation == "next") // not 'else if', because we want to be able to enter from code above
     {
       if (this.justChangedMonthBack)
       {
-        this.GetMaxDaysOfMonth(this.displayMonth + 1);
+        console.log("Next after Just moved BACK, month + 1")
+        this.maxDays = this.GetMaxDaysOfMonth(this.displayMonth + 1);
         this.justChangedMonthNext = true;
         newMonth = true;
       }
       else
       {
-        this.prevMonthName = this.GetMonthName(this.displayMonth);
+       this.months[0] = this.displayMonth; 
       }
-
       this.justChangedMonthBack = false;
 
       for (let i = 0; i < this.daysToDisplay; i++)
       {
         if (dayToDisplayFrom + i > this.maxDays) // Exceeded max days?
         {
-          newMonth = true; // moved into another month
-
+          if (newMonth == false && this.justChangedMonthNext == false) // only do this ones
+          {
+            console.log("NEXT exceeding max days, month + 1");
+            this.maxDays = this.GetMaxDaysOfMonth(this.displayMonth + 1);
+            newMonth = true; // moved into another month
+          }
+          
           // start from 1 for the new month
-          j++;
-          this.dayTitles.push(j);
+          j++; 
+          this.dayTitles.push(j + "/" + this.displayMonth);
         }
         else // still within max days
         {
@@ -292,44 +297,40 @@ export class HomeViewComponent implements OnInit {
           }
           else
           {
-            this.dayTitles.push(dayToDisplayFrom + i); // simple (e.g. 22 + 1)
+            let day = dayToDisplayFrom + i
+            this.dayTitles.push(day + "/" + this.displayMonth); // simple (e.g. 22 + 1)
           }
         }
       }
 
       if (newMonth && !this.justChangedMonthNext)
       {
-        this.GetMaxDaysOfMonth(this.displayMonth + 1); // only increase month if we haven't already
-        this.justChangedMonthNext = true; // when we press "Back" next time we will switch back to previous month
+        this.justChangedMonthNext = true;
       }
       else
       {
         this.justChangedMonthNext = false;
       }
-
-      this.nextMonthName = this.GetMonthName(this.displayMonth);
     }
     // -- Past weeks
     else if (operation == "back")
     {
       if (this.justChangedMonthNext)
       {
-        console.log("Just moved one month forward, SO MOVE ONE BACK");
-        this.GetMaxDaysOfMonth(this.displayMonth - 1);
+        this.maxDays = this.GetMaxDaysOfMonth(this.displayMonth - 1);
         this.justChangedMonthBack = true;
         newMonth = true;
       }
-      else
-      {
-        this.nextMonthName = this.GetMonthName(this.displayMonth);
-      }
+      // else
+      // {
+      //   this.nextMonthName = this.GetMonthName(this.displayMonth);
+      // }
       this.justChangedMonthNext = false;
 
       for (let i = this.daysToDisplay; i > 0; i--) // 'reverse' for-loop
       {
-        console.log("Current date: " + (dayToDisplayFrom - i) + " (" + this.curDay + ")");
 
-        if ((dayToDisplayFrom - 1) == this.curDay && this.b_WithinMonth() && this.curYear == this.displayYear)
+        if ((dayToDisplayFrom - i) == this.curDay && this.b_WithinMonth() && this.curYear == this.displayYear)
         {
           this.dayTitles.push(this.today);
         }
@@ -337,27 +338,27 @@ export class HomeViewComponent implements OnInit {
         {
           if (!newMonth)
           {
-            console.log("!newMonth, - 1")
-            this.GetMaxDaysOfMonth(this.displayMonth - 1); // update month
+            this.maxDays = this.GetMaxDaysOfMonth(this.displayMonth - 1); // update month
+            this.months[0] = this.displayMonth;
             newMonth = true; // moved into another month
           }
 
           // Check for Today when moved into new month
-          if (this.maxDays + (dayToDisplayFrom - i) == this.curDay && this.b_WithinMonth() && this.curYear == this.displayYear)
+          let day = this.maxDays + (dayToDisplayFrom - i);
+          if ((day == this.curDay) && this.b_WithinMonth() && this.curYear == this.displayYear)
           {
             this.dayTitles.push(this.today);
           }
           else
           {
-            this.dayTitles.push(this.maxDays + (dayToDisplayFrom - i)); // max days of month - days exceeded into new month
+            this.dayTitles.push(day + "/" + this.displayMonth); // max days of month - days exceeded into new month
           }
         }
         else // still within minimum days
         {
-          this.dayTitles.push(dayToDisplayFrom - i); // simple (e.g. 22 - 1)
-          console.log("Adding " + (dayToDisplayFrom - i));
+          let day = dayToDisplayFrom - i;
+          this.dayTitles.push(day + "/" + this.displayMonth); // simple (e.g. 22 - 1)
         }
-        console.log("i: " + i);
       }
 
       if (newMonth)
@@ -368,23 +369,79 @@ export class HomeViewComponent implements OnInit {
       {
         this.justChangedMonthBack = false;
       }
-
-      this.prevMonthName = this.GetMonthName(this.displayMonth);
-    }
+    } 
 
     // Update the current displayed date variable
     if (this.dayTitles[0] == this.today)
     {
       this.displayDate = this.curDay;
     }
-    else if (j != 0)
-    {
-      this.displayDate = j;
-    }
     else
     {
-      this.displayDate = this.dayTitles[0];
+      this.displayDate = Number(this.dayTitles[0].substring(0, 2));
+
+        if (isNaN(this.displayDate)) // Not a number means that we have substringed (>1/<12)
+        {
+          this.displayDate = Number(this.dayTitles[0].substring(0, 1));
+        }
     }
+
+    this.UpdateMonthHeaders();
+    console.log("new DD: " + this.displayDate);
+  }
+
+  UpdateMonthHeaders()
+  {
+    let sameMonths = 0;
+    let curMonth;
+    let prevMonth;
+
+    for (let i = 1; i < this.dayTitles.length; i++) {
+      prevMonth = this.dayTitles[i - 1].substring(this.dayTitles[i - 1].length - 2, this.dayTitles[i - 1].length);
+      curMonth = this.dayTitles[i].substring(this.dayTitles[i].length - 2, this.dayTitles[i].length);
+
+      if (curMonth == prevMonth)
+      {
+        sameMonths ++
+      }
+      else if (curMonth == this.today.substring(this.today.length - 2, this.today.length) // one of the days is today
+        || prevMonth == this.today.substring(this.today.length - 2, this.today.length))
+      {
+        sameMonths++;
+      }
+    }
+
+    if (sameMonths == this.maxDaysToDisplay - 1) // the same?
+    {
+      this.months = [this.displayMonth, this.displayMonth];
+    }
+    else // not the same
+    {
+      let firstDayMonth = this.dayTitles[0].substring(this.dayTitles[0].length - 2, this.dayTitles[0].length);
+      let lastDayMonth = this.dayTitles[this.maxDaysToDisplay - 1].substring(this.dayTitles[this.maxDaysToDisplay - 1].length - 2, this.dayTitles[this.maxDaysToDisplay - 1].length);
+      
+      if (firstDayMonth.substring(0, 1) == '/')
+      {
+        this.months[0] = Number(firstDayMonth.substring(1, 2));
+      }
+      else
+      {
+        this.months[0] = Number(firstDayMonth);
+      }
+
+      if (lastDayMonth.substring(0, 1) == '/') 
+      {
+        this.months[1] = Number(lastDayMonth.substring(1, 2));
+      }
+      else
+      {
+        this.months[1] = Number(lastDayMonth);
+      }
+    }
+
+    this.prevMonthName = this.GetMonthName(this.months[0]);
+    this.nextMonthName = this.GetMonthName(this.months[1]);
+    console.log("Updated month headers");
   }
 
   b_WithinMonth()
@@ -392,14 +449,25 @@ export class HomeViewComponent implements OnInit {
     if (this.curMonth == this.displayMonth) return true; // same month
 
     // within one month (when the crossing of months are being displayed)
-    if (this.curMonth + 1 == this.displayMonth || this.curMonth - 1 == this.displayMonth) return true;
-
+    if (this.curMonth + 1 == this.displayMonth || this.curMonth - 1 == this.displayMonth)
+    {
+      if (this.displayDate > 28 && this.curDay < 4 || this.displayDate < 4 && this.curDay > 28)
+      {
+        return true;
+      }
+    } 
+    
     // within one month, but at year changes
     if (this.curYear != this.displayYear)
     {
-     if ((this.curMonth == 12 && this.displayMonth == 1) || (this.curMonth == 1 && this.displayMonth == 12)) return true;
+      if (this.displayDate > 28 && this.curDay < 4 || this.displayDate < 4 && this.curDay > 28)
+      {
+        if ((this.curMonth == 12 && this.displayMonth == 1) || (this.curMonth == 1 && this.displayMonth == 12))
+        {
+          return true;
+        }
+      }
     }
-
     // else
     return false;
   }
@@ -408,5 +476,4 @@ export class HomeViewComponent implements OnInit {
   {
     return ((this.displayYear % 4 == 0) && (this.displayYear % 100 != 0)) || (this.displayYear % 400 == 0); // true or  false
   }
-
 }
