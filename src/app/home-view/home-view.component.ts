@@ -3,6 +3,9 @@ import { NavService } from '../nav.service';
 import { DatePipe } from '@angular/common';
 import { EventViewComponent } from '../event-view/event-view.component';
 import { AppointmentService } from '../newAppointment.service';
+import { EventService } from '../event.service';
+import { Event } from '../event.model';
+import { isNull, isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-home-view',
@@ -13,15 +16,14 @@ import { AppointmentService } from '../newAppointment.service';
 export class HomeViewComponent implements OnInit {
 
   constructor(
+    public eventView: EventViewComponent,
+    private eventService: EventService,
     private navservice: NavService,
-    private eventView: EventViewComponent,
-    private newappointmentservice: AppointmentService,
+    private newappointmentservice: AppointmentService
   ) { }
 
   ngOnInit() {
     this.navservice.wasHome = true;
-
-    this.AddEvent("Dette er en test", "En rigtig fin beskrivelse", "27-11-2019", "12:30", "person", "sted");
 
     // Init default values
     this.maxDays = this.GetMaxDaysOfMonth(this.curMonth);
@@ -30,9 +32,35 @@ export class HomeViewComponent implements OnInit {
     this.months = [this.curMonth, this.curMonth];
 
     this.RefreshView('home');
-    this.AddEvent('Dette er en test', 'En rigtig fin beskrivelse', '21-11-2019', '12:30', 'person', 'sted');
+    //this.AddEventUpdate();
+    this.FetchEvents();
   }
 
+  AddEventUpdate()
+  {
+    this.eventService.AddEvent("DET FUCKING VIRKER", "det her ", "28-11-2019", "16:00").subscribe((data: Event[]) => {
+    this.FetchEvents();
+  });
+  }
+
+  FetchEvents()
+  {
+    this.eventService.GetEvents().subscribe((data: Event[]) => {
+      /** setting the issue to what is being returned from the service call*/
+      console.log("Received data.");
+      this.events = data;
+      /** print out what is coming back from the service call */
+
+      console.log("Found events: ");
+      this.events.forEach((e) => { 
+     //   this.eventService.DeleteEvent(e._id).subscribe((data: Event[]) => { // DER SKAL SUBSCRIBES FØR DET SKER!!
+          console.log(e.title + " d." + e.date + ", kl: " + e.time);
+        });
+     // });
+    });
+  }
+
+  events: Event[]; // holds all events found in MongoDB
   months = []; // keep track of whether we are showing the crossing of months
   maxDaysToDisplay = 5;
   daysToDisplay = this.maxDaysToDisplay;
@@ -175,7 +203,7 @@ export class HomeViewComponent implements OnInit {
       return;
     }
 
-    console.log("--------------------------------------------------");
+    //console.log("--------------------------------------------------");
     this.UpdateDayTitles(newDisplayDay, operation);
   }
 
@@ -216,17 +244,17 @@ export class HomeViewComponent implements OnInit {
     }
 
     this.displayMonth = month;
-    console.log("Days in Month (" + this.displayMonth + "): " + daysOfMonth);
+    //console.log("Days in Month (" + this.displayMonth + "): " + daysOfMonth);
     return daysOfMonth;
   }
 
   UpdateDayTitles(dayToDisplayFrom, operation){
-    console.log("justChangedNext: " + this.justChangedMonthNext + ", Date to Display from: " + dayToDisplayFrom + ", operation = " + operation)
+    //console.log("justChangedNext: " + this.justChangedMonthNext + ", Date to Display from: " + dayToDisplayFrom + ", operation = " + operation)
     if (dayToDisplayFrom > this.maxDays && this.justChangedMonthNext)
     {
-      console.log("Exceeded month by: " + (dayToDisplayFrom - this.maxDays) + " days");
+      //console.log("Exceeded month by: " + (dayToDisplayFrom - this.maxDays) + " days");
       dayToDisplayFrom = dayToDisplayFrom - this.maxDays;
-      console.log("New dayToDisplayFrom: " + dayToDisplayFrom);
+      //console.log("New dayToDisplayFrom: " + dayToDisplayFrom);
   }
 
     this.dayTitles = []; // reset titles
@@ -243,7 +271,7 @@ export class HomeViewComponent implements OnInit {
       {
         if (dayToDisplayFrom + i > this.maxDays) // Moving straight into another month ?
         {
-          console.log("Moving into next month immediately, month + 1")
+          //console.log("Moving into next month immediately, month + 1")
           operation = "next"; // change operation
           this.daysToDisplay = this.maxDaysToDisplay - i; // adjust days to display based on how many has already been displayed
           this.maxDays = this.GetMaxDaysOfMonth(this.displayMonth + 1)
@@ -265,7 +293,7 @@ export class HomeViewComponent implements OnInit {
     {
       if (this.justChangedMonthBack)
       {
-        console.log("Next after Just moved BACK, month + 1")
+       // console.log("Next after Just moved BACK, month + 1")
         this.maxDays = this.GetMaxDaysOfMonth(this.displayMonth + 1);
         this.justChangedMonthNext = true;
         newMonth = true;
@@ -282,7 +310,7 @@ export class HomeViewComponent implements OnInit {
         {
           if (newMonth == false && this.justChangedMonthNext == false) // only do this ones
           {
-            console.log("NEXT exceeding max days, month + 1");
+           // console.log("NEXT exceeding max days, month + 1");
             this.maxDays = this.GetMaxDaysOfMonth(this.displayMonth + 1);
             newMonth = true; // moved into another month
           }
@@ -389,7 +417,7 @@ export class HomeViewComponent implements OnInit {
     }
 
     this.UpdateMonthHeaders();
-    console.log("new DD: " + this.displayDate);
+    //console.log("new DD: " + this.displayDate);
   }
 
   UpdateMonthHeaders()
@@ -443,7 +471,7 @@ export class HomeViewComponent implements OnInit {
 
     this.prevMonthName = this.GetMonthName(this.months[0]);
     this.nextMonthName = this.GetMonthName(this.months[1]);
-    console.log("Updated month headers");
+    //console.log("Updated month headers");
   }
 
   b_WithinMonth()
