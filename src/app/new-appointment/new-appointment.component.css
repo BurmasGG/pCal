@@ -30,3 +30,7 @@ float: left;
 align-content: center;
 margin-left: 25 !important;
 }
+
+.fixed-open{
+  display: block;
+}
