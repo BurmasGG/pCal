@@ -1,6 +1,6 @@
 <mat-horizontal-stepper>
   <mat-step [stepControl]="firstForm">
-    <form [formGroup]="firstForm" (ngSubmit)="dateSubmit(firstForm.value)">
+    <form (ngSubmit)="dateSubmit(firstForm.value)" [formGroup]="firstForm">
       <ng-template matStepLabel>Dato</ng-template>
       <h4 class="inputField">Vælg dato</h4>
       <div class="inputField">
@@ -21,12 +21,12 @@
     <form [formGroup]="secondForm">
       <ng-template matStepLabel>Note</ng-template>
       <div class="inputField">
-      <h4>Skriv en note nedenunder</h4>
-      <mat-form-field id="noteBox">
-        <input matInput id="textBox" #input maxlength="30" value="" matInput placeholder="Skriv her"
-          [(ngModel)]="this.newappointmentservice.note" formControlName="secondCtrl">
-      </mat-form-field>
-    </div>
+        <h4>Skriv en note nedenunder</h4>
+        <mat-form-field id="noteBox">
+          <input matInput id="textBox" #input maxlength="30" value="" matInput placeholder="Skriv her"
+            [(ngModel)]="this.newappointmentservice.note" formControlName="secondCtrl">
+        </mat-form-field>
+      </div>
       <div>
         <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
         <button mat-button matStepperNext class="nextBttn">Næste</button>
@@ -34,16 +34,24 @@
     </form>
   </mat-step>
 
-  <mat-step [stepControl]="thirdForm">
-    <form [formGroup]="thirdForm">
+  <mat-step [stepControl]="thirdForm" >
+    <form (ngSubmit)="hourSubmit(thirdForm.value)" [formGroup]="thirdForm">
       <ng-template matStepLabel>Tidspunkt</ng-template>
       <h4>Vælg tidspunkt</h4>
-      <input id="timePicker" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" placeholder="Tid"
-        [(ngModel)]="this.newappointmentservice.time" formControlName="thirdCtrl">
-      <owl-date-time #oof id="oof" [pickerType]="'timer'" #dt1 id="timePicker" class="timePicker"></owl-date-time>
+      <mat-form-field class="timeBox">
+        <input matInput placeholder="12" value="4" >
+      </mat-form-field>
+      <button mat-button class="arrowBttn" (click)="hourUp()"></button>
+      <button mat-button class="arrowBttn" id="plsMove" (click)="hourDown()"></button>
+      <mat-form-field class="timeBox">
+        <input matInput placeholder="{{minutes}}" value="{{minutes}}" formControlName="thirdCtrl">
+      </mat-form-field>
+      <button mat-button class="arrowBttn" (click)="minuteUp()"></button>
+      <button mat-button class="arrowBttn" (click)="minuteDown()"></button>
       <div>
         <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
-        <button mat-button matStepperNext (click)="timeSubmit()" class="nextBttn">Næste</button>
+        <button mat-button matStepperNext (click)="hourSubmit()" (click)="minuteSubmit()"
+          class="nextBttn">Næste</button>
       </div>
     </form>
   </mat-step>
@@ -106,3 +114,7 @@
 <app-participant *ngIf='this.navservice.Toggle === 4'></app-participant>
 
 <app-place *ngIf='this.navservice.Toggle === 5'></app-place>-->
+
+<!-- <input id="timePicker" [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" placeholder="Tid"
+        [(ngModel)]="this.newappointmentservice.time" formControlName="thirdCtrl">
+      <owl-date-time [pickerType]="'timer'" #dt1 id="timePicker" class="timePicker" ></owl-date-time>-->

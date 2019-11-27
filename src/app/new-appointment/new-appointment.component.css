@@ -11,9 +11,6 @@
   font-weight: bold;
 float: left;
 }
-#firstNext{
-
-}
 #timePicker{
   width: 50%;
 }
@@ -24,12 +21,37 @@ float: left;
   width: 150px;
 }
 #oof{
-  width: 50%;
+  width: 70%;
 }
 .inputField{
 align-content: center;
 margin-left: 25 !important;
 }
+.timeBox{
+  width: 10%;
+
+}
+.arrowBttn{
+  margin-left: 3%;
+  height: 40px;
+  width: 5%;
+}
+#plsMove{
+  margin-right: 3%;
+}
+/*.fixedCalendar{
+  width: 200px;
+  height: 200px;
+ display: block !important;
+}
+.fixedCalendar .md-calendar-scroll-mask {
+  width: 340px !important;
+}
+
+.fixedCalendar .md-virtual-repeat-scroller {
+  width: 340px !important;
+  height: 308px;
+}*/
 
 .fixed-open{
   display: block;

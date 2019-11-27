@@ -12,6 +12,9 @@ export class AppointmentService {
   place: string;
   type: string;
   time: string;
+  hour: number;
+  minutes: number;
+
 
   constructor() {
   }

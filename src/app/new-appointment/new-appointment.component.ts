@@ -3,7 +3,7 @@ import { NavService } from '../nav.service';
 import { Router } from '@angular/router';
 import { AppointmentService } from '../newAppointment.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { OwlDateTimeInlineComponent, OwlDateTimeIntl } from 'ng-pick-datetime';
+import { OwlDateTimeInlineComponent, OwlDateTimeIntl, OwlDateTimeComponent } from 'ng-pick-datetime';
 
 @Component({
   selector: 'app-new-appointment',
@@ -17,13 +17,13 @@ export class NewAppointmentComponent implements OnInit {
   thirdForm: FormGroup;
   fourthForm: FormGroup;
   fifthForm: FormGroup;
+  sixthForm: FormGroup;
   console = console;
   date;
   month;
   day;
   year;
   realDate: string;
-  dt1;
   hour;
   minutes;
   time;
@@ -32,7 +32,6 @@ export class NewAppointmentComponent implements OnInit {
   constructor(public navservice: NavService,
     private router: Router, public newappointmentservice: AppointmentService, private formBuilder: FormBuilder) { }
 
- // @ViewChild(OwlDateTimeInlineComponent, {static: false})
 
   ngOnInit() {
     if (this.navservice.wasHome === false) {
@@ -53,24 +52,47 @@ export class NewAppointmentComponent implements OnInit {
     this.fifthForm = this.formBuilder.group({
       fifthCtrl: ['', Validators.required]
     });
+    this.sixthForm = this.formBuilder.group({
+      sixthCtrl: ['', Validators.required]
+    });
+    console.log('oof')
+    console.log(this.sixthForm)
 
   }
-  dateSubmit(){
+  dateSubmit(firstForm) {
     this.day = this.firstForm.value.firstCtrl.getDate();
     this.month = this.firstForm.value.firstCtrl.getMonth() + 1;
     this.year = this.firstForm.value.firstCtrl.getFullYear();
-    this.realDate = this.day +'/'+ this.month +'/'+ this.year;
+    this.realDate = this.day + '/' + this.month + '/' + this.year;
     console.log(this.realDate);
   }
-  timeSubmit(){
-    this.hour = this.thirdForm.value.thirdCtrl.getHours() ;
-    this.minutes = this.thirdForm.value.thirdCtrl.getMinutes() ;
-    this.time = this.hour +':' + this.minutes;
-    console.log(this.time);
+
+  hourSubmit(thirdForm) {
+
+    this.hour = this.thirdForm.value.thirdCtrl.toString();
+    console.log(this.hour);
+  }
+  minuteSubmit(sixthForm) {
+    this.minutes = this.sixthForm.value.sixthCtrl.toString();
+    console.log(this.hour);
   }
 
   finishAppointment() {
     this.newappointmentservice.printTester();
-  };
+
+  }
+  hourUp() {
+    this.sixthForm.value.sixthCtrl ++;
+  }
+  hourDown() {
+    this.sixthForm.value.sixthCtrl --;
+  }
+  minuteUp() {
+    this.thirdForm.value.thirdCtrl ++;
+  }
+  minuteDown() {
+    this.thirdForm.value.thirdCtrl --;
+  }
+
 
 }
