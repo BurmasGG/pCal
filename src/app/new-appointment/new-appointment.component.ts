@@ -66,9 +66,9 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   timeSubmit() {
-   // this.time = this.thirdForm.value.thirdCtrl.toString();
-    console.log(this.time);
     this.time = this.hour.toString() + ':' + this.minutes.toString();
+    console.log(this.time);
+
   }
 
   finishAppointment() {

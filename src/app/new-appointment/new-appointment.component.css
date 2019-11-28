@@ -2,17 +2,19 @@
   height: 150px;
   width: 100px;
   font-weight: bold;
-  float: right;
   top: 0;
 }
 .backBttn {
-
   height: 150px;
   width: 100px;
   font-weight: bold;
-  float: left;
   top: 0;
-
+}
+#topButton {
+  margin-right: 10%;
+}
+#botButton {
+  margin-right: 10%;
 }
 #timePicker {
   width: 50%;
@@ -21,10 +23,19 @@
 #oof {
   width: 70%;
 }
-.arrowBttn {
+.arrowUpBttn {
   margin-left: 3%;
-  height: 40px;
+  height: 50px;
   width: 15%;
+  background-color: grey;
+  background: url("src/assets/img/arrowUp.png") 50% 50% no-repeat;
+}
+.arrowDownBttn {
+  margin-left: 3%;
+  height: 50px;
+  width: 15%;
+  background-color: grey;
+  background: url("src/assets/img/ArrowDown.png") 50% 50% no-repeat;
 }
 #plsMove {
   margin-right: 3%;
@@ -38,10 +49,10 @@
 #noteBox {
   margin-top: 5%;
   text-align: center;
-
 }
-#noteText{
+#noteText {
   width: 100%;
+  font-size: 25px;
 }
 
 /*
@@ -56,7 +67,6 @@
 
 .fixed-open {
   display: block;
-
 }
 
 .mat-datepicker-toggle{
@@ -65,7 +75,10 @@
 #noteBoxOOF {
   flex: 0.5;
 }
-#timeBoxFlex{
+#timeBoxFlex {
+  flex: 0.5;
+}
+#peopleBoxFlex {
   flex: 0.5;
 }
 
@@ -74,9 +87,27 @@
   width: 50%;
 }
 #timeBox {
-  width: 10%;
+  text-align: center;
+  align-content: center;
+  width: 100%;
+  font-size: 25px;
 }
-.flexBox{
+#peopleBox {
+  text-align: center;
+  align-content: center;
+  width: 100%;
+  font-size: 25px;
+}
+#placeBox{
+  text-align: center;
+  align-content: center;
+  width: 100%;
+  font-size: 25px;
+}
+#placeboxFlex{
+  flex: 0.5;
+}
+.flexBox {
   display: flex;
   justify-content: space-between;
 }

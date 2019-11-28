@@ -36,7 +36,7 @@
           <div id="noteBox">
             <h4>Skriv en note nedenunder</h4>
             <mat-form-field id="noteText">
-              <input matInput #input maxlength="30" value="" matInput placeholder="Skriv her"
+              <input matInput #input maxlength="30" id="noteInput" value="" matInput placeholder="Skriv her"
                 [(ngModel)]="this.newappointmentservice.note" formControlName="secondCtrl">
             </mat-form-field>
           </div>
@@ -47,22 +47,24 @@
   </mat-step>
 
   <mat-step [stepControl]="thirdForm">
-    <form  [formGroup]="thirdForm" >
+    <form [formGroup]="thirdForm">
       <ng-template matStepLabel>Tidspunkt</ng-template>
       <div class="flexBox">
         <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
         <div id="timeBox">
-        <h4>Vælg tidspunkt</h4>
-        <mat-form-field class="timeBox" id="timeBoxFlex">
-          <input matInput placeholder="" value="{{hour}}:{{minutes}}" formControlName="thirdCtrl">
-        </mat-form-field>
-        <button mat-button class="arrowBttn" (click)="hourUp()">1</button>
-        <button mat-button class="arrowBttn" id="plsMove" (click)="hourDown()">1</button>
-        <button mat-button class="arrowBttn" (click)="minuteUp()">2</button>
-        <button mat-button class="arrowBttn" (click)="minuteDown()">2</button>
-          </div>
-          <button mat-button matStepperNext (click)="timeSubmit()" class="nextBttn">Næste</button>
+          <h4>Vælg tidspunkt</h4>
+          <button mat-button id="topButton" class="arrowUpBttn" (click)="hourUp()"></button>
+          <button mat-button class="arrowUpBttn" (click)="minuteUp()"></button>
+          <br>
+          <mat-form-field class="timeBox" id="timeBoxFlex">
+            <input id="timeInput" matInput placeholder="" value="{{hour}}:{{minutes}}" formControlName="thirdCtrl">
+          </mat-form-field>
+          <br>
+          <button mat-button id="botButton" class="arrowDownBttn" (click)="hourDown()"></button>
+          <button mat-button class="arrowDownBttn" (click)="minuteDown()"></button>
         </div>
+        <button mat-button matStepperNext (click)="timeSubmit()" class="nextBttn">Næste</button>
+      </div>
 
     </form>
   </mat-step>
@@ -70,13 +72,15 @@
   <mat-step [stepControl]="fourthForm">
     <form [formGroup]="fourthForm">
       <ng-template matStepLabel>Deltagere</ng-template>
-      <h4>Skriv hvem der skal med</h4>
-      <mat-form-field class="content">
-        <input matInput id="textBox" #input maxlength="30" value="" matInput placeholder="Skriv her"
-          [(ngModel)]="this.newappointmentservice.people" formControlName="fourthCtrl">
-      </mat-form-field>
-      <div>
+      <div class="flexBox" id="peopleBoxFlex">
         <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
+        <div id="peopleBox">
+          <h4>Skriv hvem der skal med</h4>
+          <mat-form-field>
+            <input matInput id="textBox" #input maxlength="30" value="" matInput placeholder="Skriv her"
+              [(ngModel)]="this.newappointmentservice.people" formControlName="fourthCtrl">
+          </mat-form-field>
+        </div>
         <button mat-button matStepperNext class="nextBttn">Næste</button>
       </div>
     </form>
@@ -85,14 +89,18 @@
   <mat-step [stepControl]="fifthForm">
     <form [formGroup]="fifthForm">
       <ng-template matStepLabel>Sted</ng-template>
-      <h4>Skriv hvor det skal være</h4>
-      <mat-form-field class="content">
-        <input matInput id="textBox" #input maxlength="30" value="" matInput placeholder="Skriv her"
-          [(ngModel)]="this.newappointmentservice.place" formControlName="fifthCtrl">
-      </mat-form-field>
-      <div>
+      <div class="flexBox" id="placeBoxFlex">
         <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
-        <button mat-button matStepperNext class="nextBttn">Næste</button>
+        <div id="placeBox">
+          <h4>Skriv hvor det skal være</h4>
+          <mat-form-field class="content">
+            <input matInput id="textBox" #input maxlength="30" value="" matInput placeholder="Skriv her"
+              [(ngModel)]="this.newappointmentservice.place" formControlName="fifthCtrl">
+          </mat-form-field>
+        </div>
+        <div>
+          <button mat-button matStepperNext class="nextBttn">Næste</button>
+        </div>
       </div>
     </form>
   </mat-step>
