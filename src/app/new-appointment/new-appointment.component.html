@@ -37,14 +37,14 @@
   </mat-step>
 
   <mat-step [stepControl]="thirdForm">
-    <form >
+    <form (ngSubmit)="timeSubmit(thirdForm.value)" [formGroup]="thirdForm" >
       <ng-template matStepLabel>Tidspunkt</ng-template>
       <div class="flexBox">
         <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
         <div id="timeBox">
         <h4>Vælg tidspunkt</h4>
         <mat-form-field class="timeBox" id="timeBoxFlex">
-          <input matInput placeholder="" value="{{hour}}:{{minutes}}">
+          <input matInput placeholder="" value="{{hour}}:{{minutes}}" formControlName="thirdCtrl">
         </mat-form-field>
         <button mat-button class="arrowBttn" (click)="hourUp()">1</button>
         <button mat-button class="arrowBttn" id="plsMove" (click)="hourDown()">1</button>

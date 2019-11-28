@@ -66,7 +66,8 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   timeSubmit(thirdForm) {
-
+   // this.time = this.thirdForm.value.thirdCtrl.toString();
+    console.log(this.time);
     this.time = this.hour.toString() + ':' + this.minutes.toString();
   }
 
@@ -89,8 +90,5 @@ export class NewAppointmentComponent implements OnInit {
   minuteDown() {
     this.minutes -= 5;
   }
-makeCompilerHappy(thirdForm){
-  this.console.log('Thomas is god')
-}
 
 }
