@@ -5,7 +5,6 @@ import { EventViewComponent } from '../event-view/event-view.component';
 import { AppointmentService } from '../newAppointment.service';
 import { EventService } from '../event.service';
 import { Event } from '../event.model';
-import { isNull, isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-home-view',
@@ -23,13 +22,13 @@ export class HomeViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.GetTodayDate();
+    console.log("curMonth: " + this.curMonth + " (" + this.GetMonthName(11) + ")")
     this.navservice.wasHome = true;
 
     // Init default values
     this.maxDays = this.GetMaxDaysOfMonth(this.curMonth);
-    this.prevMonthName = this.GetMonthName(this.curMonth);
-    this.nextMonthName = this.GetMonthName(this.curMonth);
-    this.months = [this.curMonth, this.curMonth];
+    this.months = [11, this.curMonth];
 
     this.RefreshView('home');
     //this.AddEventUpdate();
@@ -38,25 +37,34 @@ export class HomeViewComponent implements OnInit {
 
   AddEventUpdate()
   {
-    this.eventService.AddEvent("DET FUCKING VIRKER", "det her ", "28-11-2019", "16:00").subscribe((data: Event[]) => {
-    this.FetchEvents();
-  });
+    //AddEvent(_title, _note, _year, _month, _day, _time, _people = "", _place = "")
+    this.eventService.AddEvent("DET FUCKING VIRKER", "det her ", 2019, 28, 11, "16:00").subscribe((data: Event[]) => {
+      console.log(data);
+      this.FetchEvents();
+    });
   }
 
   FetchEvents()
   {
-    this.eventService.GetEvents().subscribe((data: Event[]) => {
+    this.eventService.GetAllEvents().subscribe((data: Event[]) => {
       /** setting the issue to what is being returned from the service call*/
-      console.log("Received data.");
+      console.log("Received data: " + data[0].title);
       this.events = data;
       /** print out what is coming back from the service call */
 
-      console.log("Found events: ");
-      this.events.forEach((e) => { 
-     //   this.eventService.DeleteEvent(e._id).subscribe((data: Event[]) => { // DER SKAL SUBSCRIBES FØR DET SKER!!
-          console.log(e.title + " d." + e.date + ", kl: " + e.time);
+      if (this.events.length > 0)
+      {
+        console.log("Found " + this.events.length + " events.");
+        this.events.forEach((e) => { 
+      //  this.eventService.DeleteEvent(e._id).subscribe((data: Event[]) => { // DER SKAL SUBSCRIBES FØR DET SKER!!
+            console.log(e.title + " d." + e.day + "/" + e.month + ", kl: " + e.time);
+      //   });
         });
-     // });
+      }
+      else
+      {
+        console.log("Found 0 events.");
+      }
     });
   }
 
@@ -75,7 +83,7 @@ export class HomeViewComponent implements OnInit {
 
   maxDays = 31; // assume long months bu default
   normMonths = [4, 6, 9, 11] // April, Juni ... have 30 days
-  public eventsSorted = [[], [], [], [], []]; // dagene events skal ind under
+  public eventsSorted = []; // dagene events skal ind under
   public dayTitles = [];
 
   // week view
@@ -94,27 +102,31 @@ export class HomeViewComponent implements OnInit {
   displayMonthName;
   displayDateName;
 
-  public AddEvent(_title, _note, _date, _time, _people = "", _place = "") {
-    const event = { title: _title, note: _note, date: _date, time: _time, people: _people, place: _place };
-    this.UpdateEventListFive(event);
+  ClearSortedEvents(){
+      this.eventsSorted = [];
+      for (let i = 0; i < this.maxDaysToDisplay; i++) {
+            this.eventsSorted.push([]);
+    }
   }
 
-  public UpdateEventListFive(e) {
+  GetTodayDate()
+  {
     this.curDay = Number(this.dp.transform(this.date, 'd'));
     this.curWeek = Number(this.dp.transform(this.date, 'w'));
     this.curWeekday = Number(this.date.getUTCDay());
     this.curMonth = Number(this.dp.transform(this.date, 'M'));
     this.curYear = Number(this.dp.transform(this.date, 'y'));
+  }
 
-    let eDay = Number(e.date.substring(0, 2)); // the '+' symbol parses the following string to an integer (type 'number')
-    let eMonth = Number(e.date.substring(3, 5));
+  public UpdateEventListFive() {
+    this.ClearSortedEvents();
 
-    if (eMonth == this.curMonth) {
-      let dayInt = eDay - this.curDay;
-      if (dayInt < 5 && dayInt > -1) {
-        this.eventsSorted[dayInt].push(e);
-      }
-    }
+    // if (eMonth == this.curMonth) {
+    //   let dayInt = eDay - this.curDay;
+    //   if (dayInt < 5 && dayInt > -1) {
+    //     this.eventsSorted[dayInt].push(e);
+    //   }
+    // }
   }
 
   GetMonthName(month)
@@ -284,6 +296,7 @@ export class HomeViewComponent implements OnInit {
         {
           let day = (dayToDisplayFrom + i);
           this.dayTitles.push(day + "/" + this.displayMonth);
+         // this.eventService.GetEventByDate(this.displayYear, this.displayMonth, this.displayDate);
         }
       }
     }
@@ -443,16 +456,20 @@ export class HomeViewComponent implements OnInit {
 
     if (sameMonths == this.maxDaysToDisplay - 1) // the same?
     {
-      this.months = [this.displayMonth, this.displayMonth];
+    this.months = [this.displayMonth, this.displayMonth];
     }
     else // not the same
     {
       let firstDayMonth = this.dayTitles[0].substring(this.dayTitles[0].length - 2, this.dayTitles[0].length);
       let lastDayMonth = this.dayTitles[this.maxDaysToDisplay - 1].substring(this.dayTitles[this.maxDaysToDisplay - 1].length - 2, this.dayTitles[this.maxDaysToDisplay - 1].length);
       
-      if (firstDayMonth.substring(0, 1) == '/')
+      if (firstDayMonth.substring(0, 1) == '/') // day = 1-9 (no double digits)
       {
         this.months[0] = Number(firstDayMonth.substring(1, 2));
+      }
+      else if (firstDayMonth == this.today.substring(this.today.length - 2), this.today.length) // 'Today'
+      {
+        this.months[0] = this.displayMonth - 1;
       }
       else
       {
@@ -463,11 +480,17 @@ export class HomeViewComponent implements OnInit {
       {
         this.months[1] = Number(lastDayMonth.substring(1, 2));
       }
+      else if (firstDayMonth == this.today.substring(this.today.length - 2), this.today.length) // 'Today'
+      {
+        this.months[1] = this.displayMonth;
+      }
       else
       {
         this.months[1] = Number(lastDayMonth);
       }
     }
+
+    console.log("months[0]: " + this.months[0] + " (" + this.GetMonthName(this.months[0] + ")"))
 
     this.prevMonthName = this.GetMonthName(this.months[0]);
     this.nextMonthName = this.GetMonthName(this.months[1]);

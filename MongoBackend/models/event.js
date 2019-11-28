@@ -6,8 +6,14 @@ let Event = new Schema({
   title: {
     type: String
   },
-  date: {
-    type: String
+  year: {
+    type: Number
+  },
+  month: {
+    type: Number
+  },
+  day: {
+    type: Number
   },
   time: {
     type: String

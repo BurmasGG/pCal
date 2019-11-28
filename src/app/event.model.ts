@@ -1,8 +1,10 @@
 export interface Event{
     title: String;
-    date: String;
+    year: Number;
+    month: Number;
+    day: Number;
     time: String;
     note: String;
-    participant: String;
+    participating: String;
     place: String;
   }  

@@ -12,17 +12,22 @@ export class EventService {
 /** To make the httpclient available inside the IssueService class */
   constructor(private http: HttpClient) { }
 
-  GetEvents(){
+  GetAllEvents(){
     /** sending out an HTTP get request to the url, returning all the events in .json format*/
     return this.http.get(`${this.uri}/events`);
+  }
+
+  GetEventByDate(year, month, day){
+    console.log("GetEventByDate: " + year, month, day);
+    return this.http.get(`${this.uri}/events/${year}, ${month}, ${day}`)
   }
 
   GetEventById(id) {
     return this.http.get(`${this.uri}/events/${id}`);
   }
 
-  AddEvent(_title, _note, _date, _time, _people = "", _place = "") {
-    const event = { title: _title, note: _note, date: _date, time: _time, people: _people, place: _place};
+  AddEvent(_title, _note, _year, _month, _day, _time, _people = "", _place = "") {
+    const event = {title: _title, note: _note, year: _year, month: _month, day: _day, time: _time, people: _people, place: _place};
     /** Initiating the post request using the post method
       what being returned is return by the add events method */
     return this.http.post(`${this.uri}/events/add`, event);

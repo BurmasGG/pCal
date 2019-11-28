@@ -5,7 +5,7 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 
-import Event from './models/Event';
+import Event from './models/event';
 
 const app = express();
 //return was comes from express.Router
@@ -38,6 +38,18 @@ router.route('/events').get((req, res) =>{
       res.json(events);
   });
 });
+
+// Find events of the day
+router.route('events/:year.:month.:day').get((req, res) =>{
+
+  Event.find(({year: req.params.year, month: req.params.month, day: req.params.day}), (err, events) =>{
+    if (err) 
+      console.log(err);
+    else
+      res.json(events);
+  });
+});
+
 //sending http request to get a single event by 'id'
 //'id' is used to retrieve a specific event from the database
 router.route('/events/:id').get((req, res) => {
