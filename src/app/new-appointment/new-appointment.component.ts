@@ -3,7 +3,6 @@ import { NavService } from '../nav.service';
 import { Router } from '@angular/router';
 import { AppointmentService } from '../newAppointment.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { OwlDateTimeInlineComponent, OwlDateTimeIntl, OwlDateTimeComponent } from 'ng-pick-datetime';
 
 @Component({
   selector: 'app-new-appointment',
@@ -24,8 +23,8 @@ export class NewAppointmentComponent implements OnInit {
   day;
   year;
   realDate: string;
-  hour;
-  minutes;
+  hour = 12;
+  minutes = 30;
   time;
 
 
@@ -55,8 +54,7 @@ export class NewAppointmentComponent implements OnInit {
     this.sixthForm = this.formBuilder.group({
       sixthCtrl: ['', Validators.required]
     });
-    console.log('oof')
-    console.log(this.sixthForm)
+
 
   }
   dateSubmit(firstForm) {
@@ -67,14 +65,9 @@ export class NewAppointmentComponent implements OnInit {
     console.log(this.realDate);
   }
 
-  hourSubmit(thirdForm) {
+  timeSubmit(thirdForm) {
 
-    this.hour = this.thirdForm.value.thirdCtrl.toString();
-    console.log(this.hour);
-  }
-  minuteSubmit(sixthForm) {
-    this.minutes = this.sixthForm.value.sixthCtrl.toString();
-    console.log(this.hour);
+    this.time = this.hour.toString() + ':' + this.minutes.toString();
   }
 
   finishAppointment() {
@@ -82,16 +75,19 @@ export class NewAppointmentComponent implements OnInit {
 
   }
   hourUp() {
-    this.sixthForm.value.sixthCtrl ++;
+    this.hour += 1;
+    console.log(this.hour);
   }
   hourDown() {
-    this.sixthForm.value.sixthCtrl --;
+    this.hour -= 1;
+    console.log(this.hour);
+
   }
   minuteUp() {
-    this.thirdForm.value.thirdCtrl ++;
+    this.minutes += 5;
   }
   minuteDown() {
-    this.thirdForm.value.thirdCtrl --;
+    this.minutes -= 5;
   }
 
 

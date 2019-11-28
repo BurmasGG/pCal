@@ -1,49 +1,55 @@
-
-.nextBttn{
-  height: 50px;
+.nextBttn {
+  height: 150px;
   width: 100px;
   font-weight: bold;
   float: right;
+  top: 0;
 }
-.backBttn{
-  height: 50px;
+.backBttn {
+
+  height: 150px;
   width: 100px;
   font-weight: bold;
-float: left;
-}
-#timePicker{
-  width: 50%;
-}
-.owl-dt-container-row{
-  width: 300px;
-}
-.owl-dt-timer-box{
-  width: 150px;
-}
-#oof{
-  width: 70%;
-}
-.inputField{
-align-content: center;
-margin-left: 25 !important;
-}
-.timeBox{
-  width: 10%;
+  float: left;
+  top: 0;
 
 }
-.arrowBttn{
+#timePicker {
+  width: 50%;
+}
+
+#oof {
+  width: 70%;
+}
+
+
+.timeBox {
+  width: 10%;
+}
+.arrowBttn {
   margin-left: 3%;
   height: 40px;
   width: 5%;
 }
-#plsMove{
+#plsMove {
   margin-right: 3%;
 }
-/*.fixedCalendar{
+.fixedCalendar {
   width: 200px;
   height: 200px;
- display: block !important;
+  display: block !important;
+  overflow: hidden;
 }
+#noteBox {
+  margin-top: 5%;
+  text-align: center;
+
+}
+#noteText{
+  width: 100%;
+}
+
+/*
 .fixedCalendar .md-calendar-scroll-mask {
   width: 340px !important;
 }
@@ -53,11 +59,26 @@ margin-left: 25 !important;
   height: 308px;
 }*/
 
-.fixed-open{
+.fixed-open {
   display: block;
-  
+
 }
 
 .mat-datepicker-toggle{
   zoom: 400%;
+}
+#noteBoxOOF {
+  flex: 0.5;
+}
+#timeBoxFlex{
+  flex: 0.5;
+}
+
+.inputField {
+  align-content: center;
+  width: 50%;
+}
+.flexBox{
+  display: flex;
+  justify-content: space-between;
 }

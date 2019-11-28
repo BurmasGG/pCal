@@ -4,15 +4,15 @@
       <ng-template matStepLabel>Dato</ng-template>
       <h4 class="inputField">Vælg dato</h4>
       <div class="inputField">
-      <mat-form-field class="example-full-width">
-        <input matInput [matDatepicker]="picker" placeholder="klik her for at vælge" required
-          formControlName="firstCtrl">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker class="fixed-open" touchUi #picker opened="true"></mat-datepicker>
-      </mat-form-field>
-    </div>
+        <mat-form-field class="example-full-width">
+          <input matInput [matDatepicker]="picker" placeholder="klik her for at vælge" required
+            formControlName="firstCtrl">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker class="fixed-open" touchUi #picker opened="true"></mat-datepicker>
+        </mat-form-field>
+      </div>
       <div>
-        <button mat-button type="submit" matStepperNext id="firstNext" class="nextBttn">Næste</button>
+        <button mat-raised-button type="submit" matStepperNext id="firstNext" class="nextBttn">Næste</button>
       </div>
     </form>
   </mat-step>
@@ -20,38 +20,38 @@
   <mat-step [stepControl]="secondForm">
     <form [formGroup]="secondForm">
       <ng-template matStepLabel>Note</ng-template>
-      <div class="inputField">
-        <h4>Skriv en note nedenunder</h4>
-        <mat-form-field id="noteBox">
-          <input matInput id="textBox" #input maxlength="30" value="" matInput placeholder="Skriv her"
-            [(ngModel)]="this.newappointmentservice.note" formControlName="secondCtrl">
-        </mat-form-field>
-      </div>
-      <div>
+      <div class="flexBox">
         <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
+        <div id="noteBoxOOF" class="inputField">
+          <div id="noteBox">
+            <h4>Skriv en note nedenunder</h4>
+            <mat-form-field id="noteText">
+              <input matInput #input maxlength="30" value="" matInput placeholder="Skriv her"
+                [(ngModel)]="this.newappointmentservice.note" formControlName="secondCtrl">
+            </mat-form-field>
+          </div>
+        </div>
         <button mat-button matStepperNext class="nextBttn">Næste</button>
       </div>
     </form>
   </mat-step>
 
-  <mat-step [stepControl]="thirdForm" >
-    <form (ngSubmit)="hourSubmit(thirdForm.value)" [formGroup]="thirdForm">
+  <mat-step [stepControl]="thirdForm">
+    <form [formGroup]="thirdForm">
       <ng-template matStepLabel>Tidspunkt</ng-template>
-      <h4>Vælg tidspunkt</h4>
-      <mat-form-field class="timeBox">
-        <input matInput placeholder="12" value="4" >
-      </mat-form-field>
-      <button mat-button class="arrowBttn" (click)="hourUp()"></button>
-      <button mat-button class="arrowBttn" id="plsMove" (click)="hourDown()"></button>
-      <mat-form-field class="timeBox">
-        <input matInput placeholder="{{minutes}}" value="{{minutes}}" formControlName="thirdCtrl">
-      </mat-form-field>
-      <button mat-button class="arrowBttn" (click)="minuteUp()"></button>
-      <button mat-button class="arrowBttn" (click)="minuteDown()"></button>
-      <div>
+      <div class="flexBox">
         <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
-        <button mat-button matStepperNext (click)="hourSubmit()" (click)="minuteSubmit()"
-          class="nextBttn">Næste</button>
+        <h4>Vælg tidspunkt</h4>
+        <mat-form-field class="timeBox">
+          <input matInput placeholder="" value="{{hour}}:{{minutes}}">
+        </mat-form-field>
+        <button mat-button class="arrowBttn" (click)="hourUp()">1</button>
+        <button mat-button class="arrowBttn" id="plsMove" (click)="hourDown()">1</button>
+        <button mat-button class="arrowBttn" (click)="minuteUp()">2</button>
+        <button mat-button class="arrowBttn" (click)="minuteDown()">2</button>
+        <div>
+          <button mat-button matStepperNext (click)="timeSubmit()" class="nextBttn">Næste</button>
+        </div>
       </div>
     </form>
   </mat-step>
