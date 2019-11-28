@@ -23,13 +23,11 @@
 }
 
 
-.timeBox {
-  width: 10%;
-}
+
 .arrowBttn {
   margin-left: 3%;
   height: 40px;
-  width: 5%;
+  width: 15%;
 }
 #plsMove {
   margin-right: 3%;
@@ -77,6 +75,9 @@
 .inputField {
   align-content: center;
   width: 50%;
+}
+#timeBox {
+  width: 10%;
 }
 .flexBox{
   display: flex;

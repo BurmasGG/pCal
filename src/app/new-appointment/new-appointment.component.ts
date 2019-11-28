@@ -89,6 +89,8 @@ export class NewAppointmentComponent implements OnInit {
   minuteDown() {
     this.minutes -= 5;
   }
-
+makeCompilerHappy(thirdForm){
+  this.console.log('Thomas is god')
+}
 
 }
