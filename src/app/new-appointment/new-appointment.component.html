@@ -4,6 +4,7 @@
       <ng-template matStepLabel>Dato</ng-template>
       <h4 class="inputField">Vælg dato</h4>
       <div class="inputField">
+<<<<<<< Updated upstream
         <mat-form-field class="example-full-width">
           <input matInput [matDatepicker]="picker" placeholder="klik her for at vælge" required
             formControlName="firstCtrl">
@@ -11,6 +12,15 @@
           <mat-datepicker class="fixed-open" touchUi #picker opened="true"></mat-datepicker>
         </mat-form-field>
       </div>
+=======
+      <mat-form-field class="example-full-width">
+        <input matInput readonly [matDatepicker]="picker" placeholder="klik her for at vælge" required
+          formControlName="firstCtrl">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker class="fixed-open" touchUi #picker opened="true"></mat-datepicker>
+      </mat-form-field>
+    </div>
+>>>>>>> Stashed changes
       <div>
         <button mat-raised-button type="submit" matStepperNext id="firstNext" class="nextBttn">Næste</button>
       </div>
