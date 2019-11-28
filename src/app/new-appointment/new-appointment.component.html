@@ -37,7 +37,7 @@
   </mat-step>
 
   <mat-step [stepControl]="thirdForm">
-    <form (ngSubmit)="timeSubmit(thirdForm.value)" [formGroup]="thirdForm" >
+    <form  [formGroup]="thirdForm" >
       <ng-template matStepLabel>Tidspunkt</ng-template>
       <div class="flexBox">
         <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
