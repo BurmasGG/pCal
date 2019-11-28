@@ -55,4 +55,9 @@ margin-left: 25 !important;
 
 .fixed-open{
   display: block;
+  
+}
+
+.mat-datepicker-toggle{
+  zoom: 400%;
 }
