@@ -8,3 +8,6 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 body{max-height: 450px; max-width: 800px;}
+/*.mat-form-field-infix {
+  border-top: 0 !important;
+}*/

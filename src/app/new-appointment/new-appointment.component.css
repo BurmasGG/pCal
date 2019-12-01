@@ -3,43 +3,61 @@
   width: 100px;
   font-weight: bold;
   top: 0;
+  background-color: rgb(3, 209, 106);
 }
 .backBttn {
   height: 150px;
   width: 100px;
   font-weight: bold;
   top: 0;
+  background-color: rgb(255, 217, 1);
+}
+#deleteBttn{
+  height: 150px;
+  width: 100px;
+  font-weight: bold;
+  top: 0;
+  background-color: red;
+
+}
+#calField {
+  font-size: 25px;
 }
 #topButton {
-  margin-right: 10%;
+  margin-right: 8%;
 }
 #botButton {
-  margin-right: 10%;
+  margin-right: 8%;
 }
 #timePicker {
   width: 50%;
 }
-
+#timeInput {
+  height: 25px;
+  border-top: 0 !important;
+}
+.mat-form-field-infix {
+  border-top: 0 !important;
+}
 #oof {
   width: 70%;
 }
 .arrowUpBttn {
   margin-left: 3%;
-  height: 50px;
-  width: 15%;
-  background-color: grey;
-  background: url("src/assets/img/arrowUp.png") 50% 50% no-repeat;
+  height: 65px;
+  width: 65px;
+  border-radius: 50%;
 }
 .arrowDownBttn {
   margin-left: 3%;
-  height: 50px;
-  width: 15%;
-  background-color: grey;
-  background: url("src/assets/img/ArrowDown.png") 50% 50% no-repeat;
+  height: 65px;
+  width: 65px;
+  border-radius: 50%;
 }
-#plsMove {
-  margin-right: 3%;
+.material-icons {
+  transform: scale(2);
 }
+
 .fixedCalendar {
   width: 200px;
   height: 200px;
@@ -54,7 +72,14 @@
   width: 100%;
   font-size: 25px;
 }
-
+#textBox {
+  width: 80%;
+}
+#whereBox {
+  width: 80%;
+}
+#firstNext {
+}
 /*
 .fixedCalendar .md-calendar-scroll-mask {
   width: 340px !important;
@@ -69,7 +94,7 @@
   display: block;
 }
 
-.mat-datepicker-toggle{
+.mat-datepicker-toggle {
   zoom: 450%;
 }
 #noteBoxOOF {
@@ -81,10 +106,20 @@
 #peopleBoxFlex {
   flex: 0.5;
 }
+#placeboxFlex {
+  flex: 0.5;
+}
+#viewFlexBox {
+  flex: 0.5;
+}
+#cardFlex1 {
+  flex: 0.5;
+}
 
 .inputField {
   align-content: center;
   width: 50%;
+  margin-left: 10%;
 }
 #timeBox {
   text-align: center;
@@ -98,16 +133,92 @@
   width: 100%;
   font-size: 25px;
 }
-#placeBox{
+#placeBox {
   text-align: center;
   align-content: center;
   width: 100%;
   font-size: 25px;
 }
-#placeboxFlex{
-  flex: 0.5;
-}
+
 .flexBox {
   display: flex;
   justify-content: space-between;
+}
+
+#header {
+  text-align: center;
+}
+#nextbttn {
+  height: 105px;
+  width: 70px;
+  background-color: chartreuse;
+  margin-right: 1%;
+  font-weight: bold;
+}
+#top {
+  display: flex;
+  height: 20%;
+  margin-bottom: 5%;
+}
+#bottom {
+  display: flex;
+  height: 20%;
+}
+#SCN {
+  background-color: rgb(96, 119, 221);
+  width: 45%;
+  height: 80%;
+}
+#fam {
+  background-color: chartreuse;
+  width: 45%;
+  height: 80%;
+  margin-right: 3%;
+  margin-bottom: 3%;
+}
+#bold {
+  background-color: chocolate;
+  width: 45%;
+  height: 80%;
+}
+#læge {
+  background-color: rgb(196, 9, 9);
+  width: 45%;
+  height: 80%;
+  margin-right: 3%;
+  margin-bottom: 3%;
+}
+#famImg {
+  background: url("src/assets/img/fam.png") 50% 50% no-repeat;
+}
+
+#SCNImg {
+  background: url("src/assets/img/smile.png") 50% 50% no-repeat;
+}
+#ballImg {
+  background: url("src/assets/img/football.png") 50% 50% no-repeat;
+}
+#healthImg {
+  background: url("src/assets/img/heart.png") 50% 50% no-repeat;
+}
+#fluebenImg {
+  background: url("src/assets/img/checkMark.png") 50% 50% no-repeat;
+}
+.flexType {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+#outerBox {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.cardDiv {
+  display: flex;
+  flex-direction: row;
+  margin-left: 7%;
+}
+#headerDiv {
+  text-align: center;
 }

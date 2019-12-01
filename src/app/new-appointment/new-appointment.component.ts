@@ -17,7 +17,13 @@ export class NewAppointmentComponent implements OnInit {
   fourthForm: FormGroup;
   fifthForm: FormGroup;
   sixthForm: FormGroup;
+  typeForm: FormGroup;
   console = console;
+  public pickedFam = false;
+  public pickedSCN = false;
+  public pickedHealth = false;
+  public pickedBall = false;
+  public isChecked = false;
   date;
   month;
   day;
@@ -26,13 +32,22 @@ export class NewAppointmentComponent implements OnInit {
   hour = 12;
   minutes = 30;
   time;
-
+  type: string;
 
   constructor(public navservice: NavService,
     private router: Router, public newappointmentservice: AppointmentService, private formBuilder: FormBuilder) { }
 
+  objSCN; objFam; objHealth; objBall;
+
+  ngAfterViewInit(): void {
+    this.objSCN = document.getElementById('SCNImg');
+    this.objFam = document.getElementById('famImg');
+    this.objHealth = document.getElementById('healthImg');
+    this.objBall = document.getElementById('ballImg');
+  }
 
   ngOnInit() {
+
     if (this.navservice.wasHome === false) {
       this.router.navigate(['/home']);
     }
@@ -54,7 +69,9 @@ export class NewAppointmentComponent implements OnInit {
     this.sixthForm = this.formBuilder.group({
       sixthCtrl: ['', Validators.required]
     });
-
+    this.typeForm = this.formBuilder.group({
+      typeCtrl: ['', Validators.required]
+    });
 
   }
   dateSubmit(firstForm) {
@@ -77,18 +94,68 @@ export class NewAppointmentComponent implements OnInit {
   }
   hourUp() {
     this.hour += 1;
-    console.log(this.hour);
+    if (this.hour > 24) {
+      this.hour = 1;
+    }
   }
   hourDown() {
     this.hour -= 1;
-    console.log(this.hour);
+    if (this.hour < 0) {
+      this.hour = 24;
+    }
 
   }
   minuteUp() {
     this.minutes += 5;
+    if (this.minutes > 55) {
+      this.minutes = 5;
+    }
   }
   minuteDown() {
     this.minutes -= 5;
+    if (this.minutes < 5) {
+      this.minutes = 55;
+    }
+  }
+  pickFam() {
+    this.objSCN.id = 'SCNImg';
+    this.objBall.id = 'ballImg';
+    this.objFam.id = 'fluebenImg';
+    this.objHealth.id = 'healthImg';
+    this.type = "Familie aftale";
+  }
+  pickSCN() {
+    this.objSCN.id = 'fluebenImg';
+    this.objBall.id = 'ballImg';
+    this.objFam.id = 'famImg';
+    this.objHealth.id = 'healthImg';
+    this.type = "aftale med SCN";
   }
 
+  pickHealth() {
+    this.objSCN.id = 'SCNImg';
+    this.objBall.id = 'ballImg';
+    this.objFam.id = 'famImg';
+    this.objHealth.id = 'fluebenImg';
+    this.type ="Aftale med sunhedvæsenet";
+  }
+  pickBall() {
+    this.objSCN.id = 'SCNImg';
+    this.objBall.id = 'fluebenImg';
+    this.objFam.id = 'famImg';
+    this.objHealth.id = 'healthImg';
+    this.type = 'Underholdning'
+  }
+  routeToHome() {
+    this.router.navigate(['/home']);
+  }
+  delete() {
+    this.time = '';
+    this.realDate = '';
+    this.newappointmentservice.note = '';
+    this.newappointmentservice.people = '';
+    this.newappointmentservice.place = '';
+    this.routeToHome();
+  }
 }
+
