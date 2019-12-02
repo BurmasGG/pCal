@@ -5,15 +5,15 @@ import { AppointmentService } from '../newAppointment.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Keyboard from "simple-keyboard";
 import layout from "./danishKeyboard";
-
-import {ToastrService} from 'ngx-toastr';
+import { EventService } from '../event.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-new-appointment',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './new-appointment.component.html',
   styleUrls: ['./new-appointment.component.css',
-"../../../node_modules/simple-keyboard/build/css/index.css"]
+    "../../../node_modules/simple-keyboard/build/css/index.css"]
 })
 export class NewAppointmentComponent implements OnInit {
   isLinear = false;
@@ -30,10 +30,10 @@ export class NewAppointmentComponent implements OnInit {
   public pickedHealth = false;
   public pickedBall = false;
   public isChecked = false;
-  date;
   month;
   day;
   year;
+  note: string;
   realDate: string;
   hour = 12;
   minutes = 30;
@@ -43,7 +43,8 @@ export class NewAppointmentComponent implements OnInit {
   keyboard: Keyboard;
 
   constructor(public navservice: NavService,
-    private router: Router, public newappointmentservice: AppointmentService, private formBuilder: FormBuilder, private toastrService:ToastrService) { }
+    private router: Router, public newappointmentservice: AppointmentService, private formBuilder: FormBuilder,
+    private eventservice: EventService, private toastrService: ToastrService, ) { }
 
   objSCN; objFam; objHealth; objBall;
 
@@ -105,14 +106,14 @@ export class NewAppointmentComponent implements OnInit {
   }
   hourUp() {
     this.hour += 1;
-    if (this.hour > 24) {
+    if (this.hour > 23) {
       this.hour = 1;
     }
   }
   hourDown() {
     this.hour -= 1;
-    if (this.hour < 0) {
-      this.hour = 24;
+    if (this.hour < 1) {
+      this.hour = 23;
     }
 
   }
@@ -133,14 +134,14 @@ export class NewAppointmentComponent implements OnInit {
     this.objBall.id = 'ballImg';
     this.objFam.id = 'fluebenImg';
     this.objHealth.id = 'healthImg';
-    this.type = "Familie aftale";
+    this.type = "Familie";
   }
   pickSCN() {
     this.objSCN.id = 'fluebenImg';
     this.objBall.id = 'ballImg';
     this.objFam.id = 'famImg';
     this.objHealth.id = 'healthImg';
-    this.type = "aftale med SCN";
+    this.type = "SCN";
   }
 
   pickHealth() {
@@ -148,7 +149,7 @@ export class NewAppointmentComponent implements OnInit {
     this.objBall.id = 'ballImg';
     this.objFam.id = 'famImg';
     this.objHealth.id = 'fluebenImg';
-    this.type = "Aftale med sunhedvæsenet";
+    this.type = "Sunhedsvæsenet";
   }
   pickBall() {
     this.objSCN.id = 'SCNImg';
@@ -161,7 +162,7 @@ export class NewAppointmentComponent implements OnInit {
     this.router.navigate(['/home']);
   }
   delete() {
-    this.newappointmentservice.time =  '';
+    this.newappointmentservice.time = '';
     this.newappointmentservice.date = '';
     this.newappointmentservice.note = '';
     this.newappointmentservice.people = '';
@@ -174,10 +175,11 @@ export class NewAppointmentComponent implements OnInit {
     this.newappointmentservice.date = this.realDate;
     this.newappointmentservice.time = this.time;
     this.router.navigate(['home']);
-        /*Toastr-message when new appointment save-button is pressed*/
-    this.toastrService.success('Din aftale blev gemt', 'Success!'); 
+    /*Toastr-message when new appointment save-button is pressed*/
+    this.toastrService.success('Din aftale blev gemt', 'Success!');
 
     this.newappointmentservice.printTester();
+    this.eventservice.AddEvent
   }
 
   onChange = (input: string) => {
@@ -206,7 +208,9 @@ export class NewAppointmentComponent implements OnInit {
       layoutName: shiftToggle
     });
   };
-
+  makeTextWork(){
+    this.noteTekst = this.newappointmentservice.note;
+  }
 
 
 }

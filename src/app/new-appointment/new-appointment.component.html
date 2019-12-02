@@ -78,7 +78,7 @@
             </mat-form-field>
           </div>
         </div>
-        <button mat-button matStepperNext class="nextBttn">Næste</button>
+        <button mat-button matStepperNext class="nextBttn" (click)="makeTextWork()">Næste</button>
       </div>
     </form>
     <div class="simple-keyboard"></div>
@@ -160,7 +160,7 @@
           <em><b><h4>Din aftale er som følgende:</h4></b></em>
         </div>
         <div id="resumeDiv">
-          <b>Type:</b> {{type}}<br>
+          <b>Aftale med:</b> {{type}}<br>
           <b>Dato:</b> {{realDate}}<br>
           <b>Note:</b> {{this.newappointmentservice.note}}<br>
           <b>Kl:</b> {{time}}<br>

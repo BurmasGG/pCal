@@ -29,10 +29,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatStepperModule } from '@angular/material/stepper';
 import { OwlDateTimeModule, OwlNativeDateTimeModule, OwlDateTimeIntl } from 'ng-pick-datetime';
 import { HttpClientModule } from '@angular/common/http';
-
 import { EventService } from './event.service';
-
-import {ToastrModule} from 'ngx-toastr';
+import { ToastrModule } from 'ngx-toastr';
 
 // export class DefaultIntl extends OwlDateTimeIntl = {
 //   hour12AMLabel = '',
@@ -83,7 +81,7 @@ import {ToastrModule} from 'ngx-toastr';
       positionClass: 'toast-center-center',
       preventDuplicates: true,
     }),
-   
+
   ],
   providers: [EventService, EventDialogComponent, EventViewComponent, HomeViewComponent, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true, disableClose: false, autoFocus: true, width: 450, height: 450 } }],
   bootstrap: [AppComponent],
