@@ -1,13 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { NavService } from '../nav.service';
 import { Router } from '@angular/router';
 import { AppointmentService } from '../newAppointment.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import Keyboard from "simple-keyboard";
+import layout from "./danishKeyboard";
 
 @Component({
   selector: 'app-new-appointment',
+  encapsulation: ViewEncapsulation.None,
   templateUrl: './new-appointment.component.html',
-  styleUrls: ['./new-appointment.component.css']
+  styleUrls: ['./new-appointment.component.css',
+"../../../node_modules/simple-keyboard/build/css/index.css"]
 })
 export class NewAppointmentComponent implements OnInit {
   isLinear = false;
@@ -33,6 +37,8 @@ export class NewAppointmentComponent implements OnInit {
   minutes = 30;
   time;
   type: string;
+  noteTekst = "";
+  keyboard: Keyboard;
 
   constructor(public navservice: NavService,
     private router: Router, public newappointmentservice: AppointmentService, private formBuilder: FormBuilder) { }
@@ -44,6 +50,12 @@ export class NewAppointmentComponent implements OnInit {
     this.objFam = document.getElementById('famImg');
     this.objHealth = document.getElementById('healthImg');
     this.objBall = document.getElementById('ballImg');
+
+    this.keyboard = new Keyboard({
+      onChange: input => this.onChange(input),
+      onKeyPress: button => this.onKeyPress(button),
+      layout: layout
+    });
   }
 
   ngOnInit() {
@@ -163,5 +175,34 @@ export class NewAppointmentComponent implements OnInit {
     this.router.navigate(['home']);
     this.newappointmentservice.printTester();
   }
-}
 
+  onChange = (input: string) => {
+    this.noteTekst = input;
+    console.log("Input changed", input);
+  };
+
+  onKeyPress = (button: string) => {
+    console.log("Button pressed", button);
+
+    /**
+     * If you want to handle the shift and caps lock buttons
+     */
+    if (button === "{shift}" || button === "{lock}") this.handleShift();
+  };
+
+  onInputChange = (event: any) => {
+    this.keyboard.setInput(event.target.value);
+  };
+
+  handleShift = () => {
+    let currentLayout = this.keyboard.options.layoutName;
+    let shiftToggle = currentLayout === "default" ? "shift" : "default";
+
+    this.keyboard.setOptions({
+      layoutName: shiftToggle
+    });
+  };
+
+
+
+}

@@ -228,3 +228,7 @@
 #resumeDiv{
   font-size: 20px;
 }
+
+.simple-keyboard {
+  max-width: 850px;
+}

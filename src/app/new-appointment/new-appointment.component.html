@@ -73,7 +73,7 @@
           <div id="noteBox">
             <h4>Skriv en note nedenunder</h4>
             <mat-form-field id="noteText">
-              <input matInput #input maxlength="30" value="" matInput placeholder="Skriv her"
+              <input matInput #input maxlength="30" class="input" value="{{noteTekst}}" matInput placeholder="Skriv her"
                 [(ngModel)]="this.newappointmentservice.note" formControlName="secondCtrl">
             </mat-form-field>
           </div>
@@ -81,6 +81,7 @@
         <button mat-button matStepperNext class="nextBttn">Næste</button>
       </div>
     </form>
+    <div class="simple-keyboard"></div>
   </mat-step>
 
   <mat-step [stepControl]="thirdForm">
