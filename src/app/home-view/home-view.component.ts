@@ -27,10 +27,11 @@ export class HomeViewComponent implements OnInit {
 
     // Init default values
     this.maxDays = this.GetMaxDaysOfMonth(this.curMonth);
-    this.months = [11, this.curMonth];
+    this.months = [this.curMonth, this.curMonth];
 
     this.RefreshView('home');
-    this.eventService.AddEvent("Underholdning", "Randers mod Aab", "Trofæ kamp.", 2019, 12, 8, "18:00", "Parken");
+
+    //this.eventService.AddEvent("Familie", "Kaffe med Ulla", 2019, 12, 8, "12:30", "Ulla", "Torvecaféen");
   }
 
   FetchEvents()
@@ -69,7 +70,7 @@ export class HomeViewComponent implements OnInit {
   justChangedMonthNext = false;
   justChangedMonthBack = false;
 
-  maxDays = 31; // assume long months bu default
+  maxDays = 31; // assume long months by default
   normMonths = [4, 6, 9, 11] // April, Juni ... have 30 days
   public eventsSorted = []; // dagene events skal ind under
   public dayTitles = [];

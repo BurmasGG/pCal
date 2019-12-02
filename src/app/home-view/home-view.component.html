@@ -10,8 +10,7 @@
     <span *ngIf="eventsSorted">
       <div class="event {{event.type}}" *ngFor="let event of eventsSorted[i]; let j = index" (click)="eventView.ShowEvent(i, j, eventsSorted)"> <!--Viser fejl, men SKAL være der.-->
         <img class="img {{event.type}}" src="">
-        <p id="title">{{event.title}}</p>
-        <p id="note" hidden>{{event.note}}</p>
+        <p id="note">{{event.note}}</p>
         <p id="time" hidden>{{event.time}}</p>
         <p id="date" hidden>{{event.date}}</p>
         <p id="people" hidden>{{event.people}}</p>
