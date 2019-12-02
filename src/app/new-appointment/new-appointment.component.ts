@@ -163,7 +163,7 @@ export class NewAppointmentComponent implements OnInit {
     this.newappointmentservice.time = this.time;
     this.router.navigate(['home']);
         /*Toastr-message when new appointment save-button is pressed*/
-    this.toastrService.success('Success!', 'Din aftale blev gemt'); 
+    this.toastrService.success('Din aftale blev gemt', 'Success!'); 
 
     this.newappointmentservice.printTester();
   }

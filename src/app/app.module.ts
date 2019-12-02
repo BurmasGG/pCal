@@ -79,7 +79,7 @@ import {ToastrModule} from 'ngx-toastr';
     OwlNativeDateTimeModule,
     HttpClientModule,
     ToastrModule.forRoot({
-      timeOut: 10000,
+      timeOut: 5000,
       positionClass: 'toast-center-center',
       preventDuplicates: true,
     }),
