@@ -6,6 +6,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import Keyboard from "simple-keyboard";
 import layout from "./danishKeyboard";
 
+import {ToastrService} from 'ngx-toastr';
+
 @Component({
   selector: 'app-new-appointment',
   encapsulation: ViewEncapsulation.None,
@@ -41,7 +43,7 @@ export class NewAppointmentComponent implements OnInit {
   keyboard: Keyboard;
 
   constructor(public navservice: NavService,
-    private router: Router, public newappointmentservice: AppointmentService, private formBuilder: FormBuilder) { }
+    private router: Router, public newappointmentservice: AppointmentService, private formBuilder: FormBuilder, private toastrService:ToastrService) { }
 
   objSCN; objFam; objHealth; objBall;
 
@@ -100,7 +102,6 @@ export class NewAppointmentComponent implements OnInit {
 
   finishAppointment() {
     this.newappointmentservice.printTester();
-
   }
   hourUp() {
     this.hour += 1;
@@ -173,6 +174,9 @@ export class NewAppointmentComponent implements OnInit {
     this.newappointmentservice.date = this.realDate;
     this.newappointmentservice.time = this.time;
     this.router.navigate(['home']);
+        /*Toastr-message when new appointment save-button is pressed*/
+    this.toastrService.success('Din aftale blev gemt', 'Success!'); 
+
     this.newappointmentservice.printTester();
   }
 
