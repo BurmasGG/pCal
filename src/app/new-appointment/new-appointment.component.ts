@@ -79,12 +79,10 @@ export class NewAppointmentComponent implements OnInit {
     this.month = this.firstForm.value.firstCtrl.getMonth() + 1;
     this.year = this.firstForm.value.firstCtrl.getFullYear();
     this.realDate = this.day + '/' + this.month + '/' + this.year;
-    console.log(this.realDate);
   }
 
   timeSubmit() {
     this.time = this.hour.toString() + ':' + this.minutes.toString();
-    console.log(this.time);
 
   }
 
@@ -137,7 +135,7 @@ export class NewAppointmentComponent implements OnInit {
     this.objBall.id = 'ballImg';
     this.objFam.id = 'famImg';
     this.objHealth.id = 'fluebenImg';
-    this.type ="Aftale med sunhedvæsenet";
+    this.type = "Aftale med sunhedvæsenet";
   }
   pickBall() {
     this.objSCN.id = 'SCNImg';
@@ -150,12 +148,20 @@ export class NewAppointmentComponent implements OnInit {
     this.router.navigate(['/home']);
   }
   delete() {
-    this.time = '';
-    this.realDate = '';
+    this.newappointmentservice.time =  '';
+    this.newappointmentservice.date = '';
     this.newappointmentservice.note = '';
     this.newappointmentservice.people = '';
     this.newappointmentservice.place = '';
+    this.newappointmentservice.printTester();
     this.routeToHome();
+  }
+  saveAppointment() {
+    this.newappointmentservice.type = this.type;
+    this.newappointmentservice.date = this.realDate;
+    this.newappointmentservice.time = this.time;
+    this.router.navigate(['home']);
+    this.newappointmentservice.printTester();
   }
 }
 

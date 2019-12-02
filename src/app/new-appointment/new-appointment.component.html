@@ -3,7 +3,7 @@
     <form (ngSubmit)="dateSubmit(firstForm.value)" [formGroup]="firstForm">
       <ng-template matStepLabel>Dato</ng-template>
       <div class="flexBox">
-          <button mat-button matStepperPrevious id="deleteBttn" (click)="delete()">Anuller aftale</button>
+        <button mat-button matStepperPrevious id="deleteBttn" (click)="delete()">Anuller aftale</button>
         <div class="inputField">
           <h4 class="inputField">Vælg en dato</h4>
           tryk på ikonet til højre for at vælge en ny.
@@ -154,20 +154,22 @@
     <ng-template matStepLabel>Oversigt</ng-template>
     <div class="flexBox" id="viewFlexBox">
       <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
-      <div>
-        <em><b>Din aftale er som følgende:</b></em><br><br>
-        <b>Type:</b> {{type}}<br>
-        <b>Dato:</b> {{realDate}}<br>
-        <b>Note:</b> {{this.newappointmentservice.note}}<br>
-        <b>Kl:</b> {{time}}<br>
-        <b>Deltagere:</b> {{this.newappointmentservice.people}}<br>
-        <b>Sted:</b> {{this.newappointmentservice.place}}<br>
+      <div id="">
+        <div id="appointmentHeaderBox">
+          <em><b><h4>Din aftale er som følgende:</h4></b></em>
+        </div>
+        <div id="resumeDiv">
+          <b>Type:</b> {{type}}<br>
+          <b>Dato:</b> {{realDate}}<br>
+          <b>Note:</b> {{this.newappointmentservice.note}}<br>
+          <b>Kl:</b> {{time}}<br>
+          <b>Deltagere:</b> {{this.newappointmentservice.people}}<br>
+          <b>Sted:</b> {{this.newappointmentservice.place}}<br>
+        </div>
       </div>
       <div>
-
-        <button mat-button (click)="finishAppointment()">Gem aftale</button>
+        <button mat-button class="nextBttn" (click)="saveAppointment()">Gem aftale!</button>
       </div>
     </div>
   </mat-step>
 </mat-horizontal-stepper>
-

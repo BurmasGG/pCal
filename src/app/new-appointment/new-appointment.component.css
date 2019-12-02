@@ -12,13 +12,12 @@
   top: 0;
   background-color: rgb(255, 217, 1);
 }
-#deleteBttn{
+#deleteBttn {
   height: 150px;
   width: 100px;
   font-weight: bold;
   top: 0;
   background-color: red;
-
 }
 #calField {
   font-size: 25px;
@@ -221,4 +220,11 @@
 }
 #headerDiv {
   text-align: center;
+}
+#appointmentHeaderBox{
+  text-align: center;
+
+}
+#resumeDiv{
+  font-size: 20px;
 }
