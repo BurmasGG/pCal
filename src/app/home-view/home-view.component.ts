@@ -43,7 +43,7 @@ export class HomeViewComponent implements OnInit {
       if (this.events.length > 0)
       {
         console.log("Found " + this.events.length + " events.");
-        this.events.forEach((e) => { 
+        this.events.forEach((e) => {
       //  this.eventService.DeleteEvent(e._id).subscribe((data: Event[]) => { // DER SKAL SUBSCRIBES FØR DET SKER!!
             console.log(e.note + " d." + e.day + "/" + e.month + ", kl: " + e.time);
       //   });
@@ -103,7 +103,7 @@ export class HomeViewComponent implements OnInit {
     // clear array
     this.eventsSorted = [];
     // add indeces equal to max days to display (5 default)
-    for (let i = 0; i < this.maxDaysToDisplay; i++) { 
+    for (let i = 0; i < this.maxDaysToDisplay; i++) {
           this.eventsSorted.push([]);
     }
   }
@@ -253,7 +253,7 @@ export class HomeViewComponent implements OnInit {
   }
 
   GetMaxDaysOfMonth(month)
-  {    
+  {
     let daysOfMonth;
 
     if (month > 12 )
@@ -284,7 +284,7 @@ export class HomeViewComponent implements OnInit {
         if (month == _month)
         {
           daysOfMonth = 30;
-        } 
+        }
       });
     }
 
@@ -344,7 +344,7 @@ export class HomeViewComponent implements OnInit {
       }
       else
       {
-       this.months[0] = this.displayMonth; 
+       this.months[0] = this.displayMonth;
       }
       this.justChangedMonthBack = false;
 
@@ -358,9 +358,9 @@ export class HomeViewComponent implements OnInit {
             this.maxDays = this.GetMaxDaysOfMonth(this.displayMonth + 1);
             newMonth = true; // moved into another month
           }
-          
+
           // start from 1 for the new month
-          j++; 
+          j++;
           this.dayTitles.push(j + "/" + this.displayMonth);
         }
         else // still within max days
@@ -443,7 +443,7 @@ export class HomeViewComponent implements OnInit {
       {
         this.justChangedMonthBack = false;
       }
-    } 
+    }
 
     // Update the current displayed date variable
     if (this.dayTitles[0] == this.today)
@@ -493,7 +493,7 @@ export class HomeViewComponent implements OnInit {
     {
       let firstDayMonth = this.dayTitles[0].substring(this.dayTitles[0].length - 2, this.dayTitles[0].length);
       let lastDayMonth = this.dayTitles[this.maxDaysToDisplay - 1].substring(this.dayTitles[this.maxDaysToDisplay - 1].length - 2, this.dayTitles[this.maxDaysToDisplay - 1].length);
-      
+
       if (firstDayMonth.substring(0, 1) == '/') // day = 1-9 (no double digits)
       {
         this.months[0] = Number(firstDayMonth.substring(1, 2));
@@ -507,7 +507,7 @@ export class HomeViewComponent implements OnInit {
         this.months[0] = Number(firstDayMonth);
       }
 
-      if (lastDayMonth.substring(0, 1) == '/') 
+      if (lastDayMonth.substring(0, 1) == '/')
       {
         this.months[1] = Number(lastDayMonth.substring(1, 2));
       }
@@ -535,8 +535,8 @@ export class HomeViewComponent implements OnInit {
       {
         return true;
       }
-    } 
-    
+    }
+
     // within one month, but at year changes
     if (this.curYear != this.displayYear)
     {
