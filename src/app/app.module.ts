@@ -78,7 +78,12 @@ import {ToastrModule} from 'ngx-toastr';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     HttpClientModule,
-    ToastrModule.forRoot(),
+    ToastrModule.forRoot({
+      timeOut: 10000,
+      positionClass: 'toast-center-center',
+      preventDuplicates: true,
+    }),
+   
   ],
   providers: [EventService, EventDialogComponent, EventViewComponent, HomeViewComponent, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true, disableClose: false, autoFocus: true, width: 450, height: 450 } }],
   bootstrap: [AppComponent],

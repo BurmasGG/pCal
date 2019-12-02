@@ -90,9 +90,6 @@ export class NewAppointmentComponent implements OnInit {
 
   finishAppointment() {
     this.newappointmentservice.printTester();
-    /*Toastr-message when new appointment save-button is pressed*/
-    this.toastrService.success('Success!', 'Din aftale blev gemt'); 
-
   }
   hourUp() {
     this.hour += 1;
@@ -165,6 +162,9 @@ export class NewAppointmentComponent implements OnInit {
     this.newappointmentservice.date = this.realDate;
     this.newappointmentservice.time = this.time;
     this.router.navigate(['home']);
+        /*Toastr-message when new appointment save-button is pressed*/
+    this.toastrService.success('Success!', 'Din aftale blev gemt'); 
+
     this.newappointmentservice.printTester();
   }
 }
