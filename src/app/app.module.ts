@@ -32,6 +32,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { EventService } from './event.service';
 
+import {ToastrModule} from 'ngx-toastr';
+
 // export class DefaultIntl extends OwlDateTimeIntl = {
 //   hour12AMLabel = '',
 //   hour12PMLaben = '',
@@ -76,6 +78,7 @@ import { EventService } from './event.service';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     HttpClientModule,
+    ToastrModule.forRoot(),
   ],
   providers: [EventService, EventDialogComponent, EventViewComponent, HomeViewComponent, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true, disableClose: false, autoFocus: true, width: 450, height: 450 } }],
   bootstrap: [AppComponent],

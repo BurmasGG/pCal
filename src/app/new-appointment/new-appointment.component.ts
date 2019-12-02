@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AppointmentService } from '../newAppointment.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import {ToastrService} from 'ngx-toastr';
+
 @Component({
   selector: 'app-new-appointment',
   templateUrl: './new-appointment.component.html',
@@ -35,7 +37,7 @@ export class NewAppointmentComponent implements OnInit {
   type: string;
 
   constructor(public navservice: NavService,
-    private router: Router, public newappointmentservice: AppointmentService, private formBuilder: FormBuilder) { }
+    private router: Router, public newappointmentservice: AppointmentService, private formBuilder: FormBuilder, private toastrService:ToastrService) { }
 
   objSCN; objFam; objHealth; objBall;
 
@@ -88,6 +90,8 @@ export class NewAppointmentComponent implements OnInit {
 
   finishAppointment() {
     this.newappointmentservice.printTester();
+    /*Toastr-message when new appointment save-button is pressed*/
+    this.toastrService.success('Success!', 'Din aftale blev gemt'); 
 
   }
   hourUp() {
