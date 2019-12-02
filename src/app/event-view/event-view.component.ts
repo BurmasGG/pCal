@@ -23,7 +23,9 @@ export class EventViewComponent {
       data:{
         title: t.title,
         note: t.note,
-        date: t.date,
+        year: t.year,
+        month: t.month,
+        day: t.day,
         time: t.time,
         people: t.people,
         place: t.place
@@ -47,13 +49,13 @@ export class EventViewComponent {
   public EditEvent(day, event, eventList, week = "")
   {
     let t = this.SetT(day, event, eventList, week);
-    alert('Smid info over til "new appointment" wizard\n' + t.title + ", " + t.date);
+    alert('Smid info over til "new appointment" wizard\n' + t.note + ", " + t.day + "/" + t.month + "/" + t.year);
   }
 
   public DeleteEvent(day, event, eventList, week = "")
   {
     let t = this.SetT(day, event, eventList, week);
-    alert('Sikker på du vil slette "' + t.title + '"? besked ting.');
+    alert('Sikker på du vil slette "' + t.note + '"? besked ting.');
   }
 
   // Hvis 'week' er angivet er det månedsvisning og vi skal hente >event< under >day<, under >week<

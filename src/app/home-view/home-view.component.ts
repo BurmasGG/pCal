@@ -30,7 +30,7 @@ export class HomeViewComponent implements OnInit {
     this.months = [11, this.curMonth];
 
     this.RefreshView('home');
-    //this.eventService.AddEvent("Underholdning", "BIF mod Aab", "Trofæ kamp.", 2019, 12, 8, "17:00", "Parken");
+    this.eventService.AddEvent("Underholdning", "Randers mod Aab", "Trofæ kamp.", 2019, 12, 8, "18:00", "Parken");
   }
 
   FetchEvents()
@@ -45,7 +45,7 @@ export class HomeViewComponent implements OnInit {
         console.log("Found " + this.events.length + " events.");
         this.events.forEach((e) => { 
       //  this.eventService.DeleteEvent(e._id).subscribe((data: Event[]) => { // DER SKAL SUBSCRIBES FØR DET SKER!!
-            console.log(e.title + " d." + e.day + "/" + e.month + ", kl: " + e.time);
+            console.log(e.note + " d." + e.day + "/" + e.month + ", kl: " + e.time);
       //   });
         });
       }
@@ -147,7 +147,7 @@ export class HomeViewComponent implements OnInit {
       }
 
       let events: Event[] = null;
-      this.eventService.GetEventByDate(this.displayYear, _month, _day).subscribe((data: Event) => {
+      this.eventService.GetEventByDate(this.displayYear, _month, _day).subscribe((data: Event[]) => {
         events = data;
         if (events.length >= 1)
         {
@@ -155,7 +155,7 @@ export class HomeViewComponent implements OnInit {
             let dayInt = Number(e.day) - this.displayDate; // days until event from today (e.g. 2 or 0), put into corresponding index of week view
             if (dayInt <= 4 && dayInt >= 0) {
               this.eventsSorted[dayInt].push(e);
-              console.log("Found '" + e.title + "'.");
+              console.log("Found '" + e.note + "'.");
             }
           });
         }
@@ -461,7 +461,7 @@ export class HomeViewComponent implements OnInit {
     }
 
     this.UpdateMonthHeaders();
-    this.UpdateEventListFive(this.displayYear, this.displayMonth, this.displayDate);
+    this.UpdateEventListFive();
   }
 
   UpdateMonthHeaders()

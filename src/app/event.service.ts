@@ -27,7 +27,7 @@ export class EventService {
 
   public AddEvent(_type, _title, _note, _year, _month, _day, _time, _people = "", _place = "") {
     this.realAddEvent(_type, _title, _note, _year, _month, _day, _time, _people, _place).subscribe((data: Event[]) => {
-      console.log(data);
+      console.log(data[0][0]);
     });
   }
 
