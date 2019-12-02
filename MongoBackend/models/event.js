@@ -3,6 +3,9 @@ import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
 let Event = new Schema({
+  type: {
+    type: String
+  },
   title: {
     type: String
   },
@@ -21,7 +24,7 @@ let Event = new Schema({
   note:{
     type: String
   },
-  participant: {
+  people: {
     type: String,
   },
   place: {

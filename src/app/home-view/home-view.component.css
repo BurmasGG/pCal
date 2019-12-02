@@ -36,6 +36,43 @@
   text-align: center;
 }
 
-.event {
-  background: cornflowerblue;
+
+.event.Familie {
+  background-color: chartreuse;
+}
+.img.Familie {
+  width: 24px;
+  height: 24px;
+  padding-left: 24px;
+  background: url("src/assets/img/fam.png") left top no-repeat;
+}
+
+.event.SCN {
+  background-color: rgb(96, 119, 221);
+}
+.img.SCN {
+  width: 24px;
+  height: 24px;
+  padding-left: 24px;
+  background: url("src/assets/img/smile.png") left top no-repeat;
+}
+
+.event.Sundhedsvæsenet {
+  background-color: rgb(196, 9, 9);
+}
+.img.Sundhedsvæsenet {
+  width: 24px;
+  height: 24px;
+  padding-left: 24px;
+  background: url("src/assets/img/heart.png") left top no-repeat;
+}
+
+.event.Underholdning {
+  background-color: chocolate;
+}
+.img.Underholdning {
+  width: 24px;
+  height: 24px;
+  padding-left: 24px;
+  background: url("src/assets/img/football.png") left top no-repeat;
 }

@@ -23,7 +23,6 @@ export class HomeViewComponent implements OnInit {
 
   ngOnInit() {
     this.GetTodayDate();
-    console.log("curMonth: " + this.curMonth + " (" + this.GetMonthName(11) + ")")
     this.navservice.wasHome = true;
 
     // Init default values
@@ -31,24 +30,13 @@ export class HomeViewComponent implements OnInit {
     this.months = [11, this.curMonth];
 
     this.RefreshView('home');
-    //this.AddEventUpdate();
-    this.FetchEvents();
-  }
-
-  AddEventUpdate()
-  {
-    //AddEvent(_title, _note, _year, _month, _day, _time, _people = "", _place = "")
-    this.eventService.AddEvent("DET FUCKING VIRKER", "det her ", 2019, 28, 11, "16:00").subscribe((data: Event[]) => {
-      console.log(data);
-      this.FetchEvents();
-    });
+    //this.eventService.AddEvent("Underholdning", "BIF mod Aab", "Trofæ kamp.", 2019, 12, 8, "17:00", "Parken");
   }
 
   FetchEvents()
   {
     this.eventService.GetAllEvents().subscribe((data: Event[]) => {
       /** setting the issue to what is being returned from the service call*/
-      console.log("Received data: " + data[0].title);
       this.events = data;
       /** print out what is coming back from the service call */
 
@@ -102,13 +90,6 @@ export class HomeViewComponent implements OnInit {
   displayMonthName;
   displayDateName;
 
-  ClearSortedEvents(){
-      this.eventsSorted = [];
-      for (let i = 0; i < this.maxDaysToDisplay; i++) {
-            this.eventsSorted.push([]);
-    }
-  }
-
   GetTodayDate()
   {
     this.curDay = Number(this.dp.transform(this.date, 'd'));
@@ -118,15 +99,68 @@ export class HomeViewComponent implements OnInit {
     this.curYear = Number(this.dp.transform(this.date, 'y'));
   }
 
-  public UpdateEventListFive() {
-    this.ClearSortedEvents();
+  ClearSortedEvents(){
+    // clear array
+    this.eventsSorted = [];
+    // add indeces equal to max days to display (5 default)
+    for (let i = 0; i < this.maxDaysToDisplay; i++) { 
+          this.eventsSorted.push([]);
+    }
+  }
 
-    // if (eMonth == this.curMonth) {
-    //   let dayInt = eDay - this.curDay;
-    //   if (dayInt < 5 && dayInt > -1) {
-    //     this.eventsSorted[dayInt].push(e);
-    //   }
-    // }
+  public UpdateEventListFive() { // _year, _month, _day
+    this.ClearSortedEvents();
+    let _day = this.curDay;
+    let _month = this.curMonth;
+
+    for (let i = 0; i < this.maxDaysToDisplay; i++) {
+      let sepDigit = 3 // default '/' placement in date (12>/<12 vs 1/12)
+
+      // Get Day value of the displayed dates
+      if (this.dayTitles[i] == this.today)
+      {
+        _day = this.curDay;
+      }
+      else
+      {
+        _day = Number(this.dayTitles[i].substring(0, 2));
+
+          if (isNaN(_day)) // Not a number means that we have substringed (>1/<12)
+          {
+            sepDigit = 2;
+            _day = Number(this.dayTitles[i].substring(0, 1));
+          }
+      }
+      // Get Month value of the displayed dates
+      if (this.dayTitles[i] == this.today)
+      {
+        _month = this.curMonth;
+      }
+      else
+      {
+        _month = Number(this.dayTitles[i].substring(sepDigit, 5));
+
+          if (isNaN(_month)) // Not a number means that we have substringed (>1/<12)
+          {
+            _month = Number(this.dayTitles[i].substring(sepDigit, 4));
+        }
+      }
+
+      let events: Event[] = null;
+      this.eventService.GetEventByDate(this.displayYear, _month, _day).subscribe((data: Event) => {
+        events = data;
+        if (events.length >= 1)
+        {
+          events.forEach(e => {
+            let dayInt = Number(e.day) - this.displayDate; // days until event from today (e.g. 2 or 0), put into corresponding index of week view
+            if (dayInt <= 4 && dayInt >= 0) {
+              this.eventsSorted[dayInt].push(e);
+              console.log("Found '" + e.title + "'.");
+            }
+          });
+        }
+      });
+    }
   }
 
   GetMonthName(month)
@@ -215,7 +249,6 @@ export class HomeViewComponent implements OnInit {
       return;
     }
 
-    //console.log("--------------------------------------------------");
     this.UpdateDayTitles(newDisplayDay, operation);
   }
 
@@ -256,7 +289,6 @@ export class HomeViewComponent implements OnInit {
     }
 
     this.displayMonth = month;
-    //console.log("Days in Month (" + this.displayMonth + "): " + daysOfMonth);
     return daysOfMonth;
   }
 
@@ -296,7 +328,6 @@ export class HomeViewComponent implements OnInit {
         {
           let day = (dayToDisplayFrom + i);
           this.dayTitles.push(day + "/" + this.displayMonth);
-         // this.eventService.GetEventByDate(this.displayYear, this.displayMonth, this.displayDate);
         }
       }
     }
@@ -430,7 +461,7 @@ export class HomeViewComponent implements OnInit {
     }
 
     this.UpdateMonthHeaders();
-    //console.log("new DD: " + this.displayDate);
+    this.UpdateEventListFive(this.displayYear, this.displayMonth, this.displayDate);
   }
 
   UpdateMonthHeaders()
@@ -489,12 +520,8 @@ export class HomeViewComponent implements OnInit {
         this.months[1] = Number(lastDayMonth);
       }
     }
-
-    console.log("months[0]: " + this.months[0] + " (" + this.GetMonthName(this.months[0] + ")"))
-
     this.prevMonthName = this.GetMonthName(this.months[0]);
     this.nextMonthName = this.GetMonthName(this.months[1]);
-    //console.log("Updated month headers");
   }
 
   b_WithinMonth()

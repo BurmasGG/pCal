@@ -12,22 +12,27 @@ export class EventService {
 /** To make the httpclient available inside the IssueService class */
   constructor(private http: HttpClient) { }
 
-  GetAllEvents(){
+  public GetAllEvents(){
     /** sending out an HTTP get request to the url, returning all the events in .json format*/
     return this.http.get(`${this.uri}/events`);
   }
 
-  GetEventByDate(year, month, day){
-    console.log("GetEventByDate: " + year, month, day);
-    return this.http.get(`${this.uri}/events/${year}, ${month}, ${day}`)
+  public GetEventByDate(year, month, day){
+    return this.http.get(`${this.uri}/events/${year}-${month}-${day}`)
   }
 
-  GetEventById(id) {
+  public GetEventById(id) {
     return this.http.get(`${this.uri}/events/${id}`);
   }
 
-  AddEvent(_title, _note, _year, _month, _day, _time, _people = "", _place = "") {
-    const event = {title: _title, note: _note, year: _year, month: _month, day: _day, time: _time, people: _people, place: _place};
+  public AddEvent(_type, _title, _note, _year, _month, _day, _time, _people = "", _place = "") {
+    this.realAddEvent(_type, _title, _note, _year, _month, _day, _time, _people, _place).subscribe((data: Event[]) => {
+      console.log(data);
+    });
+  }
+
+  private realAddEvent(_type, _title, _note, _year, _month, _day, _time, _people, _place) {
+    const event = {type: _type, title: _title, note: _note, year: _year, month: _month, day: _day, time: _time, people: _people, place: _place};
     /** Initiating the post request using the post method
       what being returned is return by the add events method */
     return this.http.post(`${this.uri}/events/add`, event);
@@ -35,14 +40,14 @@ export class EventService {
 
 /** To know which existing event to update the 'id' and 'status' is added as parameters
 all paramter are containing the new values */
-  UpdateEvent(id, _title, _note, _date, _time, _people = "", _place = "") {
+  public UpdateEvent(id, _title, _note, _date, _time, _people = "", _place = "") {
     const event = { title: _title, note: _note, date: _date, time: _time, people: _people, place: _place };
     /** post request is send to the events, where the 'id' value is inserted, also containing the event object with updated data */
     return this.http.post(`${this.uri}/events/update/${id}`, event);
   }
   
 /** the delete method is taking 'id' as a parameter  */
-  DeleteEvent(id) {
+  public DeleteEvent(id) {
     console.log("Deleting (" + id + ")");
     return this.http.get(`${this.uri}/events/delete/${id}`);
   }

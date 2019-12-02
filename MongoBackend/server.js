@@ -40,9 +40,8 @@ router.route('/events').get((req, res) =>{
 });
 
 // Find events of the day
-router.route('events/:year.:month.:day').get((req, res) =>{
-
-  Event.find(({year: req.params.year, month: req.params.month, day: req.params.day}), (err, events) =>{
+router.route('/events/:year-:month-:day').get((req, res) =>{
+  Event.find(({year: Number(req.params.year), month: Number(req.params.month), day: Number(req.params.day)}), (err, events) =>{
     if (err) 
       console.log(err);
     else
@@ -57,8 +56,8 @@ router.route('/events/:id').get((req, res) => {
 	//req.params.id returns the value of the parameter 'id'
   Event.findById(req.params.id, (err, event) =>{
 	   //checking for errors
-    if (err)
-		//printing out the information of error object
+      if (err)
+    //printing out the information of error object
       console.log(err);
     else
 		//send back response in json format containing the events

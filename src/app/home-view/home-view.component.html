@@ -8,7 +8,8 @@
     <p><b>{{day}}</b></p>
     <hr>
     <span *ngIf="eventsSorted">
-      <div class="event" *ngFor="let event of eventsSorted[i]; let j = index" (click)="eventView.ShowEvent(i, j, eventsSorted)"> <!--Viser fejl, men SKAL være der.-->
+      <div class="event {{event.type}}" *ngFor="let event of eventsSorted[i]; let j = index" (click)="eventView.ShowEvent(i, j, eventsSorted)"> <!--Viser fejl, men SKAL være der.-->
+        <img class="img {{event.type}}" src="">
         <p id="title">{{event.title}}</p>
         <p id="note" hidden>{{event.note}}</p>
         <p id="time" hidden>{{event.time}}</p>
