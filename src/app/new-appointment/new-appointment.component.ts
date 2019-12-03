@@ -17,6 +17,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class NewAppointmentComponent implements OnInit {
   isLinear = true;
+  editing = false;
   isTypeCompleted = false;
   isTimeCompleted = true;
   firstForm: FormGroup;
@@ -85,6 +86,25 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   ngOnInit() {
+
+    if (this.editing) {
+      switch (this.type) {
+        case "Familie": {
+          this.pickFam();
+          break;
+        }
+        case "SCN": {
+          this.objSCN();
+        }
+        case "Underholdning": {
+          this.pickBall();
+        }
+        case "Sunhedsvæsenet":{
+          this.pickHealth();
+        }
+      }
+
+    }
 
     if (this.navservice.wasHome === false) {
       this.router.navigate(['/home']);
@@ -223,6 +243,7 @@ export class NewAppointmentComponent implements OnInit {
       if (data['event'] == "Success") {
         this.router.navigate(['home']);
         this.toastrService.success('Din aftale blev gemt.', 'Success!');
+        this.delete();
       }
       else {
         if (data['reason'] != "") {
@@ -272,4 +293,5 @@ export class NewAppointmentComponent implements OnInit {
       layoutName: shiftToggle
     });
   };
+
 }

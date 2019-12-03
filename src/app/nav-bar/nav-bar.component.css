@@ -9,7 +9,7 @@
 #newPlan{
   background-color: red;
   position: absolute;
-  right: 2%;
+  right: 0%;
   height: 70px;
   font-weight: bold;
   font-size: 15px;
@@ -20,7 +20,10 @@
   height: 70px;
   font-weight: bold;
   width: 100px;
-  margin-left: 0;
+  left: 0%;
   font-size: 15px;
-
+}
+#header{
+  color: white;
+  margin-left: 20%;
 }
