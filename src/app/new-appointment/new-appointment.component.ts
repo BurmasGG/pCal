@@ -175,7 +175,7 @@ export class NewAppointmentComponent implements OnInit {
     this.newappointmentservice.date = this.realDate;
     this.newappointmentservice.time = this.time;
     this.router.navigate(['home']);
-    this.toastrService.success('Din aftale blev gemt', 'Success!');
+    this.toastrService.success('Din aftale blev gemt', 'Success!', {tapToDismiss: false},);
     this.newappointmentservice.makeDateNumber();
     this.newappointmentservice.printTester();
   }

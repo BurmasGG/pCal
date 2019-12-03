@@ -78,8 +78,11 @@ import { ToastrModule } from 'ngx-toastr';
     HttpClientModule,
     ToastrModule.forRoot({
       timeOut: 5000,
+      extendedTimeOut: 2000,
+      tapToDismiss: false,
       positionClass: 'toast-center-center',
       preventDuplicates: true,
+      closeButton: true,
     }),
 
   ],
