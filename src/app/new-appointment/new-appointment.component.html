@@ -11,7 +11,7 @@
             <input matInput readonly [matDatepicker]="picker" value="10/21/2019" placeholder="Du har valgt den" required
               formControlName="firstCtrl">
             <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker class="fixed-open" touchUi #picker opened="true"></mat-datepicker>
+            <mat-datepicker class="fixed-open" touchUi #picker opened="true" appearance="fill"></mat-datepicker>
           </mat-form-field>
         </div>
         <button mat-raised-button type="submit" id="firstNext" matStepperNext class="nextBttn"
