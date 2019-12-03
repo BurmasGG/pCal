@@ -116,11 +116,6 @@ export class NewAppointmentComponent implements OnInit {
 
   }
 
-  keyboardTester(secondForm) {
-    this.noteInp = this.secondForm.value.secondCtrl;
-    console.log(this.noteInp);
-  }
-
   dateSubmit(firstForm) {
     this.day = this.firstForm.value.firstCtrl.getDate();
     this.month = this.firstForm.value.firstCtrl.getMonth() + 1;
