@@ -23,9 +23,10 @@ export class NavBarComponent implements OnInit {
 
   ngOnInit() {
   }
-  
+
   routeToAppointment() {
     this.router.navigate(['/makeAppointment']);
+    this.appService.inAppointment = true;
   }
   routeToHome() {
     this.router.navigate(['/home']);
@@ -34,6 +35,7 @@ export class NavBarComponent implements OnInit {
   routeToNextWeek() {
     this.router.navigate(['/nextWeek']);
     this.appService.clearAll();
+
   }
 }
 

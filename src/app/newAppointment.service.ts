@@ -7,13 +7,14 @@ import { EventService } from './event.service';
 })
 
 export class AppointmentService {
-  id: string = "";
-  date: string = "";
-  note: string = "";
-  people: string = "";
-  place: string = "";
-  type: string = "";
-  time: string = "";
+  inAppointment = false;
+  id: string = '';
+  date: string = '';
+  note: string = '';
+  people: string = '';
+  place: string = '';
+  type: string = '';
+  time: string = '';
   hour: number = 12;
   minutes: number = 30;
   day = 1;
@@ -44,18 +45,19 @@ export class AppointmentService {
     console.log(this.type);
   }
   public clearAll() {
-    this.id = "";
-    this.date = "";
-    this.note = "";
-    this.people = "";
-    this.place = "";
-    this.type = "";
-    this.time = "";
+    this.id = '';
+    this.date = '';
+    this.note = '';
+    this.people = '';
+    this.place = '';
+    this.type = '';
+    this.time = '';
     this.hour = 12;
     this.minutes = 30;
     this.day = 1;
     this.month = 1;
     this.year = 2020;
+    this.inAppointment = false;
   }
 
   public SetValues(e)
