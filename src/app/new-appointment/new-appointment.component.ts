@@ -18,8 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 export class NewAppointmentComponent implements OnInit {
   isLinear = true;
   isTypeCompleted = false;
-  isTimeCompleted = false;
-  timeClicked = false;
+  isTimeCompleted = true;
   firstForm: FormGroup;
   secondForm: FormGroup;
   thirdForm: FormGroup;
@@ -36,7 +35,7 @@ export class NewAppointmentComponent implements OnInit {
   month = "";
   day = "";
   year = "";
-  note= "";
+  note = "";
   place = "";
   people = "";
   realDate = "";
@@ -122,13 +121,17 @@ export class NewAppointmentComponent implements OnInit {
     this.year = this.firstForm.value.firstCtrl.getFullYear();
     this.realDate = this.day + '/' + this.month + '/' + this.year;
   }
+  pickType() {
+    if (this.isTypeCompleted == false) {
+      this.toastrService.info('Du skal vælge en type før du kan fortsætte');
+    }
+  }
 
   timeSubmit() {
     this.time = this.hour.toString() + ':' + this.minutes.toString();
     if (this.isTimeCompleted === false) {
       this.toastrService.info('Du skal vælge et tidspunkt, før du kan fortsættte');
     }
-
   }
 
   finishAppointment() {
@@ -219,19 +222,15 @@ export class NewAppointmentComponent implements OnInit {
     this.newappointmentservice.printTester();
 
     this.eventservice.AddEvent(this.type, this.newappointmentservice.note, this.newappointmentservice.year, this.newappointmentservice.month, this.newappointmentservice.day, this.time, this.newappointmentservice.people, this.newappointmentservice.place).subscribe((data: Event[]) => {
-      if (data['event'] == "Success")
-      {
+      if (data['event'] == "Success") {
         this.router.navigate(['home']);
         this.toastrService.success('Din aftale blev gemt.', 'Success!');
       }
-      else
-      {
-        if (data['reason'] != "")
-        {
+      else {
+        if (data['reason'] != "") {
           this.toastrService.error(data['reason'], 'Fejl!');
         }
-        else
-        {
+        else {
           this.toastrService.error('Noget gik galt. Prøv igen om lidt.', 'Fejl!');
         }
       }
