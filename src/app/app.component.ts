@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ViewChild, AfterViewInit, ElementRef } from '@angular/core';
-
-// import {NewAppointmentComponent} from './new-appointment.component';
+import { NewAppointmentComponent } from './new-appointment/new-appointment.component';
+import { AppointmentService } from './newAppointment.service';
 
 @Component({
   selector: 'app-root',
@@ -10,4 +10,6 @@ import { ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 })
 export class AppComponent {
   title = 'pCal';
+
+constructor( public newappointment: AppointmentService, public appointmentcomponent: NewAppointmentComponent){}
 }

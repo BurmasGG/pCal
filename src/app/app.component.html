@@ -1,16 +1,7 @@
-<div >
+<div *ngIf="this.newappointment.inAppointment == false">
   <app-nav-bar></app-nav-bar>
 </div>
 
-<!--Old timepicker:
-  <ngbd-timepicker-basic></ngbd-timepicker-basic>-->
 
 <router-outlet></router-outlet>
 
-
-<!-- Date-picker without touch ("alternative position of code"?)
-<mat-form-field>
-    <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>-->

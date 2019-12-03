@@ -62,6 +62,7 @@ export class NewAppointmentComponent implements OnInit {
   objSCN; objFam; objHealth; objBall;
 
   ngAfterViewInit(): void {
+
     this.objSCN = document.getElementById('SCNImg');
     this.objFam = document.getElementById('famImg');
     this.objHealth = document.getElementById('healthImg');
@@ -104,7 +105,7 @@ export class NewAppointmentComponent implements OnInit {
           this.pickBall();
           break;
         }
-        case "Sunhedsvæsenet":{
+        case "Sunhedsvæsenet": {
           this.pickHealth();
           break;
         }
@@ -144,6 +145,7 @@ export class NewAppointmentComponent implements OnInit {
     });
 
   }
+
 
   dateSubmit(firstForm) {
     this.day = this.firstForm.value.firstCtrl.getDate();
@@ -203,6 +205,7 @@ export class NewAppointmentComponent implements OnInit {
     this.objHealth.id = 'healthImg';
     this.type = 'Familie';
     this.isTypeCompleted = true;
+    console.log("FAM is picked")
   }
   pickSCN() {
     this.objSCN.id = 'fluebenImg';
@@ -220,6 +223,7 @@ export class NewAppointmentComponent implements OnInit {
     this.objHealth.id = 'fluebenImg';
     this.type = 'Sunhedsvæsenet';
     this.isTypeCompleted = true;
+    console.log("Health is picked")
 
   }
   pickBall() {
@@ -229,6 +233,7 @@ export class NewAppointmentComponent implements OnInit {
     this.objHealth.id = 'healthImg';
     this.type = 'Underholdning';
     this.isTypeCompleted = true;
+    console.log("Ball is picked")
 
   }
   routeToHome() {

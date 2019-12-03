@@ -30,7 +30,7 @@ export class EventViewComponent {
       autoFocus: true,
       disableClose: false,
 
-      data:{
+      data: {
         id: this.e._id,
         note: this.e.note,
         year: this.e.year,
@@ -45,20 +45,16 @@ export class EventViewComponent {
     dialogRef.afterClosed().subscribe(_result => {
       const dialogResult = dialogRef.componentInstance.dialogResult;
 
-      if (dialogResult == "delete")
-      {
-          if(confirm("Sikker på du vil slette '" + this.e.note + "'?")) 
-          {
-            this.eventService.DeleteEvent(this.e._id).subscribe((data: Event[]) => {
-              console.log(data);
-              window.location.reload();
-            });
-          }
+      if (dialogResult == "delete") {
+        if (confirm("Sikker på du vil slette '" + this.e.note + "'?")) {
+          this.eventService.DeleteEvent(this.e._id).subscribe((data: Event[]) => {
+            console.log(data);
+            window.location.reload();
+          });
+        }
       }
-      else if (dialogResult == "edit")
-      {
-        if(confirm("Sikker på du vil lave ændringer i '" + this.e.note + "'?")) 
-        {
+      else if (dialogResult == "edit") {
+        if (confirm("Sikker på du vil lave ændringer i '" + this.e.note + "'?")) {
           // call newAppointment med bool "editing = true" og this.e._id;
           //this.eventInfo = "true-" + this.e._id + "-" + this.e.type + "-" + this.e.note + "-" + this.e.year + "-" + this.e.month + "-" + this.e.day  + "-" + this.e.people  + "-" + this.e.place;
           this.appService.SetValues(this.e);
@@ -69,8 +65,7 @@ export class EventViewComponent {
   }
 
   // Hvis 'week' er angivet er det månedsvisning og vi skal hente >event< under >day<, under >week<
-  GetEvent(day, event, eventList, week)
-  {
+  GetEvent(day, event, eventList, week) {
     let e;
 
     if (week) { // uge/månedsvisning
