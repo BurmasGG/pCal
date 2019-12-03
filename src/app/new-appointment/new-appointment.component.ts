@@ -16,7 +16,10 @@ import { ToastrService } from 'ngx-toastr';
     "../../../node_modules/simple-keyboard/build/css/index.css"]
 })
 export class NewAppointmentComponent implements OnInit {
-  isLinear = false;
+  isLinear = true;
+  isTypeCompleted = false;
+  isTimeCompleted = false;
+  timeClicked = false;
   firstForm: FormGroup;
   secondForm: FormGroup;
   thirdForm: FormGroup;
@@ -35,20 +38,22 @@ export class NewAppointmentComponent implements OnInit {
   year;
   note: string;
   realDate: string;
-  hour = 12;
-  minutes = 30;
+  hour = 0;
+  minutes = 0;
   time;
   type: string;
   noteTekst = "";
   deltagerTekst = "";
   stedTekst = "";
   keyboard: Keyboard;
+  noteInp: string;
 
   constructor(public navservice: NavService,
     private router: Router, public newappointmentservice: AppointmentService, private formBuilder: FormBuilder,
     private eventservice: EventService, private toastrService: ToastrService, ) { }
 
   objSCN; objFam; objHealth; objBall;
+
 
   ngAfterViewInit(): void {
     this.objSCN = document.getElementById('SCNImg');
@@ -80,6 +85,8 @@ export class NewAppointmentComponent implements OnInit {
 
   ngOnInit() {
 
+
+
     if (this.navservice.wasHome === false) {
       this.router.navigate(['/home']);
     }
@@ -106,6 +113,12 @@ export class NewAppointmentComponent implements OnInit {
     });
 
   }
+
+  keyboardTester(secondForm) {
+    this.noteInp = this.secondForm.value.secondCtrl;
+    console.log(this.noteInp);
+  }
+
   dateSubmit(firstForm) {
     this.day = this.firstForm.value.firstCtrl.getDate();
     this.month = this.firstForm.value.firstCtrl.getMonth() + 1;
@@ -115,6 +128,9 @@ export class NewAppointmentComponent implements OnInit {
 
   timeSubmit() {
     this.time = this.hour.toString() + ':' + this.minutes.toString();
+    if (this.isTimeCompleted === false) {
+      this.toastrService.info('Du skal vælge et tidspunkt, før du kan fortsættte');
+    }
 
   }
 
@@ -122,12 +138,14 @@ export class NewAppointmentComponent implements OnInit {
     this.newappointmentservice.printTester();
   }
   hourUp() {
+    this.isTimeCompleted = true;
     this.hour += 1;
     if (this.hour > 23) {
       this.hour = 1;
     }
   }
   hourDown() {
+    this.isTimeCompleted = true;
     this.hour -= 1;
     if (this.hour < 1) {
       this.hour = 23;
@@ -135,12 +153,14 @@ export class NewAppointmentComponent implements OnInit {
 
   }
   minuteUp() {
+    this.isTimeCompleted = true;
     this.minutes += 5;
     if (this.minutes > 55) {
       this.minutes = 5;
     }
   }
   minuteDown() {
+    this.isTimeCompleted = true;
     this.minutes -= 5;
     if (this.minutes < 5) {
       this.minutes = 55;
@@ -151,14 +171,17 @@ export class NewAppointmentComponent implements OnInit {
     this.objBall.id = 'ballImg';
     this.objFam.id = 'fluebenImg';
     this.objHealth.id = 'healthImg';
-    this.type = "Familie";
+    this.type = 'Familie';
+    this.isTypeCompleted = true;
   }
   pickSCN() {
     this.objSCN.id = 'fluebenImg';
     this.objBall.id = 'ballImg';
     this.objFam.id = 'famImg';
     this.objHealth.id = 'healthImg';
-    this.type = "SCN";
+    this.type = 'SCN';
+    this.isTypeCompleted = true;
+
   }
 
   pickHealth() {
@@ -166,14 +189,18 @@ export class NewAppointmentComponent implements OnInit {
     this.objBall.id = 'ballImg';
     this.objFam.id = 'famImg';
     this.objHealth.id = 'fluebenImg';
-    this.type = "Sunhedsvæsenet";
+    this.type = 'Sunhedsvæsenet';
+    this.isTypeCompleted = true;
+
   }
   pickBall() {
     this.objSCN.id = 'SCNImg';
     this.objBall.id = 'fluebenImg';
     this.objFam.id = 'famImg';
     this.objHealth.id = 'healthImg';
-    this.type = 'Underholdning'
+    this.type = 'Underholdning';
+    this.isTypeCompleted = true;
+
   }
   routeToHome() {
     this.router.navigate(['/home']);
@@ -195,6 +222,13 @@ export class NewAppointmentComponent implements OnInit {
     this.toastrService.success('Din aftale blev gemt', 'Success!', {tapToDismiss: false});
     this.newappointmentservice.makeDateNumber();
     this.newappointmentservice.printTester();
+
+  }
+  pickType() {
+    if (this.isTypeCompleted == false) {
+      this.toastrService.info('Du skal vælge en type før du kan fortsætte');
+      console.log('tis');
+    }
   }
 
   onChange1 = (input: string) => {
