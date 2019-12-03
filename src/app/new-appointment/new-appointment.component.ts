@@ -33,15 +33,17 @@ export class NewAppointmentComponent implements OnInit {
   public pickedHealth = false;
   public pickedBall = false;
   public isChecked = false;
-  month;
-  day;
-  year;
-  note: string;
-  realDate: string;
-  hour = 0;
-  minutes = 0;
-  time;
-  type: string;
+  month = "";
+  day = "";
+  year = "";
+  note= "";
+  place = "";
+  people = "";
+  realDate = "";
+  hour = 12;
+  minutes = 30;
+  time = "";
+  type = "";
   noteTekst = "";
   deltagerTekst = "";
   stedTekst = "";
@@ -156,13 +158,13 @@ export class NewAppointmentComponent implements OnInit {
     this.isTimeCompleted = true;
     this.minutes += 5;
     if (this.minutes > 55) {
-      this.minutes = 5;
+      this.minutes = 0;
     }
   }
   minuteDown() {
     this.isTimeCompleted = true;
     this.minutes -= 5;
-    if (this.minutes < 5) {
+    if (this.minutes < 0) {
       this.minutes = 55;
     }
   }
@@ -216,19 +218,29 @@ export class NewAppointmentComponent implements OnInit {
   }
   saveAppointment() {
     this.newappointmentservice.type = this.type;
-    this.newappointmentservice.date = this.realDate;
     this.newappointmentservice.time = this.time;
-    this.router.navigate(['home']);
-    this.toastrService.success('Din aftale blev gemt', 'Success!', {tapToDismiss: false});
+    this.newappointmentservice.date = this.realDate;
     this.newappointmentservice.makeDateNumber();
     this.newappointmentservice.printTester();
 
-  }
-  pickType() {
-    if (this.isTypeCompleted == false) {
-      this.toastrService.info('Du skal vælge en type før du kan fortsætte');
-      console.log('tis');
-    }
+    this.eventservice.AddEvent(this.type, this.newappointmentservice.note, this.newappointmentservice.year, this.newappointmentservice.month, this.newappointmentservice.day, this.time, this.newappointmentservice.people, this.newappointmentservice.place).subscribe((data: Event[]) => {
+      if (data['event'] == "Success")
+      {
+        this.router.navigate(['home']);
+        this.toastrService.success('Din aftale blev gemt.', 'Success!');
+      }
+      else
+      {
+        if (data['reason'] != "")
+        {
+          this.toastrService.error(data['reason'], 'Fejl!');
+        }
+        else
+        {
+          this.toastrService.error('Noget gik galt. Prøv igen om lidt.', 'Fejl!');
+        }
+      }
+    });
   }
 
   onChange1 = (input: string) => {

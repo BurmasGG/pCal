@@ -67,6 +67,12 @@ router.route('/events/:id').get((req, res) => {
 //using HTTP post request to add data to the database
 //callback function passed into 'post' with request and response parameters
 router.route('/events/add').post((req, res) => {
+
+  if (req.body.note == "" || req.body.day == "" || req.body.type == "")
+  {
+    res.status(200).json({'event': 'Failed', 'reason': 'Begivenhed mangler beskrivelse, dato, og/eller type.'})
+    return;
+  }
 	//creates a new event
 	//data gets parsed from the request body
   let  event = new Event(req.body);
@@ -76,13 +82,13 @@ router.route('/events/add').post((req, res) => {
     .then(event => {
 		//send status code of 200 back
 		//using json method to send object in json format
-      res.status(200).json({'event': 'Added succesfully'});
+      res.status(200).json({'event': 'Success'});
     })
 	//using '.catch' to catch errors
     .catch(err => {
 		//using callback function for the response object to send back status code of 400 
 		//using '.send' method to send back text information
-      res.status(400).send('Failed to create new record');
+      res.status(400).send('Failed');
     });
 });
 //for updating existing events 

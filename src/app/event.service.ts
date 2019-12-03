@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 // Imports the HttpClient from the 'http library' to  be injected into the 'EventService' class constructor
 import { HttpClient } from '@angular/common/http';
+import { NgControlStatus } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -25,16 +26,11 @@ export class EventService {
     return this.http.get(`${this.uri}/events/${id}`);
   }
 
-  public AddEvent(_type, _note, _year, _month, _day, _time, _people = "", _place = "") {
-    this.realAddEvent(_type, _note, _year, _month, _day, _time, _people, _place).subscribe((data: Event[]) => {
-      console.log(data[0]);
-    });
-  }
-
-  private realAddEvent(_type, _note, _year, _month, _day, _time, _people, _place) {
-    const event = {type: _type, note: _note, year: _year, month: _month, day: _day, time: _time, people: _people, place: _place};
+  public AddEvent(_type, _note, _year, _month, _day, _time, _people, _place) {
+      const event = {type: _type, note: _note, year: _year, month: _month, day: _day, time: _time, people: _people, place: _place};
     /** Initiating the post request using the post method
       what being returned is return by the add events method */
+    
     return this.http.post(`${this.uri}/events/add`, event);
   }
 

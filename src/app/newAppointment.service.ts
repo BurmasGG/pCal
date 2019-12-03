@@ -43,6 +43,11 @@ export class AppointmentService {
     console.log(this.type);
   }
   public clearAll() {
+    this.day = null;
+    this.month = null;
+    this.year = null;
+    this.minutes = null;
+    this.hour = null;
     this.date = '';
     this.note = '';
     this.people = '';
@@ -50,9 +55,4 @@ export class AppointmentService {
     this.type = '';
     this.time = '';
   }
-  makeAppointment() {
-    this.eventservice.AddEvent(this.type, this.note, this.year, this.month, this.day, this.time, this.people, this.place);
-  }
-
 }
-

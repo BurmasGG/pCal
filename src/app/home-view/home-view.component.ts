@@ -31,7 +31,7 @@ export class HomeViewComponent implements OnInit {
 
     this.RefreshView('home');
 
-    //this.eventService.AddEvent("Familie", "Kaffe med Ulla", 2019, 12, 8, "12:30", "Ulla", "Torvecaféen");
+   // this.eventService.AddEvent("SCN", "Høstfest", 2019, 12, 6, "14:00", "Ulla og Oliver");
   }
 
   FetchEvents()
