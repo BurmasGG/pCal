@@ -1,4 +1,4 @@
-<mat-horizontal-stepper color="primary">
+<mat-horizontal-stepper [linear]="isLinear" #stepper>
   <mat-step [stepControl]="firstForm">
     <form (ngSubmit)="dateSubmit(firstForm.value)" [formGroup]="firstForm">
       <ng-template matStepLabel>Dato</ng-template>
@@ -20,7 +20,7 @@
     </form>
   </mat-step>
 
-  <mat-step [stepControl]="typeForm">
+  <mat-step [stepControl]="typeForm" [completed]="isTypeCompleted">
     <form>
       <ng-template matStepLabel>Aftale type</ng-template>
       <div class="flexType">
@@ -58,33 +58,34 @@
             </mat-card>
           </div>
         </div>
-        <button mat-raised-button type="submit" matStepperNext class="nextBttn" color="primary">Næste</button>
+        <button mat-raised-button type="submit" matStepperNext class="nextBttn" color="primary" (click)="pickType()">Næste</button>
 
       </div>
     </form>
   </mat-step>
 
   <mat-step [stepControl]="secondForm">
-    <form [formGroup]="secondForm">
-      <ng-template matStepLabel>Note</ng-template>
+    <form [formGroup]="secondForm" ng-model-options="{ updateOn: 'blur'}">
+      <ng-template matStepLabel>Beskrivelse</ng-template>
       <div class="flexBox">
         <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
         <div id="noteBoxOOF" class="">
           <div id="noteBox">
-            <h4>Skriv en note nedenunder</h4>
+            <h4>Skriv en beskrivelse nedenunder</h4>
             <mat-form-field id="noteText">
-              <input matInput #input maxlength="30" class="input" value="{{noteTekst}}"  matInput placeholder="Skriv her"
-                [(ngModel)]="this.newappointmentservice.note" formControlName="secondCtrl">
+              <input matInput #input maxlength="30" ng-model-options="{ updateOn: 'blur'}" class="input"
+                value="{{noteTekst}}" matInput placeholder="Skriv her" [(ngModel)]="this.newappointmentservice.note"
+                formControlName="secondCtrl">
             </mat-form-field>
           </div>
         </div>
-        <button mat-button matStepperNext class="nextBttn" >Næste</button>
+        <button mat-button matStepperNext class="nextBttn" (click)="keyboardTester()">Næste</button>
       </div>
     </form>
     <div class="simple-keyboard"></div>
   </mat-step>
 
-  <mat-step [stepControl]="thirdForm">
+  <mat-step [stepControl]="thirdForm" [completed]="isTimeCompleted">
     <form [formGroup]="thirdForm">
       <ng-template matStepLabel>Tidspunkt</ng-template>
       <div class="flexBox">
@@ -157,7 +158,9 @@
       <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
       <div id="">
         <div id="appointmentHeaderBox">
-          <em><b><h4>Din aftale er som følgende:</h4></b></em>
+          <em><b>
+              <h4>Din aftale er som følgende:</h4>
+            </b></em>
         </div>
         <div id="resumeDiv">
           <b>Aftale med:</b> {{type}}<br>
@@ -169,7 +172,7 @@
         </div>
       </div>
       <div>
-        <button mat-button class="nextBttn" (click)="saveAppointment()" >Gem aftale!</button>
+        <button mat-button class="nextBttn" (click)="saveAppointment()">Gem aftale!</button>
       </div>
     </div>
   </mat-step>
