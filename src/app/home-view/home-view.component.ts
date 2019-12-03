@@ -25,13 +25,17 @@ export class HomeViewComponent implements OnInit {
     this.GetTodayDate();
     this.navservice.wasHome = true;
 
+
+    console.log(this.displayDate);
+
+
     // Init default values
     this.maxDays = this.GetMaxDaysOfMonth(this.curMonth);
     this.months = [this.curMonth, this.curMonth];
 
     this.RefreshView('home');
 
-    //this.eventService.AddEvent("Familie", "Kaffe med Ulla", 2019, 12, 8, "12:30", "Ulla", "Torvecaféen");
+   // this.eventService.AddEvent("SCN", "Høstfest", 2019, 12, 6, "14:00", "Ulla og Oliver");
   }
 
   FetchEvents()
@@ -222,11 +226,14 @@ export class HomeViewComponent implements OnInit {
 
   RefreshView(operation)
   {
-    let newDisplayDay;
+    let newDisplayDay = 0;
 
-    if (operation == 'next')
+    if (operation === 'next')
     {
+      console.log("dD: " + this.displayDate);
       newDisplayDay = this.displayDate + 5;
+      console.log('Emils kode er trash');
+      console.log("newDD: " + newDisplayDay);
     }
     else if (operation == 'back')
     {
@@ -294,7 +301,7 @@ export class HomeViewComponent implements OnInit {
   }
 
   UpdateDayTitles(dayToDisplayFrom, operation){
-    //console.log("justChangedNext: " + this.justChangedMonthNext + ", Date to Display from: " + dayToDisplayFrom + ", operation = " + operation)
+    console.log("justChangedNext: " + this.justChangedMonthNext + ", Date to Display from: " + dayToDisplayFrom + ", operation = " + operation)
     if (dayToDisplayFrom > this.maxDays && this.justChangedMonthNext)
     {
       //console.log("Exceeded month by: " + (dayToDisplayFrom - this.maxDays) + " days");
@@ -372,8 +379,8 @@ export class HomeViewComponent implements OnInit {
           }
           else
           {
-            let day = dayToDisplayFrom + i
-            this.dayTitles.push(day + "/" + this.displayMonth); // simple (e.g. 22 + 1)
+            let day = dayToDisplayFrom + i; // simple (e.g. 22 + 1)
+            this.dayTitles.push(day + "/" + this.displayMonth);
           }
         }
       }

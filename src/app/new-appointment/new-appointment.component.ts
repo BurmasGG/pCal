@@ -16,7 +16,10 @@ import { ToastrService } from 'ngx-toastr';
     "../../../node_modules/simple-keyboard/build/css/index.css"]
 })
 export class NewAppointmentComponent implements OnInit {
-  isLinear = false;
+  isLinear = true;
+  editing = false;
+  isTypeCompleted = false;
+  isTimeCompleted = true;
   firstForm: FormGroup;
   secondForm: FormGroup;
   thirdForm: FormGroup;
@@ -30,17 +33,22 @@ export class NewAppointmentComponent implements OnInit {
   public pickedHealth = false;
   public pickedBall = false;
   public isChecked = false;
-  month;
-  day;
-  year;
-  note: string;
-  realDate: string;
+  month = "";
+  day = "";
+  year = "";
+  note = "";
+  place = "";
+  people = "";
+  realDate = "";
   hour = 12;
   minutes = 30;
-  time;
-  type: string;
+  time = "";
+  type = "";
   noteTekst = "";
+  deltagerTekst = "";
+  stedTekst = "";
   keyboard: Keyboard;
+  noteInp: string;
 
   constructor(public navservice: NavService,
     private router: Router, public newappointmentservice: AppointmentService, private formBuilder: FormBuilder,
@@ -48,20 +56,52 @@ export class NewAppointmentComponent implements OnInit {
 
   objSCN; objFam; objHealth; objBall;
 
+
   ngAfterViewInit(): void {
     this.objSCN = document.getElementById('SCNImg');
     this.objFam = document.getElementById('famImg');
     this.objHealth = document.getElementById('healthImg');
     this.objBall = document.getElementById('ballImg');
 
-    this.keyboard = new Keyboard({
-      onChange: input => this.onChange(input),
-      onKeyPress: button => this.onKeyPress(button),
-      layout: layout
+    let keyboard1 = new Keyboard(".keyboard1", {
+      onChange: input => this.onChange1(input),
+      layout: layout,
+      theme: "simple-keyboard hg-theme-default hg-layout-default",
+    });
+
+    let keyboard2 = new Keyboard(".keyboard2", {
+      onChange: input => this.onChange2(input),
+      layout: layout,
+      theme: "simple-keyboard hg-theme-default hg-layout-default",
+    });
+
+    let keyboard3 = new Keyboard(".keyboard3", {
+      onChange: input => this.onChange3(input),
+      layout: layout,
+      theme: "simple-keyboard hg-theme-default hg-layout-default",
     });
   }
 
   ngOnInit() {
+
+    if (this.editing) {
+      switch (this.type) {
+        case "Familie": {
+          this.pickFam();
+          break;
+        }
+        case "SCN": {
+          this.objSCN();
+        }
+        case "Underholdning": {
+          this.pickBall();
+        }
+        case "Sunhedsvæsenet":{
+          this.pickHealth();
+        }
+      }
+
+    }
 
     if (this.navservice.wasHome === false) {
       this.router.navigate(['/home']);
@@ -89,28 +129,38 @@ export class NewAppointmentComponent implements OnInit {
     });
 
   }
+
   dateSubmit(firstForm) {
     this.day = this.firstForm.value.firstCtrl.getDate();
     this.month = this.firstForm.value.firstCtrl.getMonth() + 1;
     this.year = this.firstForm.value.firstCtrl.getFullYear();
     this.realDate = this.day + '/' + this.month + '/' + this.year;
   }
+  pickType() {
+    if (this.isTypeCompleted == false) {
+      this.toastrService.info('Du skal vælge en type før du kan fortsætte');
+    }
+  }
 
   timeSubmit() {
     this.time = this.hour.toString() + ':' + this.minutes.toString();
-
+    if (this.isTimeCompleted === false) {
+      this.toastrService.info('Du skal vælge et tidspunkt, før du kan fortsættte');
+    }
   }
 
   finishAppointment() {
     this.newappointmentservice.printTester();
   }
   hourUp() {
+    this.isTimeCompleted = true;
     this.hour += 1;
     if (this.hour > 23) {
       this.hour = 1;
     }
   }
   hourDown() {
+    this.isTimeCompleted = true;
     this.hour -= 1;
     if (this.hour < 1) {
       this.hour = 23;
@@ -118,14 +168,16 @@ export class NewAppointmentComponent implements OnInit {
 
   }
   minuteUp() {
+    this.isTimeCompleted = true;
     this.minutes += 5;
     if (this.minutes > 55) {
-      this.minutes = 5;
+      this.minutes = 0;
     }
   }
   minuteDown() {
+    this.isTimeCompleted = true;
     this.minutes -= 5;
-    if (this.minutes < 5) {
+    if (this.minutes < 0) {
       this.minutes = 55;
     }
   }
@@ -134,14 +186,17 @@ export class NewAppointmentComponent implements OnInit {
     this.objBall.id = 'ballImg';
     this.objFam.id = 'fluebenImg';
     this.objHealth.id = 'healthImg';
-    this.type = "Familie";
+    this.type = 'Familie';
+    this.isTypeCompleted = true;
   }
   pickSCN() {
     this.objSCN.id = 'fluebenImg';
     this.objBall.id = 'ballImg';
     this.objFam.id = 'famImg';
     this.objHealth.id = 'healthImg';
-    this.type = "SCN";
+    this.type = 'SCN';
+    this.isTypeCompleted = true;
+
   }
 
   pickHealth() {
@@ -149,14 +204,18 @@ export class NewAppointmentComponent implements OnInit {
     this.objBall.id = 'ballImg';
     this.objFam.id = 'famImg';
     this.objHealth.id = 'fluebenImg';
-    this.type = "Sunhedsvæsenet";
+    this.type = 'Sunhedsvæsenet';
+    this.isTypeCompleted = true;
+
   }
   pickBall() {
     this.objSCN.id = 'SCNImg';
     this.objBall.id = 'fluebenImg';
     this.objFam.id = 'famImg';
     this.objHealth.id = 'healthImg';
-    this.type = 'Underholdning'
+    this.type = 'Underholdning';
+    this.isTypeCompleted = true;
+
   }
   routeToHome() {
     this.router.navigate(['/home']);
@@ -172,41 +231,47 @@ export class NewAppointmentComponent implements OnInit {
   }
   saveAppointment() {
     this.newappointmentservice.type = this.type;
+    this.newappointmentservice.time = this.time;
     this.newappointmentservice.date = this.realDate;
     this.newappointmentservice.time = this.time;
     this.router.navigate(['home']);
     this.toastrService.success('Din aftale blev gemt', 'Success!', {tapToDismiss: false},);
     this.newappointmentservice.makeDateNumber();
     this.newappointmentservice.printTester();
+
+    this.eventservice.AddEvent(this.type, this.newappointmentservice.note, this.newappointmentservice.year, this.newappointmentservice.month, this.newappointmentservice.day, this.time, this.newappointmentservice.people, this.newappointmentservice.place).subscribe((data: Event[]) => {
+      if (data['event'] == "Success") {
+        this.router.navigate(['home']);
+        this.toastrService.success('Din aftale blev gemt.', 'Success!');
+        this.delete();
+      }
+      else {
+        if (data['reason'] != "") {
+          this.toastrService.error(data['reason'], 'Fejl!');
+        }
+        else {
+          this.toastrService.error('Noget gik galt. Prøv igen om lidt.', 'Fejl!');
+        }
+      }
+    });
   }
 
-  onChange = (input: string) => {
+  onChange1 = (input: string) => {
     this.noteTekst = input;
-    console.log("Input changed", input);
+    this.newappointmentservice.note = this.noteTekst;
   };
 
-  onKeyPress = (button: string) => {
-    console.log("Button pressed", button);
+  onChange2 = (input: string) => {
+    this.deltagerTekst = input;
+    this.newappointmentservice.people = this.deltagerTekst;
+  };
 
-    /**
-     * If you want to handle the shift and caps lock buttons
-     */
-    if (button === "{shift}" || button === "{lock}") this.handleShift();
+  onChange3 = (input: string) => {
+    this.stedTekst = input;
+    this.newappointmentservice.place = this.stedTekst;
   };
 
   onInputChange = (event: any) => {
     this.keyboard.setInput(event.target.value);
   };
-
-  handleShift = () => {
-    let currentLayout = this.keyboard.options.layoutName;
-    let shiftToggle = currentLayout === "default" ? "shift" : "default";
-
-    this.keyboard.setOptions({
-      layoutName: shiftToggle
-    });
-  };
-
-
-
 }

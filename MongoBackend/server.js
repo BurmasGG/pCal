@@ -1,11 +1,11 @@
 //Importing libraries: 'express' to respond to http requests, 'cors' to access resources from remote hosts,
 // 'body-parser' to parse incoming request in a middleware and 'monogoose' for MongoDB object modeling
-import express from 'express';
-import cors from 'cors';
-import bodyParser from 'body-parser';
-import mongoose from 'mongoose';
+const express = require('express');
+const cors = require('cors');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
 
-import Event from './models/event';
+let Event = require('./models/event');
 
 const app = express();
 //return was comes from express.Router
@@ -27,7 +27,7 @@ connection.once('open', () =>{
 //has 2 parameters a request and response object
 router.route('/events').get((req, res) =>{
   //using mongoose to send request to database using a callback function
-  
+
   Event.find((err, events) =>{
 	  //checking for errors
     if (err)
@@ -42,7 +42,7 @@ router.route('/events').get((req, res) =>{
 // Find events of the day
 router.route('/events/:year-:month-:day').get((req, res) =>{
   Event.find(({year: Number(req.params.year), month: Number(req.params.month), day: Number(req.params.day)}), (err, events) =>{
-    if (err) 
+    if (err)
       console.log(err);
     else
       res.json(events);
@@ -67,6 +67,12 @@ router.route('/events/:id').get((req, res) => {
 //using HTTP post request to add data to the database
 //callback function passed into 'post' with request and response parameters
 router.route('/events/add').post((req, res) => {
+
+  if (req.body.note == "" || req.body.day == "" || req.body.type == "")
+  {
+    res.status(200).json({'event': 'Failed', 'reason': 'Begivenhed mangler beskrivelse, dato, og/eller type.'})
+    return;
+  }
 	//creates a new event
 	//data gets parsed from the request body
   let  event = new Event(req.body);
@@ -76,16 +82,16 @@ router.route('/events/add').post((req, res) => {
     .then(event => {
 		//send status code of 200 back
 		//using json method to send object in json format
-      res.status(200).json({'event': 'Added succesfully'});
+      res.status(200).json({'event': 'Success'});
     })
 	//using '.catch' to catch errors
     .catch(err => {
-		//using callback function for the response object to send back status code of 400 
+		//using callback function for the response object to send back status code of 400
 		//using '.send' method to send back text information
-      res.status(400).send('Failed to create new record');
+      res.status(400).send('Failed');
     });
 });
-//for updating existing events 
+//for updating existing events
 router.route('/events/update/:id').post((req, res) => {
 	//to retrieve the old record from the database 'findById' is used
   Event.findById(req.params.id, (err, event) => {
@@ -94,7 +100,7 @@ router.route('/events/update/:id').post((req, res) => {
 		//if events cant be retrieved, an error is thrown
       return next(new Error('Could not load document'));
     else{
-		//if events is retrieved from database 
+		//if events is retrieved from database
 		//event object with the properties get updated with values from 'req.body'
       event.title = req.body.title;
       event.responsible = req.body.responsible;
@@ -120,7 +126,7 @@ router.route('/events/delete/:id').get((req, res) => {
 	  //checking for errors
     if (err)
       res.json(err);
-  //if no errors occured, res.json is used to return the text 
+  //if no errors occured, res.json is used to return the text
     else
       res.json('Remove succesfull');
   });
