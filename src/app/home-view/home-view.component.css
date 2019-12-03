@@ -80,3 +80,16 @@
   /* background: url("src/assets/img/football.png") left top no-repeat; */
   content: url("src/assets/img/football.png");
 }
+.weekBttn{
+width: 100px;
+height: 50px;
+font-weight: bold;
+}
+#backWeek{
+  background-color: rgb(255, 217, 1);
+
+}
+#nextWeek{
+  background-color: rgb(3, 209, 106);
+  margin-left: 75%;
+}
