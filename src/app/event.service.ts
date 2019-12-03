@@ -44,7 +44,6 @@ all paramter are containing the new values */
 
 /** the delete method is taking 'id' as a parameter  */
   public DeleteEvent(id) {
-    console.log("Deleting (" + id + ")");
     return this.http.get(`${this.uri}/events/delete/${id}`);
   }
 }
