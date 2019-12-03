@@ -91,6 +91,7 @@
 
 .fixed-open {
   display: block;
+  width: 850px;
 }
 
 .mat-datepicker-toggle {
