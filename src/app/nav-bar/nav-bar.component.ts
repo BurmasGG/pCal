@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavService } from '../nav.service';
 import {Router} from '@angular/router';
+import { HomeViewComponent } from '../home-view/home-view.component';
 
 @Component({
   selector: 'app-nav-bar',
@@ -14,7 +15,7 @@ export class NavBarComponent implements OnInit {
   constructor(
     private navservice: NavService,
     private router: Router,
-
+    public homeview: HomeViewComponent
   ) { }
 
   ngOnInit() {
@@ -27,6 +28,9 @@ export class NavBarComponent implements OnInit {
   }
   routeToNextWeek() {
     this.router.navigate(['/nextWeek']);
+  }
+  makeCodeNotTrash(){
+    this.homeview.RefreshView('next');
   }
 }
 
