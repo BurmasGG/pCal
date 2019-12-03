@@ -81,7 +81,7 @@
         <button mat-button matStepperNext class="nextBttn" >Næste</button>
       </div>
     </form>
-    <div class="simple-keyboard"></div>
+   <div class="keyboard1"></div>
   </mat-step>
 
   <mat-step [stepControl]="thirdForm">
@@ -123,12 +123,13 @@
         <div id="peopleBox">
           <h4>Skriv hvem der skal med</h4>
           <mat-form-field id="textBox">
-            <input matInput #input maxlength="30" value="" matInput placeholder="Skriv her"
+            <input matInput #input maxlength="30" class="input" value="{{deltagerTekst}}" matInput placeholder="Skriv her"
               [(ngModel)]="this.newappointmentservice.people" formControlName="fourthCtrl">
           </mat-form-field>
         </div>
         <button mat-button matStepperNext class="nextBttn">Næste</button>
       </div>
+      <div class="keyboard2"></div>
     </form>
   </mat-step>
 
@@ -140,7 +141,7 @@
         <div id="placeBox">
           <h4>Skriv hvor det skal være</h4>
           <mat-form-field class="content" id="whereBox">
-            <input matInput id="textBox" #input maxlength="30" value="" matInput placeholder="Skriv her"
+            <input matInput id="textBox" #input maxlength="30" class="input" value="{{stedTekst}}" matInput placeholder="Skriv her"
               [(ngModel)]="this.newappointmentservice.place" formControlName="fifthCtrl">
           </mat-form-field>
         </div>
@@ -149,6 +150,7 @@
         </div>
       </div>
     </form>
+    <div class="keyboard3"></div>
   </mat-step>
 
   <mat-step>

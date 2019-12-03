@@ -40,6 +40,8 @@ export class NewAppointmentComponent implements OnInit {
   time;
   type: string;
   noteTekst = "";
+  deltagerTekst = "";
+  stedTekst = "";
   keyboard: Keyboard;
 
   constructor(public navservice: NavService,
@@ -54,10 +56,25 @@ export class NewAppointmentComponent implements OnInit {
     this.objHealth = document.getElementById('healthImg');
     this.objBall = document.getElementById('ballImg');
 
-    this.keyboard = new Keyboard({
-      onChange: input => this.onChange(input),
+    let keyboard1 = new Keyboard(".keyboard1", {
+      onChange: input => this.onChange1(input),
       onKeyPress: button => this.onKeyPress(button),
-      layout: layout
+      layout: layout,
+      theme: "simple-keyboard hg-theme-default hg-layout-default",
+    });
+
+    let keyboard2 = new Keyboard(".keyboard2", {
+      onChange: input => this.onChange2(input),
+      onKeyPress: button => this.onKeyPress(button),
+      layout: layout,
+      theme: "simple-keyboard hg-theme-default hg-layout-default",
+    });
+
+    let keyboard3 = new Keyboard(".keyboard3", {
+      onChange: input => this.onChange3(input),
+      onKeyPress: button => this.onKeyPress(button),
+      layout: layout,
+      theme: "simple-keyboard hg-theme-default hg-layout-default",
     });
   }
 
@@ -175,24 +192,35 @@ export class NewAppointmentComponent implements OnInit {
     this.newappointmentservice.date = this.realDate;
     this.newappointmentservice.time = this.time;
     this.router.navigate(['home']);
-    this.toastrService.success('Din aftale blev gemt', 'Success!');
+    this.toastrService.success('Din aftale blev gemt', 'Success!', {tapToDismiss: false});
     this.newappointmentservice.makeDateNumber();
     this.newappointmentservice.printTester();
   }
 
-  onChange = (input: string) => {
+  onChange1 = (input: string) => {
     this.noteTekst = input;
     console.log("Input changed", input);
+    this.newappointmentservice.note = this.noteTekst;
+  };
+
+  onChange2 = (input: string) => {
+    this.deltagerTekst = input;
+    console.log("Input changed", input);
+    this.newappointmentservice.people = this.deltagerTekst;
+  };
+
+  onChange3 = (input: string) => {
+    this.stedTekst = input;
+    console.log("Input changed", input);
+    this.newappointmentservice.place = this.stedTekst;
   };
 
   onKeyPress = (button: string) => {
     console.log("Button pressed", button);
-
-    /**
-     * If you want to handle the shift and caps lock buttons
-     */
     if (button === "{shift}" || button === "{lock}") this.handleShift();
   };
+
+
 
   onInputChange = (event: any) => {
     this.keyboard.setInput(event.target.value);
@@ -206,7 +234,4 @@ export class NewAppointmentComponent implements OnInit {
       layoutName: shiftToggle
     });
   };
-
-
-
 }
