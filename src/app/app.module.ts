@@ -86,7 +86,7 @@ import { ToastrModule } from 'ngx-toastr';
     }),
 
   ],
-  providers: [EventService, EventDialogComponent, EventViewComponent, HomeViewComponent, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true, disableClose: false, autoFocus: true, width: 450, height: 450 } }],
+  providers: [NewAppointmentComponent, EventService, EventDialogComponent, EventViewComponent, HomeViewComponent, { provide: MAT_DATE_LOCALE, useValue: 'en-GB' }, { provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: { hasBackdrop: true, disableClose: false, autoFocus: true, width: 450, height: 450 } }],
   bootstrap: [AppComponent],
   entryComponents: [EventDialogComponent]
 })

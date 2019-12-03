@@ -7,17 +7,18 @@ import { EventService } from './event.service';
 })
 
 export class AppointmentService {
-  date: string;
-  note: string;
-  people: string;
-  place: string;
-  type: string;
-  time: string;
-  hour: number;
-  minutes: number;
-  day;
-  month;
-  year;
+  id: string = "";
+  date: string = "";
+  note: string = "";
+  people: string = "";
+  place: string = "";
+  type: string = "";
+  time: string = "";
+  hour: number = 12;
+  minutes: number = 30;
+  day = 1;
+  month = 1;
+  year = 2020;
 
   constructor(private eventservice: EventService, ) {
   }
@@ -43,16 +44,31 @@ export class AppointmentService {
     console.log(this.type);
   }
   public clearAll() {
-    this.day = null;
-    this.month = null;
-    this.year = null;
-    this.minutes = null;
-    this.hour = null;
-    this.date = '';
-    this.note = '';
-    this.people = '';
-    this.place = '';
-    this.type = '';
-    this.time = '';
+    this.id = "";
+    this.date = "";
+    this.note = "";
+    this.people = "";
+    this.place = "";
+    this.type = "";
+    this.time = "";
+    this.hour = 12;
+    this.minutes = 30;
+    this.day = 1;
+    this.month = 1;
+    this.year = 2020;
+  }
+
+  public SetValues(e)
+  {
+    this.id = e._id;
+    this.type = e.type;
+    this.note = e.note;
+    this.time = e.time;
+    this.year = e.year;
+    this.month = e.month;
+    this.day = e.day;
+    this.people = e.people;
+    this.place = e.place;
+
   }
 }

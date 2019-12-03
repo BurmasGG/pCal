@@ -7,17 +7,18 @@ import Keyboard from "simple-keyboard";
 import layout from "./danishKeyboard";
 import { EventService } from '../event.service';
 import { ToastrService } from 'ngx-toastr';
+import { EventViewComponent } from '../event-view/event-view.component';
 
 @Component({
   selector: 'app-new-appointment',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './new-appointment.component.html',
-  styleUrls: ['./new-appointment.component.css',
-    "../../../node_modules/simple-keyboard/build/css/index.css"]
-})
+  styleUrls: ['./new-appointment.component.css',  "../../../node_modules/simple-keyboard/build/css/index.css"],
+  providers: [EventViewComponent]
+  })
+
 export class NewAppointmentComponent implements OnInit {
   isLinear = true;
-  editing = false;
   isTypeCompleted = false;
   isTimeCompleted = true;
   firstForm: FormGroup;
@@ -33,9 +34,13 @@ export class NewAppointmentComponent implements OnInit {
   public pickedHealth = false;
   public pickedBall = false;
   public isChecked = false;
-  month = "";
-  day = "";
-  year = "";
+  eventInfo: string[];
+  id = "";
+  editing = "false";
+  eventID = "";
+  month = 0;
+  day = 0;
+  year = 0;
   note = "";
   place = "";
   people = "";
@@ -52,10 +57,9 @@ export class NewAppointmentComponent implements OnInit {
 
   constructor(public navservice: NavService,
     private router: Router, public newappointmentservice: AppointmentService, private formBuilder: FormBuilder,
-    private eventservice: EventService, private toastrService: ToastrService, ) { }
+    private eventservice: EventService, private toastrService: ToastrService, private eventView: EventViewComponent) { }
 
   objSCN; objFam; objHealth; objBall;
-
 
   ngAfterViewInit(): void {
     this.objSCN = document.getElementById('SCNImg');
@@ -80,28 +84,39 @@ export class NewAppointmentComponent implements OnInit {
       layout: layout,
       theme: "simple-keyboard hg-theme-default hg-layout-default",
     });
-  }
 
-  ngOnInit() {
+    if(this.newappointmentservice.id != "")
+    {
+      console.log("Editing event: " + this.newappointmentservice.note);
+      this.isTypeCompleted = true;
+      this.isTimeCompleted = true;
 
-    if (this.editing) {
-      switch (this.type) {
+      switch (this.newappointmentservice.type) {
         case "Familie": {
           this.pickFam();
           break;
         }
         case "SCN": {
           this.objSCN();
+          break;
         }
         case "Underholdning": {
           this.pickBall();
+          break;
         }
         case "Sunhedsvæsenet":{
           this.pickHealth();
+          break;
+        }
+        default: {
+          console.log("Editing::: Type not recognized");
+          break;
         }
       }
-
     }
+  }
+
+  ngOnInit() {  
 
     if (this.navservice.wasHome === false) {
       this.router.navigate(['/home']);
@@ -196,7 +211,6 @@ export class NewAppointmentComponent implements OnInit {
     this.objHealth.id = 'healthImg';
     this.type = 'SCN';
     this.isTypeCompleted = true;
-
   }
 
   pickHealth() {
@@ -219,15 +233,7 @@ export class NewAppointmentComponent implements OnInit {
   }
   routeToHome() {
     this.router.navigate(['/home']);
-  }
-  delete() {
-    this.newappointmentservice.time = '';
-    this.newappointmentservice.date = '';
-    this.newappointmentservice.note = '';
-    this.newappointmentservice.people = '';
-    this.newappointmentservice.place = '';
-    this.newappointmentservice.printTester();
-    this.routeToHome();
+    this.newappointmentservice.clearAll();
   }
   saveAppointment() {
     this.newappointmentservice.type = this.type;
@@ -243,7 +249,7 @@ export class NewAppointmentComponent implements OnInit {
       if (data['event'] == "Success") {
         this.router.navigate(['home']);
         this.toastrService.success('Din aftale blev gemt.', 'Success!');
-        this.delete();
+        this.routeToHome();
       }
       else {
         if (data['reason'] != "") {

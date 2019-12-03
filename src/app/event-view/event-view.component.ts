@@ -1,18 +1,25 @@
-import { Component, Injector } from '@angular/core';
+import { Component, Injector, Input, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { EventDialogComponent } from '../event-dialog/event-dialog.component';
 import { EventService } from '../event.service';
+import { NewAppointmentComponent } from '../new-appointment/new-appointment.component';
+import { Router } from '@angular/router';
+import { AppointmentService } from '../newAppointment.service';
 
 @Component({
   selector: 'app-event-view',
   templateUrl: './event-view.component.html',
   styleUrls: ['./event-view.component.css']
 })
+
 export class EventViewComponent {
+  @Output() eventEmitter = new EventEmitter<string>();
 
-  constructor(public dialog: MatDialog, private injector: Injector, private eventService: EventService) { }
+  constructor(public dialog: MatDialog, private injector: Injector, private eventService: EventService, 
+    private router: Router, private appService: AppointmentService) { }
 
-  e;
+  e; // hold event 
+  public eventInfo: string = ""; // send info to NewAppointment
 
   // Få dag, event, array af events, og (hvis det er uge/månedsvisning) uge nummer
   public ShowEvent(day, event, eventList, week = "") // 'week' er optional; så er det 5 dagsvisning
@@ -53,6 +60,9 @@ export class EventViewComponent {
         if(confirm("Sikker på du vil lave ændringer i '" + this.e.note + "'?")) 
         {
           // call newAppointment med bool "editing = true" og this.e._id;
+          //this.eventInfo = "true-" + this.e._id + "-" + this.e.type + "-" + this.e.note + "-" + this.e.year + "-" + this.e.month + "-" + this.e.day  + "-" + this.e.people  + "-" + this.e.place;
+          this.appService.SetValues(this.e);
+          this.router.navigate(['/makeAppointment']);
         }
       }
     });
