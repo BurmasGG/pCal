@@ -232,3 +232,5 @@
 .simple-keyboard {
   max-width: 850px;
 }
+/*Tablets*/
+@media screen and (min-width: 768px), screen and (max-width: 991px){}
