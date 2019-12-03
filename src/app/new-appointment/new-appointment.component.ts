@@ -65,21 +65,18 @@ export class NewAppointmentComponent implements OnInit {
 
     let keyboard1 = new Keyboard(".keyboard1", {
       onChange: input => this.onChange1(input),
-      onKeyPress: button => this.onKeyPress(button),
       layout: layout,
       theme: "simple-keyboard hg-theme-default hg-layout-default",
     });
 
     let keyboard2 = new Keyboard(".keyboard2", {
       onChange: input => this.onChange2(input),
-      onKeyPress: button => this.onKeyPress(button),
       layout: layout,
       theme: "simple-keyboard hg-theme-default hg-layout-default",
     });
 
     let keyboard3 = new Keyboard(".keyboard3", {
       onChange: input => this.onChange3(input),
-      onKeyPress: button => this.onKeyPress(button),
       layout: layout,
       theme: "simple-keyboard hg-theme-default hg-layout-default",
     });
@@ -258,40 +255,20 @@ export class NewAppointmentComponent implements OnInit {
 
   onChange1 = (input: string) => {
     this.noteTekst = input;
-    console.log("Input changed", input);
     this.newappointmentservice.note = this.noteTekst;
   };
 
   onChange2 = (input: string) => {
     this.deltagerTekst = input;
-    console.log("Input changed", input);
     this.newappointmentservice.people = this.deltagerTekst;
   };
 
   onChange3 = (input: string) => {
     this.stedTekst = input;
-    console.log("Input changed", input);
     this.newappointmentservice.place = this.stedTekst;
   };
-
-  onKeyPress = (button: string) => {
-    console.log("Button pressed", button);
-    if (button === "{shift}" || button === "{lock}") this.handleShift();
-  };
-
-
 
   onInputChange = (event: any) => {
     this.keyboard.setInput(event.target.value);
   };
-
-  handleShift = () => {
-    let currentLayout = this.keyboard.options.layoutName;
-    let shiftToggle = currentLayout === "default" ? "shift" : "default";
-
-    this.keyboard.setOptions({
-      layoutName: shiftToggle
-    });
-  };
-
 }
