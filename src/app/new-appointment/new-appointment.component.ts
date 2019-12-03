@@ -87,8 +87,6 @@ export class NewAppointmentComponent implements OnInit {
 
   ngOnInit() {
 
-
-
     if (this.navservice.wasHome === false) {
       this.router.navigate(['/home']);
     }
