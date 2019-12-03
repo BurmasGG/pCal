@@ -45,7 +45,7 @@ all paramter are containing the new values */
     /** post request is send to the events, where the 'id' value is inserted, also containing the event object with updated data */
     return this.http.post(`${this.uri}/events/update/${id}`, event);
   }
-  
+
 /** the delete method is taking 'id' as a parameter  */
   public DeleteEvent(id) {
     console.log("Deleting (" + id + ")");
