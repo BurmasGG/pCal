@@ -160,6 +160,7 @@ export class NewAppointmentComponent implements OnInit {
     this.month = this.firstForm.value.firstCtrl.getMonth() + 1;
     this.year = this.firstForm.value.firstCtrl.getFullYear();
     this.realDate = this.day + '/' + this.month + '/' + this.year;
+    console.log('Emil er trash')
   }
   pickType() {
     if (this.isTypeCompleted == false) {
@@ -182,6 +183,7 @@ export class NewAppointmentComponent implements OnInit {
    // this.newappointmentservice.printTester();
   }
   hourUp() {
+    console.log('Emil er trash')
     this.isTimeCompleted = true;
     this.hour += 1;
     if (this.hour > 23) {

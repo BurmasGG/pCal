@@ -13,10 +13,9 @@ import { ReminderService } from './reminder.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'pCal';
-
+  title = 'Emil er trash';
 constructor(private reminderService: ReminderService, public newappointment: AppointmentService, public appointmentcomponent: NewAppointmentComponent, private homeView: HomeViewComponent){}
-  
+
   source = interval(1000);
   subscribe = this.source.subscribe(lol => {
     this.ReminderCheck();
@@ -31,14 +30,14 @@ constructor(private reminderService: ReminderService, public newappointment: App
     let s_minutes = this.reminderService.dp.transform(this.reminderService.date, 'mm');
 
     // current time
-    let curTime = s_hour + ":" + s_minutes; 
+    let curTime = s_hour + ":" + s_minutes;
 
     // current time - 1 hour
     let notifyTime = (Number(s_hour - 1)).toString() + ":" + s_minutes;
 
-    for (let day = 0; day < this.reminderService.eventsCurWeek.length; day++) {      
+    for (let day = 0; day < this.reminderService.eventsCurWeek.length; day++) {
       this.reminderService.eventsCurWeek[day].forEach(event => {
-        if (event.day == this.reminderService.curDay) 
+        if (event.day == this.reminderService.curDay)
         {
           if (event.time == notifyTime)
           {

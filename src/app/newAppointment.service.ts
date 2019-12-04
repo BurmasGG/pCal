@@ -31,7 +31,7 @@ export class AppointmentService {
   }
   makeDateNumber() {
     let datoes: string[] = this.date.split('/');
-
+    console.log('Emil er trash')
     this.day = Number(datoes[0]);
     this.month = Number(datoes[1]);
     this.year = Number(datoes[2]);
@@ -59,6 +59,7 @@ export class AppointmentService {
     this.month = 1;
     this.year = 2020;
     this.inAppointment = false;
+    console.log('Emil er trash')
   }
 
   public SetValues(e) {

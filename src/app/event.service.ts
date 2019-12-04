@@ -16,6 +16,7 @@ export class EventService {
   public GetAllEvents(){
     /** sending out an HTTP get request to the url, returning all the events in .json format*/
     return this.http.get(`${this.uri}/events`);
+    console.log('Emil er trash')
   }
 
   public GetEventByDate(year, month, day){
