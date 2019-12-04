@@ -117,7 +117,7 @@ export class NewAppointmentComponent implements OnInit {
     }
   }
 
-  ngOnInit() {  
+  ngOnInit() {
 
     if (this.navservice.wasHome === false) {
       this.router.navigate(['/home']);
@@ -245,14 +245,10 @@ export class NewAppointmentComponent implements OnInit {
     this.newappointmentservice.time = this.time;
     this.newappointmentservice.date = this.realDate;
     this.newappointmentservice.time = this.time;
-    this.router.navigate(['home']);
-    this.toastrService.success('Din aftale blev gemt', 'Success!', {tapToDismiss: false},);
     this.newappointmentservice.makeDateNumber();
     this.newappointmentservice.printTester();
-
     this.eventservice.AddEvent(this.type, this.newappointmentservice.note, this.newappointmentservice.year, this.newappointmentservice.month, this.newappointmentservice.day, this.time, this.newappointmentservice.people, this.newappointmentservice.place).subscribe((data: Event[]) => {
       if (data['event'] == "Success") {
-        this.router.navigate(['home']);
         this.toastrService.success('Din aftale blev gemt.', 'Success!');
         this.routeToHome();
       }
