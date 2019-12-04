@@ -47,7 +47,9 @@ export class NewAppointmentComponent implements OnInit {
   people = "";
   realDate = "";
   hour = 12;
+  s_hour = "12";
   minutes = 30;
+  s_minutes = "30";
   time = "";
   type = "";
   noteTekst: string = "";
@@ -89,7 +91,7 @@ export class NewAppointmentComponent implements OnInit {
 
     if (this.newappointmentservice.id != "") {
       this.editing = true;
-      console.log("Editing event: " + this.newappointmentservice.note);
+      console.log("Editing event: " + this.newappointmentservice.note + " type: " + this.newappointmentservice.type);
       this.isTypeCompleted = true;
       this.isTimeCompleted = true;
 
@@ -106,12 +108,12 @@ export class NewAppointmentComponent implements OnInit {
           this.pickBall();
           break;
         }
-        case "Sunhedsvæsenet": {
+        case "Sundhedsvæsenet": {
           this.pickHealth();
           break;
         }
         default: {
-          console.log("Editing::: Type not recognized");
+          console.log("Editing::: Type not recognized: " + this.newappointmentservice.type);
           break;
         }
       }
@@ -171,13 +173,9 @@ export class NewAppointmentComponent implements OnInit {
       this.toastrService.info('Du skal vælge et tidspunkt, før du kan fortsættte');
       return;
     }
-    let s_hour = this.hour.toString();
-    if (s_hour.length < 2) s_hour = "0" + s_hour;
-
     let s_minutes = this.minutes.toString();
-    if (s_minutes.length < 2) s_minutes = "0" + s_minutes;
 
-    this.time = s_hour + ':' + s_minutes;
+    this.time = this.s_hour + ':' + this.s_minutes;
   }
 
   finishAppointment() {
@@ -189,6 +187,9 @@ export class NewAppointmentComponent implements OnInit {
     if (this.hour > 23) {
       this.hour = 1;
     }
+
+    this.s_hour = this.hour.toString();
+    if (this.s_hour.length < 2) this.s_hour = "0" + this.s_hour;
   }
   hourDown() {
     this.isTimeCompleted = true;
@@ -197,6 +198,8 @@ export class NewAppointmentComponent implements OnInit {
       this.hour = 23;
     }
 
+    this.s_hour = this.hour.toString();
+    if (this.s_hour.length < 2) this.s_hour = "0" + this.s_hour;
   }
   minuteUp() {
     this.isTimeCompleted = true;
@@ -204,6 +207,9 @@ export class NewAppointmentComponent implements OnInit {
     if (this.minutes > 55) {
       this.minutes = 0;
     }
+
+    this.s_minutes = this.minutes.toString();
+    if (this.s_minutes.length < 2) this.s_minutes = "0" + this.s_minutes;
   }
   minuteDown() {
     this.isTimeCompleted = true;
@@ -211,6 +217,9 @@ export class NewAppointmentComponent implements OnInit {
     if (this.minutes < 0) {
       this.minutes = 55;
     }
+
+    this.s_minutes = this.minutes.toString();
+    if (this.s_minutes.length < 2) this.s_minutes = "0" + this.s_minutes;
   }
   pickFam() {
     this.objSCN.id = 'SCNImg';

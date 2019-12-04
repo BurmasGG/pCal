@@ -5,6 +5,7 @@ import { EventViewComponent } from '../event-view/event-view.component';
 import { AppointmentService } from '../newAppointment.service';
 import { EventService } from '../event.service';
 import { Event } from '../event.model';
+import { ReminderService } from '../reminder.service';
 
 @Component({
   selector: 'app-home-view',
@@ -15,6 +16,7 @@ import { Event } from '../event.model';
 export class HomeViewComponent implements OnInit {
 
   constructor(
+    private reminderService: ReminderService,
     public eventView: EventViewComponent,
     private eventService: EventService,
     private navservice: NavService,
@@ -22,43 +24,18 @@ export class HomeViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.GetTodayDate();
+    this.reminderService.GetTodayDate();
     this.navservice.wasHome = true;
-
 
     console.log(this.displayDate);
 
-
     // Init default values
-    this.maxDays = this.GetMaxDaysOfMonth(this.curMonth);
-    this.months = [this.curMonth, this.curMonth];
+    this.maxDays = this.GetMaxDaysOfMonth(this.reminderService.curMonth);
+    this.months = [this.reminderService.curMonth, this.reminderService.curMonth];
 
     this.RefreshView('home');
 
    // this.eventService.AddEvent("SCN", "Høstfest", 2019, 12, 6, "14:00", "Ulla og Oliver");
-  }
-
-  FetchEvents()
-  {
-    this.eventService.GetAllEvents().subscribe((data: Event[]) => {
-      /** setting the issue to what is being returned from the service call*/
-      this.events = data;
-      /** print out what is coming back from the service call */
-
-      if (this.events.length > 0)
-      {
-        console.log("Found " + this.events.length + " events.");
-        this.events.forEach((e) => {
-      //  this.eventService.DeleteEvent(e._id).subscribe((data: Event[]) => { // DER SKAL SUBSCRIBES FØR DET SKER!!
-            console.log(e.note + " d." + e.day + "/" + e.month + ", kl: " + e.time);
-      //   });
-        });
-      }
-      else
-      {
-        console.log("Found 0 events.");
-      }
-    });
   }
 
   events: Event[]; // holds all events found in MongoDB
@@ -75,80 +52,54 @@ export class HomeViewComponent implements OnInit {
   justChangedMonthBack = false;
 
   maxDays = 31; // assume long months by default
-  normMonths = [4, 6, 9, 11] // April, Juni ... have 30 days
-  public eventsSorted = []; // dagene events skal ind under
-  public dayTitles = [];
+  normMonths = [4, 6, 9, 11] // April, June ... have 30 days
+  public eventsSorted = []; // dagene de forskellige events skal ind under baseret på valgt uge
+  public dayTitles = []; // E.g. 'I dag', '5/12', '6/12', osv.
 
-  // week view
-  date = new Date();
-  dp = new DatePipe('en-DK');
-  public curDay = Number(this.dp.transform(this.date, 'd'));
-  public curWeek = Number(this.dp.transform(this.date, 'w'));
-  public curWeekday = Number(this.date.getUTCDay());
-  public curMonth = Number(this.dp.transform(this.date, 'M'));
-  public curYear = Number(this.dp.transform(this.date, 'y'));
-
-  displayDate = this.curDay;
-  displayMonth = this.curMonth;
-  displayYear = this.curYear;
+  displayDate = this.reminderService.curDay;
+  displayMonth = this.reminderService.curMonth;
+  displayYear = this.reminderService.curYear;
 
   displayMonthName;
   displayDateName;
 
-  GetTodayDate()
-  {
-    this.curDay = Number(this.dp.transform(this.date, 'd'));
-    this.curWeek = Number(this.dp.transform(this.date, 'w'));
-    this.curWeekday = Number(this.date.getUTCDay());
-    this.curMonth = Number(this.dp.transform(this.date, 'M'));
-    this.curYear = Number(this.dp.transform(this.date, 'y'));
-  }
-
   ClearSortedEvents(){
     // clear array
     this.eventsSorted = [];
-    // add indeces equal to max days to display (5 default)
-    for (let i = 0; i < this.maxDaysToDisplay; i++) {
-          this.eventsSorted.push([]);
+    if (this.displayDate == this.reminderService.curDay)
+    {
+          console.log("Current Week CLEARED");
+          this.reminderService.eventsCurWeek = [];
     }
-  }
+
+      // add indeces equal to max days to display (5 default)
+      for (let i = 0; i < this.maxDaysToDisplay; i++) {
+        this.eventsSorted.push([]);
+
+        if (this.displayDate == this.reminderService.curDay)
+        {
+          this.reminderService.eventsCurWeek.push([]);
+        }
+      }
+    }
 
   public UpdateEventListFive() { // _year, _month, _day
     this.ClearSortedEvents();
-    let _day = this.curDay;
-    let _month = this.curMonth;
+    let _day = this.reminderService.curDay;
+    let _month = this.reminderService.curMonth;
 
     for (let i = 0; i < this.maxDaysToDisplay; i++) {
-      let sepDigit = 3 // default '/' placement in date (12>/<12 vs 1/12)
 
-      // Get Day value of the displayed dates
+      // Get Day & Month values of the displayed dates
       if (this.dayTitles[i] == this.today)
       {
-        _day = this.curDay;
+        _day = this.reminderService.curDay;
+        _month = this.reminderService.curMonth;
       }
       else
       {
-        _day = Number(this.dayTitles[i].substring(0, 2));
-
-          if (isNaN(_day)) // Not a number means that we have substringed (>1/<12)
-          {
-            sepDigit = 2;
-            _day = Number(this.dayTitles[i].substring(0, 1));
-          }
-      }
-      // Get Month value of the displayed dates
-      if (this.dayTitles[i] == this.today)
-      {
-        _month = this.curMonth;
-      }
-      else
-      {
-        _month = Number(this.dayTitles[i].substring(sepDigit, 5));
-
-          if (isNaN(_month)) // Not a number means that we have substringed (>1/<12)
-          {
-            _month = Number(this.dayTitles[i].substring(sepDigit, 4));
-        }
+        _day = Number(this.dayTitles[i].split('/')[0]);
+        _month = Number(this.dayTitles[i].split('/')[1]);
       }
 
       let events: Event[] = null;
@@ -160,7 +111,11 @@ export class HomeViewComponent implements OnInit {
             let dayInt = Number(e.day) - this.displayDate; // days until event from today (e.g. 2 or 0), put into corresponding index of week view
             if (dayInt <= 4 && dayInt >= 0) {
               this.eventsSorted[dayInt].push(e);
-              console.log("Found '" + e.note + "'.");
+              if (this.displayDate == this.reminderService.curDay)
+              {
+                this.reminderService.eventsCurWeek[dayInt].push(e);
+                console.log("added " + e.note + " to eventsCurWeek[" + dayInt + "]")
+              }
             }
           });
         }
@@ -230,16 +185,13 @@ export class HomeViewComponent implements OnInit {
 
     if (operation === 'next')
     {
-      console.log("dD: " + this.displayDate);
       newDisplayDay = this.displayDate + 5;
-      console.log('Emils kode er trash');
-      console.log("newDD: " + newDisplayDay);
     }
     else if (operation == 'back')
     {
       if (this.dayTitles[0] == this.today)
       {
-        newDisplayDay = this.curDay;
+        newDisplayDay = this.reminderService.curDay;
       }
       else
       {
@@ -248,9 +200,9 @@ export class HomeViewComponent implements OnInit {
     }
     else if (operation == 'home')
     {
-      newDisplayDay = this.curDay;
-      this.displayMonth = this.curMonth;
-      this.displayYear = this.curYear;
+      newDisplayDay = this.reminderService.curDay;
+      this.displayMonth = this.reminderService.curMonth;
+      this.displayYear = this.reminderService.curYear;
     }
     else {
       console.log("ERROR: unknown 'operation' in 'RefreshView' (home-view-component).");
@@ -301,7 +253,7 @@ export class HomeViewComponent implements OnInit {
   }
 
   UpdateDayTitles(dayToDisplayFrom, operation){
-    console.log("justChangedNext: " + this.justChangedMonthNext + ", Date to Display from: " + dayToDisplayFrom + ", operation = " + operation)
+    //console.log("justChangedNext: " + this.justChangedMonthNext + ", Date to Display from: " + dayToDisplayFrom + ", operation = " + operation)
     if (dayToDisplayFrom > this.maxDays && this.justChangedMonthNext)
     {
       //console.log("Exceeded month by: " + (dayToDisplayFrom - this.maxDays) + " days");
@@ -373,7 +325,7 @@ export class HomeViewComponent implements OnInit {
         }
         else // still within max days
         {
-          if (dayToDisplayFrom + i == this.curDay && this.b_WithinMonth() && this.curYear == this.displayYear)
+          if (dayToDisplayFrom + i == this.reminderService.curDay && this.b_WithinMonth() && this.reminderService.curYear == this.displayYear)
           {
             this.dayTitles.push(this.today);
           }
@@ -412,7 +364,7 @@ export class HomeViewComponent implements OnInit {
       for (let i = this.daysToDisplay; i > 0; i--) // 'reverse' for-loop
       {
 
-        if ((dayToDisplayFrom - i) == this.curDay && this.b_WithinMonth() && this.curYear == this.displayYear)
+        if ((dayToDisplayFrom - i) == this.reminderService.curDay && this.b_WithinMonth() && this.reminderService.curYear == this.displayYear)
         {
           this.dayTitles.push(this.today);
         }
@@ -427,7 +379,7 @@ export class HomeViewComponent implements OnInit {
 
           // Check for Today when moved into new month
           let day = this.maxDays + (dayToDisplayFrom - i);
-          if ((day == this.curDay) && this.b_WithinMonth() && this.curYear == this.displayYear)
+          if ((day == this.reminderService.curDay) && this.b_WithinMonth() && this.reminderService.curYear == this.displayYear)
           {
             this.dayTitles.push(this.today);
           }
@@ -456,7 +408,7 @@ export class HomeViewComponent implements OnInit {
     // Update the current displayed date variable
     if (this.dayTitles[0] == this.today)
     {
-      this.displayDate = this.curDay;
+      this.displayDate = this.reminderService.curDay;
     }
     else
     {
@@ -470,6 +422,16 @@ export class HomeViewComponent implements OnInit {
 
     this.UpdateMonthHeaders();
     this.UpdateEventListFive();
+  }
+
+  CurrentWeekCheck()
+  {
+    if (this.reminderService.curDay != Number(this.reminderService.date.getUTCDate))
+    {
+      console.log("Day has changed, refreshing eventsList!")
+
+      this.RefreshView('home');
+    }
   }
 
   UpdateMonthHeaders()
@@ -534,23 +496,23 @@ export class HomeViewComponent implements OnInit {
 
   b_WithinMonth()
   {
-    if (this.curMonth == this.displayMonth) return true; // same month
+    if (this.reminderService.curMonth == this.displayMonth) return true; // same month
 
     // within one month (when the crossing of months are being displayed)
-    if (this.curMonth + 1 == this.displayMonth || this.curMonth - 1 == this.displayMonth)
+    if (this.reminderService.curMonth + 1 == this.displayMonth || this.reminderService.curMonth - 1 == this.displayMonth)
     {
-      if (this.displayDate > 28 && this.curDay < 4 || this.displayDate < 4 && this.curDay > 28)
+      if (this.displayDate > 28 && this.reminderService.curDay < 4 || this.displayDate < 4 && this.reminderService.curDay > 28)
       {
         return true;
       }
     }
 
     // within one month, but at year changes
-    if (this.curYear != this.displayYear)
+    if (this.reminderService.curYear != this.displayYear)
     {
-      if (this.displayDate > 28 && this.curDay < 4 || this.displayDate < 4 && this.curDay > 28)
+      if (this.displayDate > 28 && this.reminderService.curDay < 4 || this.displayDate < 4 && this.reminderService.curDay > 28)
       {
-        if ((this.curMonth == 12 && this.displayMonth == 1) || (this.curMonth == 1 && this.displayMonth == 12))
+        if ((this.reminderService.curMonth == 12 && this.displayMonth == 1) || (this.reminderService.curMonth == 1 && this.displayMonth == 12))
         {
           return true;
         }
