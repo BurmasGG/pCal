@@ -166,10 +166,18 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   timeSubmit() {
-    this.time = this.hour.toString() + ':' + this.minutes.toString();
-    if (this.isTimeCompleted === false) {
+    if (this.isTimeCompleted === false)
+    {
       this.toastrService.info('Du skal vælge et tidspunkt, før du kan fortsættte');
+      return;
     }
+    let s_hour = this.hour.toString();
+    if (s_hour.length < 2) s_hour = "0" + s_hour;
+
+    let s_minutes = this.minutes.toString();
+    if (s_minutes.length < 2) s_minutes = "0" + s_minutes;
+
+    this.time = s_hour + ':' + s_minutes;
   }
 
   finishAppointment() {
@@ -226,7 +234,7 @@ export class NewAppointmentComponent implements OnInit {
     this.objBall.id = 'ballImg';
     this.objFam.id = 'famImg';
     this.objHealth.id = 'fluebenImg';
-    this.type = 'Sunhedsvæsenet';
+    this.type = 'Sundhedsvæsenet';
     this.isTypeCompleted = true;
   }
   pickBall() {
@@ -284,39 +292,51 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   onKeyPress1 = (button: string) => {
-      if (button != "{bksp}")
+      if (button == "{bksp}")
       {
-        this.noteTekst = this.noteTekst + button;
+        this.noteTekst = this.noteTekst.substring(0, this.noteTekst.length - 1);
+      }
+      else if (button == "{space}")
+      {
+        this.noteTekst = this.noteTekst + " ";
       }
       else
       {
-        this.noteTekst = this.noteTekst.substring(0, this.noteTekst.length - 1);
+        this.noteTekst = this.noteTekst + button;
       }
 
       this.newappointmentservice.note = this.noteTekst;
   }
 
   onKeyPress2 = (button: string) => {
-      if (button != "{bksp}")
+      if (button == "{bksp}")
       {
-        this.deltagerTekst = this.deltagerTekst + button;
+        this.deltagerTekst = this.deltagerTekst.substring(0, this.deltagerTekst.length - 1);
+      }
+      else if (button == "{space}")
+      {
+        this.deltagerTekst = this.deltagerTekst + " ";
       }
       else
       {
-        this.deltagerTekst = this.deltagerTekst.substring(0, this.deltagerTekst.length - 1);
+        this.deltagerTekst = this.deltagerTekst + button;
       }
 
       this.newappointmentservice.people = this.deltagerTekst;
   }
 
   onKeyPress3 = (button: string) => {
-      if (button != "{bksp}")
+      if (button == "{bksp}")
       {
-        this.stedTekst = this.stedTekst + button;
+        this.stedTekst = this.stedTekst.substring(0, this.stedTekst.length - 1);
+      }
+      else if (button == "{space}")
+      {
+        this.stedTekst = this.stedTekst + " ";
       }
       else
       {
-        this.stedTekst = this.stedTekst.substring(0, this.stedTekst.length - 1);
+        this.stedTekst = this.stedTekst + button;
       }
 
     this.newappointmentservice.place = this.stedTekst;
