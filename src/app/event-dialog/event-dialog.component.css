@@ -20,6 +20,13 @@ button {
     right: 15px;
 }
 
+#closeNotifier{
+  bottom: 0px;
+  left: 50px;
+  width: 300px;
+  height: 125px;
+}
+
 #butDelete {
     position: absolute;
     top: 0px;
@@ -38,7 +45,9 @@ button {
   background: url("src/assets/img/smiley.png") left top no-repeat;
   background-color: blue;
 }
-
+.event.Familie {
+  background-color: chartreuse;
+}
 .event.Sundhedsvæsenet {
   background-color: rgb(196, 9, 9);
 }
@@ -58,3 +67,7 @@ button {
   padding-left: 24px;
   background: url("src/assets/img/football.png") left top no-repeat;
 }
+.diaDiv{
+  background-color: blue;
+}
+
