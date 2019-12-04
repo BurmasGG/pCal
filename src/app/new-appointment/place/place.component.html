@@ -1,9 +1,0 @@
-<div id="rightDiv">
-    <h2 class="content">Skriv hvor det er</h2>
-    <mat-form-field class="content">
-    <input matInput id="textBox" #input maxlength="30" value="" matInput placeholder="Skriv her"
-      [(ngModel)]="this.newappointmentservice.place">
-    </mat-form-field>
-    <button (click)="addPlace()">Tilføj</button>
-  </div>
-<button mat-button id="nextbttn" (click)="saveAppointment()" >Videre</button>

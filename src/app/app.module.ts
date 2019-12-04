@@ -15,12 +15,6 @@ import { MonthViewComponent } from './month-view/month-view.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule, MatNativeDateModule, MatDialogModule, MAT_DIALOG_DATA, MatDialog, MAT_DIALOG_DEFAULT_OPTIONS, MAT_DATE_LOCALE } from '@angular/material';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { DateComponent } from './new-appointment/date/date.component';
-import { PlaceComponent } from './new-appointment/place/place.component';
-import { TimeComponent } from './new-appointment/time/time.component';
-import { ParticipantComponent } from './new-appointment/participant/participant.component';
-import { NoteComponent } from './new-appointment/note/note.component';
-import { EventTypeComponent } from './new-appointment/event-type/event-type.component';
 import { MatCardModule } from '@angular/material/card';
 import { EventDialogComponent } from './event-dialog/event-dialog.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -47,13 +41,7 @@ import { ToastrModule } from 'ngx-toastr';
     PrevWeekComponent,
     EventViewComponent,
     MonthViewComponent,
-    DateComponent,
-    PlaceComponent,
-    TimeComponent,
-    ParticipantComponent,
-    NoteComponent,
     EventDialogComponent,
-    EventTypeComponent,
   ],
   imports: [
     NgbModule,

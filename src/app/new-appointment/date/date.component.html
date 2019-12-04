@@ -1,7 +1,0 @@
-<h1>Vælg en dato</h1>
-<mat-form-field class="example-full-width">
-    <input matInput [matDatepicker]="picker" placeholder="Choose a date"  required [(ngModel)]="this.newappointmentservice.date">
-    <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
-    <mat-datepicker touchUi #picker></mat-datepicker>
-  </mat-form-field>
-<button mat-button id="nextbttn" (click)="buttonClicked()" (click)="test()">Næste</button>
