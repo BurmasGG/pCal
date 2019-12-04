@@ -1,10 +1,10 @@
 export interface Event{
-  type: String;
+  type: string;
   year: Number;
   month: Number;
   day: Number;
-  time: String;
-  note: String;
-  people: String;
-  place: String;
+  time: string;
+  note: string;
+  people: string;
+  place: string;
 }  
