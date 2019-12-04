@@ -6,13 +6,14 @@
         <button mat-button matStepperPrevious id="deleteBttn" (click)="routeToHome()">Anuller aftale</button>
         <div class="inputField">
           <h4 class="inputField">Vælg en dato</h4>
-          tryk på ikonet til højre for at vælge en ny.
+          <p id="vælgDate">Tryk på knappen til højre for at vælge en ny.</p>
           <mat-form-field id="calField">
             <input matInput readonly [matDatepicker]="picker" value="10/21/2019" placeholder="Du har valgt den" required
               formControlName="firstCtrl">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
             <mat-datepicker class="fixed-open" #picker opened="true"></mat-datepicker>
           </mat-form-field>
+          <button mat-raised-button (click)="picker.open()" id="datePickerButton">Åben kalender</button>
         </div>
         <button mat-raised-button type="submit" id="firstNext" matStepperNext class="nextBttn"
           color="primary">Næste</button>
