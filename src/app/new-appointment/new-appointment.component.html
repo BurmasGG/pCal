@@ -70,7 +70,7 @@
         <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
         <div id="noteBoxOOF" class="">
           <div id="noteBox">
-            <h4>Skriv en beskrivelse nedenunder</h4>
+            <h4>Indtast en beskrivelse</h4>
             <mat-form-field id="noteText">
               <input matInput #input maxlength="30" ng-model-options="{ updateOn: 'blur'}" class="input"
                 value="{{noteTekst}}" matInput placeholder="" [(ngModel)]="this.newappointmentservice.note"
@@ -121,7 +121,7 @@
       <div class="flexBox" id="peopleBoxFlex">
         <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
         <div id="peopleBox">
-          <h4>Skriv hvem der skal med</h4>
+          <h4>Indtast deltagere</h4>
           <mat-form-field id="textBox">
             <input matInput #input maxlength="30" class="input" value="{{deltagerTekst}}" matInput placeholder=" "
               [(ngModel)]="this.newappointmentservice.people" formControlName="fourthCtrl">
@@ -139,7 +139,7 @@
       <div class="flexBox" id="placeBoxFlex">
         <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
         <div id="placeBox">
-          <h4>Skriv hvor det skal være</h4>
+          <h4>Indtast sted</h4>
           <mat-form-field class="content" id="whereBox">
             <input matInput id="textBox" #input maxlength="30" class="input" value="{{stedTekst}}" matInput placeholder=" "
               [(ngModel)]="this.newappointmentservice.place" formControlName="fifthCtrl">
