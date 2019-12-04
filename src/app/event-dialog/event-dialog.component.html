@@ -1,12 +1,17 @@
 <body>
-<h1>{{data.day}}/{{data.month}}/{{data.year}}</h1>
-<h1>Kl. {{data.time}}</h1>
-<h2>{{data.note}}</h2>
-<p *ngIf=data.people><b>Med:</b> {{data.people}}</p>
-<p *ngIf=data.place><b>Ved:</b> {{data.place}}</p>
+  <h2>{{data.type}}</h2>
+  <div>
+    <img src="src/assets/img/heart.png" alt="Emil er trash" class="img.SCN">
 
-  <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
-  <button id='butDelete' (click)="ReturnResult('delete')" [mat-dialog-close]>Slet</button>
-  <button id='butEdit' (click)="ReturnResult('edit')" [mat-dialog-close]>Redigér</button>
-  <button id='butClose' [mat-dialog-close]>Luk</button>
+    <h2>Den {{data.day}}/{{data.month}}/{{data.year}}</h2>
+    <h2>Kl. {{data.time}}</h2>
+    <h2>{{data.note}}</h2>
+    <h3 *ngIf=data.people><b>Med:</b> {{data.people}}</h3>
+    <h3 *ngIf=data.place><b>Ved:</b> {{data.place}}</h3>
+
+    <!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+    <button id='butDelete' (click)="ReturnResult('delete')" [mat-dialog-close]>Slet</button>
+    <button id='butEdit' (click)="ReturnResult('edit')" [mat-dialog-close]>Redigér</button>
+    <button id='butClose' [mat-dialog-close]>Luk</button>
+  </div>
 </body>

@@ -32,6 +32,7 @@ export class EventViewComponent {
 
       data: {
         id: this.e._id,
+        type: this.e.type,
         note: this.e.note,
         year: this.e.year,
         month: this.e.month,
