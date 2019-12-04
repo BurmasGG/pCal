@@ -230,10 +230,20 @@
   font-size: 20px;
 }
 
+.ngx-toastr{
+  pointer-events: none !important;
+}
+
 .simple-keyboard {
   max-width: 800px;
 }
 
-.ngx-toastr{
-  pointer-events: none !important;
+.simple-keyboard.hg-theme-default.hg-layout-default{
+  border: 5px solid rgb(0, 0, 0, 0.7);
+  border-radius: 0px;
+  margin: 0px;
+  width: calc(100%);
+  font-size: 26px;
+  background-color: black;
+  font-weight: bold;
 }
