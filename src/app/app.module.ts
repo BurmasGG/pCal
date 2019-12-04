@@ -70,7 +70,6 @@ import { ToastrModule } from 'ngx-toastr';
       tapToDismiss: false,
       positionClass: 'toast-center-center',
       preventDuplicates: true,
-      closeButton: true,
     }),
 
   ],

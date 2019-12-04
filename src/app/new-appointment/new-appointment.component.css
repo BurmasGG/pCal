@@ -233,3 +233,7 @@
 .simple-keyboard {
   max-width: 800px;
 }
+
+.ngx-toastr{
+  pointer-events: none !important;
+}
