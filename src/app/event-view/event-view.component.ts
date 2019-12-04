@@ -31,6 +31,7 @@ export class EventViewComponent {
       disableClose: false,
 
       data: {
+        isNoti: false,
         id: this.e._id,
         type: this.e.type,
         note: this.e.note,
