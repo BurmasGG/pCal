@@ -15,10 +15,10 @@ import { AppointmentService } from '../newAppointment.service';
 export class EventViewComponent {
   @Output() eventEmitter = new EventEmitter<string>();
 
-  constructor(public dialog: MatDialog, private injector: Injector, private eventService: EventService, 
+  constructor(public dialog: MatDialog, private injector: Injector, private eventService: EventService,
     private router: Router, private appService: AppointmentService) { }
 
-  e; // hold event 
+  e; // hold event
   public eventInfo: string = ""; // send info to NewAppointment
 
   // Få dag, event, array af events, og (hvis det er uge/månedsvisning) uge nummer

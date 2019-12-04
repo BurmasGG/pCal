@@ -88,7 +88,7 @@ router.route('/events/add').post((req, res) => {
     .catch(err => {
 		//using callback function for the response object to send back status code of 400
 		//using '.send' method to send back text information
-      res.status(400).send('Failed');
+      res.status(400).json({'event': 'Failed', 'reason': 'Der opstod en fejl. Prøv igen senere.'});
     });
 });
 //for updating existing events
@@ -102,19 +102,22 @@ router.route('/events/update/:id').post((req, res) => {
     else{
 		//if events is retrieved from database
 		//event object with the properties get updated with values from 'req.body'
-      event.title = req.body.title;
-      event.responsible = req.body.responsible;
-      event.description = req.body.description;
-      event.severity = req.body.severity;
-      event.status = req.body.status;
+      event.type = req.body.type;
+      event.note = req.body.note;
+      event.year = req.body.year;
+      event.month = req.body.month;
+      event.day = req.body.day;
+      event.time = req.body.time;
+      event.people = req.body.people;
+      event.place = req.body.place;
 	//for the updated object to be saved in the database with a save function
       event.save().then(event => {
 		  //using response object to return text information in .json format
-        res.json('Update done');
+        res.json({'event': 'Success'});
 		//catching errors
       }).catch(err => {
 		  //send back status of 400 with the response object
-        res.status(400).send('Update failed');
+        res.status(400).json({'event': 'Failed', 'reason': 'Der opstod en fejl. Prøv igen senere.'});
       });
     }
   });
@@ -125,10 +128,10 @@ router.route('/events/delete/:id').get((req, res) => {
   Event.findByIdAndRemove({_id: req.params.id}, (err, event)  =>{
 	  //checking for errors
     if (err)
-      res.json(err);
+      res.json({'event': 'Failed', 'reason': 'Der opstod en fejl. Prøv igen senere.'});
   //if no errors occured, res.json is used to return the text
     else
-      res.json('Remove succesfull');
+      res.json({'event': 'Success'});
   });
 });
 

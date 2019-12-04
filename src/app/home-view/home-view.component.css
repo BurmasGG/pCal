@@ -36,7 +36,6 @@
   text-align: center;
 }
 
-
 .event.Familie {
   background-color: chartreuse;
 }
@@ -44,8 +43,7 @@
   width: 24px;
   height: 24px;
   padding-left: 24px;
-  /* background: url("src/assets/img/fam.png") left top no-repeat; */
-  content: url("src/assets/img/fam.png");
+  background: url("src/assets/img/fam.png") left top no-repeat;
 }
 
 .event.SCN {
@@ -55,8 +53,7 @@
   width: 24px;
   height: 24px;
   padding-left: 24px;
-  /* background: url("src/assets/img/smile.png") left top no-repeat; */
-  content: url("src/assets/img/smile.png");
+  background: url("src/assets/img/smile.png") left top no-repeat;
 }
 
 .event.Sundhedsvæsenet {
@@ -66,8 +63,7 @@
   width: 24px;
   height: 24px;
   padding-left: 24px;
-  /* background: url("src/assets/img/heart.png") left top no-repeat; */
-  content: url("src/assets/img/heart.png");
+  background: url("src/assets/img/heart.png") left top no-repeat;
 }
 
 .event.Underholdning {
@@ -77,8 +73,7 @@
   width: 24px;
   height: 24px;
   padding-left: 24px;
-  /* background: url("src/assets/img/football.png") left top no-repeat; */
-  content: url("src/assets/img/football.png");
+  background: url("src/assets/img/football.png") left top no-repeat;
 }
 .weekBttn{
 width: 100px;
@@ -87,9 +82,9 @@ font-weight: bold;
 }
 #backWeek{
   background-color: rgb(255, 217, 1);
-
+  float: left;
 }
 #nextWeek{
   background-color: rgb(3, 209, 106);
-  margin-left: 75%;
+  float: right;
 }
