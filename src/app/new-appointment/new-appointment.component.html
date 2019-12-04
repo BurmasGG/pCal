@@ -73,7 +73,7 @@
             <h4>Skriv en beskrivelse nedenunder</h4>
             <mat-form-field id="noteText">
               <input matInput #input maxlength="30" ng-model-options="{ updateOn: 'blur'}" class="input"
-                value="{{noteTekst}}" matInput placeholder="Skriv her" [(ngModel)]="this.newappointmentservice.note"
+                value="{{noteTekst}}" matInput placeholder="" [(ngModel)]="this.newappointmentservice.note"
                 formControlName="secondCtrl">
             </mat-form-field>
           </div>
@@ -123,7 +123,7 @@
         <div id="peopleBox">
           <h4>Skriv hvem der skal med</h4>
           <mat-form-field id="textBox">
-            <input matInput #input maxlength="30" class="input" value="{{deltagerTekst}}" matInput placeholder="Skriv her"
+            <input matInput #input maxlength="30" class="input" value="{{deltagerTekst}}" matInput placeholder=" "
               [(ngModel)]="this.newappointmentservice.people" formControlName="fourthCtrl">
           </mat-form-field>
         </div>
@@ -141,7 +141,7 @@
         <div id="placeBox">
           <h4>Skriv hvor det skal være</h4>
           <mat-form-field class="content" id="whereBox">
-            <input matInput id="textBox" #input maxlength="30" class="input" value="{{stedTekst}}" matInput placeholder="Skriv her"
+            <input matInput id="textBox" #input maxlength="30" class="input" value="{{stedTekst}}" matInput placeholder=" "
               [(ngModel)]="this.newappointmentservice.place" formControlName="fifthCtrl">
           </mat-form-field>
         </div>
