@@ -30,7 +30,6 @@ export class NavBarComponent implements OnInit {
   }
   routeToHome() {
     this.router.navigate(['/home']);
-    console.log('Emil er trash')
     this.appService.clearAll();
   }
   routeToNextWeek() {

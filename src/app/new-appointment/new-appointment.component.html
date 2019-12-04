@@ -3,7 +3,8 @@
     <form (ngSubmit)="dateSubmit(firstForm.value)" [formGroup]="firstForm">
       <ng-template matStepLabel>Dato</ng-template>
       <div class="flexBox">
-        <button mat-button matStepperPrevious id="deleteBttn" (click)="routeToHome()">Anuller aftale</button>
+        <button mat-button matStepperPrevious id="deleteBttn" (click)="routeToHome()" *ngIf="editing == false">Anuller aftale</button>
+        <button mat-button matStepperPrevious id="deleteBttn" (click)="routeToHome()" *ngIf="editing == true">Anuller ændringer</button>
         <div class="inputField">
           <h4 class="inputField">Vælg en dato</h4>
           <p id="vælgDate">Tryk på knappen til højre for at vælge en ny.</p>
