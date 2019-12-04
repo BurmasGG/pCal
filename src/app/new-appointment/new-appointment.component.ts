@@ -8,14 +8,15 @@ import layout from "./danishKeyboard";
 import { EventService } from '../event.service';
 import { ToastrService } from 'ngx-toastr';
 import { EventViewComponent } from '../event-view/event-view.component';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-new-appointment',
   encapsulation: ViewEncapsulation.None,
   templateUrl: './new-appointment.component.html',
-  styleUrls: ['./new-appointment.component.css',  "../../../node_modules/simple-keyboard/build/css/index.css"],
+  styleUrls: ['./new-appointment.component.css', "../../../node_modules/simple-keyboard/build/css/index.css"],
   providers: [EventViewComponent]
-  })
+})
 
 export class NewAppointmentComponent implements OnInit {
   isLinear = true;
@@ -36,7 +37,7 @@ export class NewAppointmentComponent implements OnInit {
   public isChecked = false;
   eventInfo: string[];
   id = "";
-  editing = "false";
+  editing = false;
   eventID = "";
   month = 0;
   day = 0;
@@ -49,7 +50,7 @@ export class NewAppointmentComponent implements OnInit {
   minutes = 30;
   time = "";
   type = "";
-  noteTekst = "";
+  noteTekst: string = "";
   deltagerTekst = "";
   stedTekst = "";
   keyboard: Keyboard;
@@ -69,25 +70,25 @@ export class NewAppointmentComponent implements OnInit {
     this.objBall = document.getElementById('ballImg');
 
     let keyboard1 = new Keyboard(".keyboard1", {
-      onChange: input => this.onChange1(input),
+      onKeyPress: button =>this.onKeyPress1(button),
       layout: layout,
       theme: "simple-keyboard hg-theme-default hg-layout-default",
     });
 
     let keyboard2 = new Keyboard(".keyboard2", {
-      onChange: input => this.onChange2(input),
+      onKeyPress: button =>this.onKeyPress2(button),
       layout: layout,
       theme: "simple-keyboard hg-theme-default hg-layout-default",
     });
 
     let keyboard3 = new Keyboard(".keyboard3", {
-      onChange: input => this.onChange3(input),
+      onKeyPress: button =>this.onKeyPress3(button),
       layout: layout,
       theme: "simple-keyboard hg-theme-default hg-layout-default",
     });
 
-    if(this.newappointmentservice.id != "")
-    {
+    if (this.newappointmentservice.id != "") {
+      this.editing = true;
       console.log("Editing event: " + this.newappointmentservice.note);
       this.isTypeCompleted = true;
       this.isTimeCompleted = true;
@@ -98,7 +99,7 @@ export class NewAppointmentComponent implements OnInit {
           break;
         }
         case "SCN": {
-          this.objSCN();
+          this.pickSCN();
           break;
         }
         case "Underholdning": {
@@ -144,8 +145,13 @@ export class NewAppointmentComponent implements OnInit {
       typeCtrl: ['', Validators.required]
     });
 
+    if (this.newappointmentservice.editing === true) {
+      this.editEvent();
+      this.noteTekst = this.note;
+      this.deltagerTekst = this.people;
+      this.stedTekst = this.place;
+    }
   }
-
 
   dateSubmit(firstForm) {
     this.day = this.firstForm.value.firstCtrl.getDate();
@@ -167,7 +173,7 @@ export class NewAppointmentComponent implements OnInit {
   }
 
   finishAppointment() {
-    this.newappointmentservice.printTester();
+   // this.newappointmentservice.printTester();
   }
   hourUp() {
     this.isTimeCompleted = true;
@@ -205,7 +211,6 @@ export class NewAppointmentComponent implements OnInit {
     this.objHealth.id = 'healthImg';
     this.type = 'Familie';
     this.isTypeCompleted = true;
-    console.log("FAM is picked")
   }
   pickSCN() {
     this.objSCN.id = 'fluebenImg';
@@ -223,8 +228,6 @@ export class NewAppointmentComponent implements OnInit {
     this.objHealth.id = 'fluebenImg';
     this.type = 'Sunhedsvæsenet';
     this.isTypeCompleted = true;
-    console.log("Health is picked")
-
   }
   pickBall() {
     this.objSCN.id = 'SCNImg';
@@ -233,8 +236,6 @@ export class NewAppointmentComponent implements OnInit {
     this.objHealth.id = 'healthImg';
     this.type = 'Underholdning';
     this.isTypeCompleted = true;
-    console.log("Ball is picked")
-
   }
   routeToHome() {
     this.router.navigate(['/home']);
@@ -246,39 +247,96 @@ export class NewAppointmentComponent implements OnInit {
     this.newappointmentservice.date = this.realDate;
     this.newappointmentservice.time = this.time;
     this.newappointmentservice.makeDateNumber();
-    this.newappointmentservice.printTester();
-    this.eventservice.AddEvent(this.type, this.newappointmentservice.note, this.newappointmentservice.year, this.newappointmentservice.month, this.newappointmentservice.day, this.time, this.newappointmentservice.people, this.newappointmentservice.place).subscribe((data: Event[]) => {
-      if (data['event'] == "Success") {
-        this.toastrService.success('Din aftale blev gemt.', 'Success!');
-        this.routeToHome();
-      }
-      else {
-        if (data['reason'] != "") {
-          this.toastrService.error(data['reason'], 'Fejl!');
+
+    if (this.editing) {
+      console.log("[" + this.id + "] ny note: " + this.newappointmentservice.note)
+      this.eventservice.UpdateEvent(this.id, this.type, this.newappointmentservice.note, this.newappointmentservice.year, this.newappointmentservice.month, this.newappointmentservice.day, this.time, this.newappointmentservice.people, this.newappointmentservice.place).subscribe((data: Event[]) => {
+        if (data['event'] == "Success") {
+          this.toastrService.success(this.newappointmentservice.note + ' blev opdateret.', 'Success!');
+          this.routeToHome();
         }
         else {
-          this.toastrService.error('Noget gik galt. Prøv igen om lidt.', 'Fejl!');
+          if (data['reason'] != "") {
+            this.toastrService.error(data['reason'], 'Fejl!');
+          }
+          else {
+            this.toastrService.error('Noget gik galt. Prøv igen om lidt.', 'Fejl!');
+          }
         }
-      }
-    });
+      });
+    }
+    else {
+      this.eventservice.AddEvent(this.type, this.newappointmentservice.note, this.newappointmentservice.year, this.newappointmentservice.month, this.newappointmentservice.day, this.time, this.newappointmentservice.people, this.newappointmentservice.place).subscribe((data: Event[]) => {
+        if (data['event'] == "Success") {
+          this.toastrService.success('Din aftale blev gemt.', 'Success!');
+          this.routeToHome();
+        }
+        else {
+          if (data['reason'] != "") {
+            this.toastrService.error(data['reason'], 'Fejl!');
+          }
+          else {
+            this.toastrService.error('Noget gik galt. Prøv igen om lidt.', 'Fejl!');
+          }
+        }
+      });
+    }
   }
 
-  onChange1 = (input: string) => {
-    this.noteTekst = input;
-    this.newappointmentservice.note = this.noteTekst;
-  };
+  onKeyPress1 = (button: string) => {
+      if (button != "{bksp}")
+      {
+        this.noteTekst = this.noteTekst + button;
+      }
+      else
+      {
+        this.noteTekst = this.noteTekst.substring(0, this.noteTekst.length - 1);
+      }
 
-  onChange2 = (input: string) => {
-    this.deltagerTekst = input;
-    this.newappointmentservice.people = this.deltagerTekst;
-  };
+      this.newappointmentservice.note = this.noteTekst;
+  }
 
-  onChange3 = (input: string) => {
-    this.stedTekst = input;
+  onKeyPress2 = (button: string) => {
+      if (button != "{bksp}")
+      {
+        this.deltagerTekst = this.deltagerTekst + button;
+      }
+      else
+      {
+        this.deltagerTekst = this.deltagerTekst.substring(0, this.deltagerTekst.length - 1);
+      }
+
+      this.newappointmentservice.people = this.deltagerTekst;
+  }
+
+  onKeyPress3 = (button: string) => {
+      if (button != "{bksp}")
+      {
+        this.stedTekst = this.stedTekst + button;
+      }
+      else
+      {
+        this.stedTekst = this.stedTekst.substring(0, this.stedTekst.length - 1);
+      }
+
     this.newappointmentservice.place = this.stedTekst;
-  };
+  }
 
   onInputChange = (event: any) => {
     this.keyboard.setInput(event.target.value);
-  };
+    console.log(event.target.value);
+  }
+
+  editEvent() {
+    this.id = this.newappointmentservice.id;
+    this.type = this.newappointmentservice.type;
+    this.time = this.newappointmentservice.time;
+    this.people = this.newappointmentservice.people;
+    this.place = this.newappointmentservice.place;
+    this.note = this.newappointmentservice.note;
+    this.realDate = this.newappointmentservice.date;
+    this.hour = this.newappointmentservice.hour;
+    this.minutes = this.newappointmentservice.minutes;
+
+  }
 }

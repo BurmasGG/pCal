@@ -20,6 +20,7 @@ export class AppointmentService {
   day = 1;
   month = 1;
   year = 2020;
+  editing = false;
 
   constructor(private eventservice: EventService, ) {
   }
@@ -60,8 +61,7 @@ export class AppointmentService {
     this.inAppointment = false;
   }
 
-  public SetValues(e)
-  {
+  public SetValues(e) {
     this.id = e._id;
     this.type = e.type;
     this.note = e.note;
@@ -71,6 +71,11 @@ export class AppointmentService {
     this.day = e.day;
     this.people = e.people;
     this.place = e.place;
-
+    this.inAppointment = true;
+    this.date = this.day + '/' + this.month + '/' + this.year;
+    this.editing = true;
+    this.hour = Number(this.time.split(':')[0]);
+    this.minutes = Number(this.time.split(':')[1]);
   }
+
 }

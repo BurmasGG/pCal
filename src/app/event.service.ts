@@ -30,14 +30,14 @@ export class EventService {
       const event = {type: _type, note: _note, year: _year, month: _month, day: _day, time: _time, people: _people, place: _place};
     /** Initiating the post request using the post method
       what being returned is return by the add events method */
-    
+
     return this.http.post(`${this.uri}/events/add`, event);
   }
 
 /** To know which existing event to update the 'id' and 'status' is added as parameters
 all paramter are containing the new values */
-  public UpdateEvent(id, _type, _note, _date, _time, _people = "", _place = "") {
-    const event = { type: _type, note: _note, date: _date, time: _time, people: _people, place: _place };
+  public UpdateEvent(id, _type, _note, _year, _month, _day, _time, _people, _place) {
+    const event = {type: _type, note: _note, year: _year, month: _month, day: _day, time: _time, people: _people, place: _place};
     /** post request is send to the events, where the 'id' value is inserted, also containing the event object with updated data */
     return this.http.post(`${this.uri}/events/update/${id}`, event);
   }
