@@ -175,7 +175,9 @@
         </div>
       </div>
       <div>
-        <button mat-button class="nextBttn" (click)="saveAppointment()">Gem aftale!</button>
+        <button mat-button class="nextBttn" (click)="saveAppointment()" *ngIf="editing == false">Gem aftale!</button>
+        <button mat-button class="nextBttn" (click)="saveAppointment()" *ngIf="editing == true">Gem ændringer!</button>
+
       </div>
     </div>
   </mat-step>
