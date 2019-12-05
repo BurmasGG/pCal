@@ -20,6 +20,8 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "mongoose": "^5.7.12"
+    "mongoose": "^5.7.12",
+    "onoff": "^5.0.0",
+    "pigpio": "^2.0.1"
   }
 }
