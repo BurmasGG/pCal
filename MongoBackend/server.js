@@ -181,7 +181,8 @@ router.route('/lights/start').get((req, res) => {
 router.route('/lights/stop').get((req, res) => {
   // CODE TO STOP LIGHTS HERE
     clearInterval(intervalObj);
-    LED.writeSync(0); //turn of LED
+  //  LED.writeSync(0); //turn of LED
+    LED.writeSync(1)
 });
 
 function blinkLED() { //blinking function
