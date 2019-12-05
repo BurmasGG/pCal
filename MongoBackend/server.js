@@ -172,16 +172,12 @@ router.route('/clickcounter/update').get((req, res) => {
 
 router.route('/lights/start').get((req, res) => {
   // CODE TO START LIGHTS HERE
-/*  const intervalObj = setInterval(() => {
-    blinkLED
-  }, 500); */
-  LED.writeSync(1);
+  var ledInterval = setInterval(blinkLED, 500);
   });
 
 router.route('/lights/stop').get((req, res) => {
   // CODE TO STOP LIGHTS HERE
-  //  clearInterval(intervalObj);
-  //  LED.writeSync(0); //turn of LED
+    clearInterval(ledInterval);
     LED.writeSync(0);
 });
 
