@@ -8,6 +8,10 @@ const mongoose = require('mongoose');
 let Event = require('./models/event');
 let ClickCounter = require('./models/clickcounter');
 
+var Gpio = require('onoff').Gpio; //include onoff
+var LED = new Gpio(4, 'out'); // use Gpio on pin 4 and specify that is is output
+var blinkInterval = setInterval(blinkLED, 250); //run the blinkLED function every 250ms
+
 const app = express();
 //return was comes from express.Router
 const router = express.Router();
@@ -146,7 +150,7 @@ router.route('/clickcounter/update').get((req, res) => {
       res.status(200).json({'event': 'Failed', 'reason': 'Der opstod en fejl ved opdatering af klik.'})
       return;
     }
-    else if (!clickcounter) // didn't find any? Create one 
+    else if (!clickcounter) // didn't find any? Create one
     {
       clickcounter = new ClickCounter({count: 1}); // default value
     }
@@ -169,11 +173,27 @@ router.route('/clickcounter/update').get((req, res) => {
 
 router.route('/lights/start').get((req, res) => {
   // CODE TO START LIGHTS HERE
-});
+  blinkInterval = interval(500);
+  subscribe = this.blinkInterval.subscribe(lol => {
+    this.blinkLED();
+  });
+  });
 
 router.route('/lights/stop').get((req, res) => {
   // CODE TO STOP LIGHTS HERE
+    clearInterval(blinkInterval); // stop intervals
+    LED.writeSync(0); //turn of LED
+    LED.unexport();
+
 });
+
+function blinkLED() { //blinking function
+  if (LED.readSync() === 0) { //Check if the pin is of (0)
+    LED.writeSync(1); //set the pin tate to on (1)
+  }else{
+    LED.writeSync(0); // turn of LED
+  }
+}
 
 
 //to attach the middleware to the router
