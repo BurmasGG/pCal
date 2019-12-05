@@ -9,7 +9,7 @@ export class ClickcounterDirective {
   constructor(private eventService: EventService) { }
 
   @HostListener('mouseup', ['$event'])
-  UpdateClickCounter()
+  UpdateClickCounter(data = "")
   {
     this.eventService.UpdateClickcounter().subscribe((data: any) => {
       // needs 'subscribe' or else nothing happens.
