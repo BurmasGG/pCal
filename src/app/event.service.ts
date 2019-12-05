@@ -42,8 +42,14 @@ all paramter are containing the new values */
     return this.http.post(`${this.uri}/events/update/${id}`, event);
   }
 
-/** the delete method is taking 'id' as a parameter  */
+  /** the delete method is taking 'id' as a parameter  */
   public DeleteEvent(id) {
     return this.http.get(`${this.uri}/events/delete/${id}`);
+  }
+
+  public UpdateClickcounter()
+  {
+    // const clickcounter = {count: 1};
+    return this.http.get(`${this.uri}/clickcounter/update`);
   }
 }

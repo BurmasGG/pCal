@@ -18,7 +18,7 @@ import { EventService } from './event.service';
 export class AppComponent {
   title = 'Emil er fam';
 
-  constructor(private reminderService: ReminderService, public newappointment: AppointmentService, private eventService: EventService,
+  constructor(private reminderService: ReminderService, public newappointment: AppointmentService, public eventService: EventService,
     public appointmentcomponent: NewAppointmentComponent, private homeView: HomeViewComponent, private dialog: MatDialog){}
 
   reminderCheckInterval = 45000; // default: 45(000) (milli)seconds
@@ -36,9 +36,8 @@ export class AppComponent {
     let s_hour = Number(this.reminderService.dp.transform(this.reminderService.date, 'HH'));
     let s_minutes = this.reminderService.dp.transform(this.reminderService.date, 'mm');
 
-    let curTime = s_hour + ":" + s_minutes;
-
     // current time
+    let curTime = s_hour + ":" + s_minutes;
 
     for (let day = 0; day < this.reminderService.eventsCurWeek.length; day++) { // go through each day's ... 
       this.reminderService.eventsCurWeek[day].forEach(event => {                // ... event(s)
@@ -86,9 +85,6 @@ export class AppComponent {
     });
 
     dialogRef.afterClosed().subscribe(_result => {
-      const dialogResult = dialogRef.componentInstance.dialogResult;
-
-      
     });
   }
 }

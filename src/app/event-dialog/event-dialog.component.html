@@ -1,6 +1,6 @@
 <body class="event {{data.type}}">
   <!-- Clicked event layout -->
-  <div *ngIf="data.isNoti == false"> 
+  <div *ngIf="data.isNoti == false" dirClickcounter> 
       <h3 >{{data.type}}</h3>
       <h2 >{{data.note}}</h2>
       <h3><b>Den</b> {{data.day}}/{{data.month}}/{{data.year}}</h3>
@@ -13,7 +13,7 @@
   </div>
 
   <!-- Notification layout -->
-  <div *ngIf="data.isNoti == true">
+  <div *ngIf="data.isNoti == true" dirClickcounter>
     <h3 >Du har en aftale i dag</h3>
     <h3><b>Kl.</b> {{data.time}}</h3>
     <h2 >{{data.note}}</h2>

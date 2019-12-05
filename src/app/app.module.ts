@@ -25,6 +25,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule, OwlDateTimeIntl } from 'ng-
 import { HttpClientModule } from '@angular/common/http';
 import { EventService } from './event.service';
 import { ToastrModule } from 'ngx-toastr';
+import { ClickcounterDirective } from './clickcounter.directive';
 
 // export class DefaultIntl extends OwlDateTimeIntl = {
 //   hour12AMLabel = '',
@@ -42,6 +43,7 @@ import { ToastrModule } from 'ngx-toastr';
     EventViewComponent,
     MonthViewComponent,
     EventDialogComponent,
+    ClickcounterDirective,
   ],
   imports: [
     NgbModule,

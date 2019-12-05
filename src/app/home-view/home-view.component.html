@@ -3,7 +3,7 @@
 <h1 id="calHeader" class="inline">5 døgns oversigt</h1>
 <p id="rightMonthName" class="inline">{{nextMonthName}}</p>
 </div>
-  <div id="calendarDiv">
+  <div id="calendarDiv" dirClickcounter>
   <div class="dayDiv" *ngFor="let day of dayTitles; let i = index">
     <p><b>{{day}}</b></p>
     <hr>
@@ -19,5 +19,7 @@
     </span>
   </div>
 </div>
+<div dirClickcounter>
 <button (click)="RefreshView('back')" class="weekBttn" id="backWeek">Forrige uge</button>
 <button (click)="RefreshView('next')" class="weekBttn" id="nextWeek">Næste uge</button>
+</div>

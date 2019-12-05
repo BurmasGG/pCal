@@ -13,7 +13,6 @@ import { AppointmentService } from '../newAppointment.service';
 })
 
 export class EventViewComponent {
-  @Output() eventEmitter = new EventEmitter<string>();
 
   constructor(public dialog: MatDialog, private injector: Injector, private eventService: EventService,
     private router: Router, private appService: AppointmentService) { }
@@ -46,7 +45,7 @@ export class EventViewComponent {
     });
 
     dialogRef.afterClosed().subscribe(_result => {
-      const dialogResult = dialogRef.componentInstance.dialogResult;
+      const dialogResult = dialogRef.componentInstance.dialogResult; // result received from "event dialog"
 
       if (dialogResult == "delete") {
         if (confirm("Sikker på du vil slette '" + this.e.note + "'?")) {

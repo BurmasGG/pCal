@@ -6,6 +6,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 let Event = require('./models/event');
+let ClickCounter = require('./models/clickcounter');
 
 const app = express();
 //return was comes from express.Router
@@ -127,12 +128,42 @@ router.route('/events/update/:id').post((req, res) => {
 router.route('/events/delete/:id').get((req, res) => {
 	//to delete an event the findByIdAndRemove method is used
   Event.findByIdAndRemove({_id: req.params.id}, (err, event)  =>{
-	  //checking for errors
+    //checking for errors
     if (err)
       res.json({'event': 'Failed', 'reason': 'Der opstod en fejl. Prøv igen senere.'});
   //if no errors occured, res.json is used to return the text
     else
       res.json({'event': 'Success'});
+  });
+});
+
+router.route('/clickcounter/update').get((req, res) => {
+  ClickCounter.find((err, clickcounter) =>{ // find all ClickCounters
+    clickcounter = clickcounter[0]; // (there's only 1, so just pick that)
+    if (err)
+    {
+      console.log(err);
+      res.status(200).json({'event': 'Failed', 'reason': 'Der opstod en fejl ved opdatering af klik.'})
+      return;
+    }
+    else if (!clickcounter) // didn't find any? Create one 
+    {
+      clickcounter = new ClickCounter({count: 1}); // default value
+    }
+    else
+    {
+      clickcounter.count = clickcounter.count + 1;
+    }
+
+    if (clickcounter)
+    {
+      let count = clickcounter.count;
+      clickcounter.save().then(count => { res.status(200).json({'event': 'Success (' + count + ')'})});
+    }
+    else
+    {
+      res.status(200).json({'event': 'Failed'});
+    }
   });
 });
 
