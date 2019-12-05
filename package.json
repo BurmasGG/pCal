@@ -30,6 +30,8 @@
     "ng-pick-datetime": "^7.0.0",
     "ngx-bootstrap": "^5.2.0",
     "ngx-toastr": "^11.2.1",
+    "onof": "0.0.1",
+    "pigpio": "^2.0.1",
     "rxjs": "^6.4.0",
     "rxjs-compat": "^6.5.3",
     "simple-keyboard": "^2.27.25",
