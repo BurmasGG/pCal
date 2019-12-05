@@ -52,4 +52,14 @@ all paramter are containing the new values */
     // const clickcounter = {count: 1};
     return this.http.get(`${this.uri}/clickcounter/update`);
   }
+
+  public StartLights()
+  {
+    return this.http.get(`${this.uri}/lights/start`);
+  }
+
+  public StopLights()
+  {
+    return this.http.get(`${this.uri}/lights/stop`);
+  }
 }

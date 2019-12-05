@@ -167,6 +167,15 @@ router.route('/clickcounter/update').get((req, res) => {
   });
 });
 
+router.route('/lights/start').get((req, res) => {
+  // CODE TO START LIGHTS HERE
+});
+
+router.route('/lights/stop').get((req, res) => {
+  // CODE TO STOP LIGHTS HERE
+});
+
+
 //to attach the middleware to the router
 app.use('/', router);
 //Callback function, that the server is running on port 4000

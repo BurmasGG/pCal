@@ -61,10 +61,15 @@ export class AppComponent {
 
   Notify(e)
   {    
-    let audio = new Audio();
-    audio.src = "../assets/sounds/notification.mp3";
-    audio.load();
-    audio.play();
+    this.eventService.StartLights().subscribe((data: any) => {
+      // needs 'subscribe' or else nothing happens.
+    });
+
+    // Audio Notification not used -- no speaker (REPLACE SOUND FILE)
+    // let audio = new Audio();
+    // audio.src = "../assets/sounds/notification.mp3";
+    // audio.load();
+    // audio.play();
 
     let dialogRef = this.dialog.open(EventDialogComponent, {
       autoFocus: true,
@@ -85,6 +90,10 @@ export class AppComponent {
     });
 
     dialogRef.afterClosed().subscribe(_result => {
+        
+      this.eventService.StopLights().subscribe((data: any) => {
+        // needs 'subscribe' or else nothing happens.
+      });
     });
   }
 }
