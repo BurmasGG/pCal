@@ -8,6 +8,7 @@ import { HomeViewComponent } from './home-view/home-view.component';
 import { ReminderService } from './reminder.service';
 import { EventDialogComponent } from './event-dialog/event-dialog.component';
 import { MatDialog } from '@angular/material';
+import { EventService } from './event.service';
 
 @Component({
   selector: 'app-root',
@@ -17,10 +18,10 @@ import { MatDialog } from '@angular/material';
 export class AppComponent {
   title = 'Emil er fam';
 
-  constructor(private reminderService: ReminderService, public newappointment: AppointmentService, 
+  constructor(private reminderService: ReminderService, public newappointment: AppointmentService, private eventService: EventService,
     public appointmentcomponent: NewAppointmentComponent, private homeView: HomeViewComponent, private dialog: MatDialog){}
 
-  reminderCheckInterval = 1000; // default: 45(000) (milli)seconds
+  reminderCheckInterval = 45000; // default: 45(000) (milli)seconds
   
   source = interval(this.reminderCheckInterval);
   subscribe = this.source.subscribe(lol => {
@@ -40,24 +41,32 @@ export class AppComponent {
     // current time
 
     for (let day = 0; day < this.reminderService.eventsCurWeek.length; day++) { // go through each day's ... 
-    console.log("Day " + day + "...")
       this.reminderService.eventsCurWeek[day].forEach(event => {                // ... event(s)
-        console.log("[" + day + "] " + event.note + ", " + event.day + " (" + this.reminderService.curDay + ")")
         if (event.day == this.reminderService.curDay) // is event today?
         {
-          let notifyTime = (Number(event.time.split(':')[0] - 1)).toString() + ":" + s_minutes; // eventTime - 1 hour
-          if (curTime == notifyTime) // is event time an hour from now?
-          {
-            this.Notify(event); // notify
+          // basically split time (e.g. "12:30") between ':', substract 1 from hour and reassemble
+          let notifyTime = (Number(event.time.split(':')[0] - 1)).toString() + ":" + event.time.split(':')[1];
+          if (curTime == notifyTime && event.notify == true) // is event time an hour from now and haven't already notified?
+          {  
+            console.log("curTime == notifyTime (" + curTime + " == " + notifyTime +")");
+            // update database to not notify for this anymore
+            this.eventService.UpdateEvent(event._id, false, event.type, event.note, event.year, event.month, event.day, event.time, event.people, event.place).subscribe((data: any) => {
+              event.notify = false; // update local array event as well
+              this.Notify(event); // notify
+            });
           }
         }
       });
     }
-}
+  }
 
   Notify(e)
   {    
-    console.log("NOTIFYING");
+    let audio = new Audio();
+    audio.src = "../assets/sounds/notification.mp3";
+    audio.load();
+    audio.play();
+
     let dialogRef = this.dialog.open(EventDialogComponent, {
       autoFocus: true,
       disableClose: false,

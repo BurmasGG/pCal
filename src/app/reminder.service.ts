@@ -13,17 +13,7 @@ export class ReminderService {
   dp = new DatePipe('en-DK');
   curDay; curWeek; curMonth; curYear;
   public eventsCurWeek = []; // hold styr på current week's events, uanset valgt uge
-  
-  // event info
-  id;
-  type;
-  note;
-  year;
-  month;
-  day;
-  time;
-  people;
-  place;
+
 
   GetTodayDate()
   {

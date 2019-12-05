@@ -4,6 +4,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 let Event = new Schema({
+  notify: {
+    type: Boolean
+  },
   type: {
     type: String
   },

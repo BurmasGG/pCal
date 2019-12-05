@@ -269,7 +269,7 @@ export class NewAppointmentComponent implements OnInit {
 
     if (this.editing) {
       console.log("[" + this.id + "] ny note: " + this.newappointmentservice.note)
-      this.eventservice.UpdateEvent(this.id, this.type, this.newappointmentservice.note, this.newappointmentservice.year, this.newappointmentservice.month, this.newappointmentservice.day, this.time, this.newappointmentservice.people, this.newappointmentservice.place).subscribe((data: Event[]) => {
+      this.eventservice.UpdateEvent(this.id, true, this.type, this.newappointmentservice.note, this.newappointmentservice.year, this.newappointmentservice.month, this.newappointmentservice.day, this.time, this.newappointmentservice.people, this.newappointmentservice.place).subscribe((data: Event[]) => {
         if (data['event'] == "Success") {
           this.toastrService.success(this.newappointmentservice.note + ' blev opdateret.', 'Success!');
           this.routeToHome();

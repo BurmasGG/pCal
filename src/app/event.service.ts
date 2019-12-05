@@ -16,7 +16,6 @@ export class EventService {
   public GetAllEvents(){
     /** sending out an HTTP get request to the url, returning all the events in .json format*/
     return this.http.get(`${this.uri}/events`);
-    console.log('Emil er trash')
   }
 
   public GetEventByDate(year, month, day){
@@ -28,7 +27,7 @@ export class EventService {
   }
 
   public AddEvent(_type, _note, _year, _month, _day, _time, _people, _place) {
-      const event = {type: _type, note: _note, year: _year, month: _month, day: _day, time: _time, people: _people, place: _place};
+      const event = {notify: true, type: _type, note: _note, year: _year, month: _month, day: _day, time: _time, people: _people, place: _place};
     /** Initiating the post request using the post method
       what being returned is return by the add events method */
 
@@ -37,8 +36,8 @@ export class EventService {
 
 /** To know which existing event to update the 'id' and 'status' is added as parameters
 all paramter are containing the new values */
-  public UpdateEvent(id, _type, _note, _year, _month, _day, _time, _people, _place) {
-    const event = {type: _type, note: _note, year: _year, month: _month, day: _day, time: _time, people: _people, place: _place};
+  public UpdateEvent(id, _notify, _type, _note, _year, _month, _day, _time, _people, _place) {
+    const event = {notify: _notify, type: _type, note: _note, year: _year, month: _month, day: _day, time: _time, people: _people, place: _place};
     /** post request is send to the events, where the 'id' value is inserted, also containing the event object with updated data */
     return this.http.post(`${this.uri}/events/update/${id}`, event);
   }

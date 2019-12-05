@@ -33,6 +33,7 @@ export class EventViewComponent {
       data: {
         isNoti: false,
         id: this.e._id,
+        notify: this.e.notify,
         type: this.e.type,
         note: this.e.note,
         year: this.e.year,

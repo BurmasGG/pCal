@@ -102,6 +102,7 @@ router.route('/events/update/:id').post((req, res) => {
     else{
 		//if events is retrieved from database
 		//event object with the properties get updated with values from 'req.body'
+      event.notify = req.body.notify;
       event.type = req.body.type;
       event.note = req.body.note;
       event.year = req.body.year;
