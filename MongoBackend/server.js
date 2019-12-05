@@ -27,6 +27,7 @@ const connection = mongoose.connection;
 //add eventListener to the open event
 connection.once('open', () =>{
   console.log('MongoDB database connection established sucessfully!');
+  LED.writeSync(0);
 });
 //send HTTP .get request can get back list of events in JSON format
 //has 2 parameters a request and response object
@@ -183,8 +184,6 @@ router.route('/lights/stop').get((req, res) => {
   // CODE TO STOP LIGHTS HERE
     clearInterval(blinkInterval); // stop intervals
     LED.writeSync(0); //turn of LED
-    LED.unexport();
-
 });
 
 function blinkLED() { //blinking function
