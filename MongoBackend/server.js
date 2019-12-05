@@ -10,6 +10,7 @@ let ClickCounter = require('./models/clickcounter');
 
 var Gpio = require('onoff').Gpio; //include onoff
 var LED = new Gpio(4, 'out'); // use Gpio on pin 4 and specify that is is output
+var ledInterval;
 
 const app = express();
 //return was comes from express.Router
@@ -172,15 +173,12 @@ router.route('/clickcounter/update').get((req, res) => {
 
 router.route('/lights/start').get((req, res) => {
   // CODE TO START LIGHTS HERE
-  const intervalObj = setInterval(() => {
-    blinkLED();
-}, 500);
-
+  ledInterval = setInterval(blinkLED, 500);
   });
 
 router.route('/lights/stop').get((req, res) => {
   // CODE TO STOP LIGHTS HERE
-    clearInterval(intervalObj);
+    clearInterval(ledInterval);
     LED.writeSync(0);
 });
 
