@@ -10,7 +10,8 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
-body{max-height: 450px; max-width: 800px;}
+body{max-height: 450px; max-width: 800px; cursor: none !important; }
+button{cursor: none !important;}
 
 /*.mat-form-field-infix {
   border-top: 0 !important;
