@@ -3,7 +3,7 @@ var LED04 = new Gpio(4, 'out'), //use declare variables for all the GPIO output 
   LED17 = new Gpio(17, 'out'),
   LED27 = new Gpio(27, 'out'),
   LED22 = new Gpio(22, 'out'),
-  LED18 = new Gpio(18, 'out'),
+  LED18 = new Gpio(18, 'out');
 
 //Put all the LED variables in an array
 var leds = [LED04, LED17, LED27, LED22, LED18];
