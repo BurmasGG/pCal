@@ -9,21 +9,23 @@ let Event = require('./models/event');
 let ClickCounter = require('./models/clickcounter');
 
 var Gpio = require('onoff').Gpio; //include onoff
+/*
 var LED04 = new Gpio(4, 'out'),
 LED17 = new Gpio(17, 'out'),
 LED27 = new Gpio(27, 'out'),
 LED22 = new Gpio(22, 'out'),
 LED18 = new Gpio(18, 'out'); // use Gpio on pin 4 and specify that is is output
-/*var leds = [LED04, LED17, LED27, LED22, LED18];
+var leds = [LED04, LED17, LED27, LED22, LED18];
 var indexCount;
-var dir;
+var dir; */
+
 var LED04,
 LED17,
 LED27,
 LED22,
 LED18; // use Gpio on pin 4 and specify that is is output
-var leds;
-*/
+//var leds;
+
 var ledInterval;
 
 const app = express();
@@ -188,13 +190,13 @@ router.route('/clickcounter/update').get((req, res) => {
 router.route('/lights/start').get((req, res) => {
   // CODE TO START LIGHTS HERE
   /* var indexCount = 0;
-  dir = "up";
+  dir = "up"; */
   LED04 = new Gpio(4, 'out'),
   LED17 = new Gpio(17, 'out'),
   LED27 = new Gpio(27, 'out'),
   LED22 = new Gpio(22, 'out'),
   LED18 = new Gpio(18, 'out'); // use Gpio on pin 4 and specify that is is output
-  leds = [LED04, LED17, LED27, LED22, LED18]; */
+  //leds = [LED04, LED17, LED27, LED22, LED18];
   ledInterval = setInterval(blinkLED, 500);
   });
 
@@ -206,6 +208,11 @@ router.route('/lights/stop').get((req, res) => {
     LED27.writeSync(0);
     LED22.writeSync(0);
     LED18.writeSync(0);
+    LED04.unexport();
+    LED17.unexport();
+    LED27.unexport();
+    LED22.unexport();
+    LED18.unexport();
   //  stopFlowingLeds();
 });
  function blinkLED() { //blinking function
