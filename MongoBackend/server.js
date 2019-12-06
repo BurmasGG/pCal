@@ -9,12 +9,12 @@ let Event = require('./models/event');
 let ClickCounter = require('./models/clickcounter');
 
 var Gpio = require('onoff').Gpio; //include onoff
-var LED04 = new Gpio(4, 'out'),
+/*var LED04 = new Gpio(4, 'out'),
 LED17 = new Gpio(17, 'out'),
 LED27 = new Gpio(27, 'out'),
 LED22 = new Gpio(22, 'out'),
 LED18 = new Gpio(18, 'out'); // use Gpio on pin 4 and specify that is is output
-var leds = [LED04, LED17, LED27, LED22, LED18];
+var leds = [LED04, LED17, LED27, LED22, LED18];*/
 var indexCount = 0;
 dir = "up";
 var ledInterval;
@@ -180,6 +180,12 @@ router.route('/clickcounter/update').get((req, res) => {
 
 router.route('/lights/start').get((req, res) => {
   // CODE TO START LIGHTS HERE
+  var LED04 = new Gpio(4, 'out'),
+  LED17 = new Gpio(17, 'out'),
+  LED27 = new Gpio(27, 'out'),
+  LED22 = new Gpio(22, 'out'),
+  LED18 = new Gpio(18, 'out'); // use Gpio on pin 4 and specify that is is output
+  var leds = [LED04, LED17, LED27, LED22, LED18];
   ledInterval = setInterval(flowingLeds, 100);
   });
 
@@ -189,14 +195,13 @@ router.route('/lights/stop').get((req, res) => {
   //  LED.writeSync(0);
     stopFlowingLeds();
 });
-
-function blinkLED() { //blinking function
+/* function blinkLED() { //blinking function
   if (LED.readSync() === 0) { //Check if the pin is of (0)
     LED.writeSync(1); //set the pin tate to on (1)
   }else{
     LED.writeSync(0); // turn of LED
   }
-}
+} */
 
 function flowingLeds() { //function for flowing Leds
   leds.forEach(function(currentValue) { //for each item in array
@@ -213,6 +218,7 @@ function stopFlowingLeds() {
     clearInterval(ledInterval);
     leds.forEach(function(currentValue) { //for each LED
       currentValue.writeSync(0);
+      currentValue.unexport(); //unexport GPIO
       });
 };
 
