@@ -183,7 +183,13 @@ router.route('/lights/start').get((req, res) => {
   LED27 = new Gpio(27, 'out'),
   LED22 = new Gpio(22, 'out'),
   LED18 = new Gpio(18, 'out'); // use Gpio on pin 4 and specify that is is output
-  ledInterval = setInterval(blinkLED, 500);
+
+  LED04.writeSync(1); //set the pin tate to on (1)
+  LED17.writeSync(1); //set the pin tate to on (1)
+  LED27.writeSync(1); //set the pin tate to on (1)
+  LED22.writeSync(1); //set the pin tate to on (1)
+  LED18.writeSync(1); //set the pin tate to on (1)
+  //ledInterval = setInterval(blinkLED, 500);
   });
 
 router.route('/lights/stop').get((req, res) => {
@@ -207,7 +213,7 @@ router.route('/lights/stop').get((req, res) => {
     LED18 = null;
 });
 
-
+/*
  function blinkLED() { //blinking function
   if (LED04.readSync() === 0) { //Check if the pin is of (0)
     LED04.writeSync(1); //set the pin tate to on (1)
@@ -222,7 +228,7 @@ router.route('/lights/stop').get((req, res) => {
     LED22.writeSync(0);
     LED18.writeSync(0);
   }
-}
+}*/
 //to attach the middleware to the router
 app.use('/', router);
 //Callback function, that the server is running on port 4000
