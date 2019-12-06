@@ -31,25 +31,29 @@ button {
     position: absolute;
     top: 0px;
     right: -17px;
-    background-color: red;
+    background-color: #E0352D;
+    /*background-color: red;*/
     /*background: url(); Trashcan Icon*/
 }
 
 .event.SCN {
-  background-color: rgb(96, 119, 221);
+  /*background-color: rgb(96, 119, 221);*/
+  background-color: #5B93F5;
 }
 .img.SCN {
   width: 24px;
   height: 24px;
   padding-left: 24px;
   background: url("src/assets/img/smiley.png") left top no-repeat;
-  background-color: blue;
+  /*background-color: blue;*/
 }
 .event.Familie {
-  background-color: chartreuse;
+  /*background-color: chartreuse;*/
+  background-color: #3DE343;
 }
 .event.Sundhedsvæsenet {
-  background-color: rgb(196, 9, 9);
+  /*background-color: rgb(196, 9, 9);*/
+  background-color: #F03616;
 }
 .img.Sundhedsvæsenet {
   width: 24px;
@@ -59,7 +63,8 @@ button {
 }
 
 .event.Underholdning {
-  background-color: chocolate;
+  /*background-color: chocolate;*/
+  background-color: #FA8D35;
 }
 .img.Underholdning {
   width: 24px;
@@ -67,9 +72,7 @@ button {
   padding-left: 24px;
   background: url("src/assets/img/football.png") left top no-repeat;
 }
-.diaDiv{
-  background-color: blue;
-}
+
 button{
   cursor: none;
 

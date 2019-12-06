@@ -4,10 +4,12 @@
   height: 10%;
   width: 100;
   overflow: hidden;
-  background-color: #16168b;
+  /*background-color: #16168b;*/
+  background-color: #8CCEFF;
 }
 #newPlan{
-  background-color: red;
+  /*background-color: red;*/
+  background-color: #E0352D;
   position: absolute;
   right: 0%;
   height: 70px;
@@ -16,7 +18,8 @@
   color: white;
 }
 .menubttn{
-  background-color: rgb(3, 209, 106);
+  /*background-color: rgb(3, 209, 106);*/
+  background-color: #82DE7E;
   height: 70px;
   font-weight: bold;
   width: 100px;
@@ -24,7 +27,8 @@
   font-size: 15px;
 }
 #header{
-  color: white;
+ /* color: white;*/
+ color: black;
   margin-left: 20%;
 }
 button{
