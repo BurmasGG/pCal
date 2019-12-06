@@ -70,4 +70,7 @@ button {
 .diaDiv{
   background-color: blue;
 }
+button{
+  cursor: none;
 
+}
