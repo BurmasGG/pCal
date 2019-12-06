@@ -194,22 +194,34 @@ router.route('/lights/start').get((req, res) => {
   LED22 = new Gpio(22, 'out'),
   LED18 = new Gpio(18, 'out'); // use Gpio on pin 4 and specify that is is output
   leds = [LED04, LED17, LED27, LED22, LED18];
-  ledInterval = setInterval(flowingLeds, 100);
+  ledInterval = setInterval(blinkLED, 100);
   });
 
 router.route('/lights/stop').get((req, res) => {
   // CODE TO STOP LIGHTS HERE
-  //  clearInterval(ledInterval);
-  //  LED.writeSync(0);
-    stopFlowingLeds();
+    clearInterval(ledInterval);
+    LED04.writeSync(0); // turn of LED
+    LED17.writeSync(0);
+    LED27.writeSync(0);
+    LED22.writeSync(0);
+    LED18.writeSync(0);
+  //  stopFlowingLeds();
 });
-/* function blinkLED() { //blinking function
-  if (LED.readSync() === 0) { //Check if the pin is of (0)
-    LED.writeSync(1); //set the pin tate to on (1)
+ function blinkLED() { //blinking function
+  if (LED4.readSync() === 0) { //Check if the pin is of (0)
+    LED04.writeSync(1); //set the pin tate to on (1)
+    LED17.writeSync(1); //set the pin tate to on (1)
+    LED27.writeSync(1); //set the pin tate to on (1)
+    LED22.writeSync(1); //set the pin tate to on (1)
+    LED18.writeSync(1); //set the pin tate to on (1)
   }else{
-    LED.writeSync(0); // turn of LED
+    LED04.writeSync(0); // turn of LED
+    LED17.writeSync(0);
+    LED27.writeSync(0);
+    LED22.writeSync(0);
+    LED18.writeSync(0);
   }
-} */
+}
 
 function flowingLeds() { //function for flowing Leds
   leds.forEach(function(currentValue) { //for each item in array
