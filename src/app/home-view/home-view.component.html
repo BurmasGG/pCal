@@ -1,7 +1,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <div dirClickcounter id="navBar">
-  <button class="weekBttn" id="homeBttn" (click)="routeToHome()">Hjem</button>
-  <button (click)="RefreshView('back')" class="weekBttn" id="backWeek">Forrige uge</button>
+  <button class="weekBttn" id="homeBttn" (click)="RefreshView('home')">Hjem</button>
   <button (click)="RefreshView('next')" class="weekBttn" id="nextWeek">Næste uge</button>
   <button mat-button id="newPlan"(click)="routeToAppointment()">Ny aftale</button>
   <h1 id="header">5 dages overblik</h1>
