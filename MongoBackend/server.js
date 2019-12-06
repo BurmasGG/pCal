@@ -8,13 +8,12 @@ const mongoose = require('mongoose');
 let Event = require('./models/event');
 let ClickCounter = require('./models/clickcounter');
 
-var Gpio = require('onoff').Gpio; //include onoff
-var LED04,
-LED17,
-LED27,
-LED22,
-LED18; // use Gpio on pin 4 and specify that is is output
 
+LED04 = new Gpio(4, 'out'),
+LED17 = new Gpio(17, 'out'),
+LED27 = new Gpio(27, 'out'),
+LED22 = new Gpio(22, 'out'),
+LED18 = new Gpio(18, 'out');
 var ledInterval;
 
 const app = express();
@@ -176,44 +175,29 @@ router.route('/clickcounter/update').get((req, res) => {
   });
 });
 
-router.route('/lights/start').get((req, res) => {
-  // CODE TO START LIGHTS HERE
-  LED04 = new Gpio(4, 'out'),
-  LED17 = new Gpio(17, 'out'),
-  LED27 = new Gpio(27, 'out'),
-  LED22 = new Gpio(22, 'out'),
-  LED18 = new Gpio(18, 'out'); // use Gpio on pin 4 and specify that is is output
+router.route('/lights/start').post((req, res) => {
+  console.log("req param start: " + req.body.startLights)
+  if(req.body.startLights == true){
+    ledInterval = setInterval(blinkLED, 500);
 
-  LED04.writeSync(1); //set the pin tate to on (1)
-  LED17.writeSync(1); //set the pin tate to on (1)
-  LED27.writeSync(1); //set the pin tate to on (1)
-  LED22.writeSync(1); //set the pin tate to on (1)
-  LED18.writeSync(1); //set the pin tate to on (1)
-  //ledInterval = setInterval(blinkLED, 500);
+  res.status(200).json({'event': 'Started Lights'})
+  }
   });
 
-router.route('/lights/stop').get((req, res) => {
-  // CODE TO STOP LIGHTS HERE
+router.route('/lights/stop').post((req, res) => {
+  console.log("req param stop: " + req.body.stopLights)
+  if(req.body.stopLights == true){
     clearInterval(ledInterval);
-    ledInterval = null;
     LED04.writeSync(0); // turn of LED
     LED17.writeSync(0);
     LED27.writeSync(0);
     LED22.writeSync(0);
     LED18.writeSync(0);
-    LED04.unexport();
-    LED17.unexport();
-    LED27.unexport();
-    LED22.unexport();
-    LED18.unexport();
-    LED04 = null;
-    LED17 = null;
-    LED27 = null;
-    LED22 = null;
-    LED18 = null;
+    res.status(200).json({'event': 'Stopped Lights'})
+  }
 });
 
-/*
+
  function blinkLED() { //blinking function
   if (LED04.readSync() === 0) { //Check if the pin is of (0)
     LED04.writeSync(1); //set the pin tate to on (1)
@@ -228,7 +212,8 @@ router.route('/lights/stop').get((req, res) => {
     LED22.writeSync(0);
     LED18.writeSync(0);
   }
-}*/
+}
+
 //to attach the middleware to the router
 app.use('/', router);
 //Callback function, that the server is running on port 4000

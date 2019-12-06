@@ -22,7 +22,7 @@ export class AppComponent {
     public appointmentcomponent: NewAppointmentComponent, private homeView: HomeViewComponent, private dialog: MatDialog){}
 
   reminderCheckInterval = 45000; // default: 45(000) (milli)seconds
-  
+
   source = interval(this.reminderCheckInterval);
   subscribe = this.source.subscribe(lol => {
     this.ReminderCheck();
@@ -31,7 +31,7 @@ export class AppComponent {
   ReminderCheck()
   {
     this.reminderService.GetTodayDate();
-    console.log("Checking " + this.reminderService.eventsCurWeek.length + " Days for Event Reminders")
+    console.log("Checking for Event Reminders")
 
     let s_hour = Number(this.reminderService.dp.transform(this.reminderService.date, 'HH'));
     let s_minutes = this.reminderService.dp.transform(this.reminderService.date, 'mm');
@@ -39,14 +39,14 @@ export class AppComponent {
     // current time
     let curTime = s_hour + ":" + s_minutes;
 
-    for (let day = 0; day < this.reminderService.eventsCurWeek.length; day++) { // go through each day's ... 
+    for (let day = 0; day < this.reminderService.eventsCurWeek.length; day++) { // go through each day's ...
       this.reminderService.eventsCurWeek[day].forEach(event => {                // ... event(s)
         if (event.day == this.reminderService.curDay) // is event today?
         {
           // basically split time (e.g. "12:30") between ':', substract 1 from hour and reassemble
           let notifyTime = (Number(event.time.split(':')[0] - 1)).toString() + ":" + event.time.split(':')[1];
           if (curTime == notifyTime && event.notify == true) // is event time an hour from now and haven't already notified?
-          {  
+          {
             console.log("curTime == notifyTime (" + curTime + " == " + notifyTime +")");
             // update database to not notify for this anymore
             this.eventService.UpdateEvent(event._id, false, event.type, event.note, event.year, event.month, event.day, event.time, event.people, event.place).subscribe((data: any) => {
@@ -60,9 +60,11 @@ export class AppComponent {
   }
 
   Notify(e)
-  {    
-    this.eventService.StartLights().subscribe((data: any) => {
+  {
+    console.log("Notify(): " + e.note + ", notify: " + e.notify)
+    this.eventService.StartLights(true).subscribe((data: any) => {
       // needs 'subscribe' or else nothing happens.
+      console.log(data['event'])
     });
 
     // Audio Notification not used -- no speaker (REPLACE SOUND FILE)
@@ -90,9 +92,10 @@ export class AppComponent {
     });
 
     dialogRef.afterClosed().subscribe(_result => {
-        
-      this.eventService.StopLights().subscribe((data: any) => {
+
+      this.eventService.StopLights(true).subscribe((data: any) => {
         // needs 'subscribe' or else nothing happens.
+        console.log(data['event'])
       });
     });
   }

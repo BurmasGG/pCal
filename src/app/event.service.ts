@@ -53,13 +53,14 @@ all paramter are containing the new values */
     return this.http.get(`${this.uri}/clickcounter/update`);
   }
 
-  public StartLights()
+  public StartLights(_startLights)
   {
-    return this.http.get(`${this.uri}/lights/start`);
+    return this.http.post(`${this.uri}/lights/start`, ({'startLights': _startLights}));
   }
 
-  public StopLights()
+  public StopLights(_stopLights)
   {
-    return this.http.get(`${this.uri}/lights/stop`);
+    return this.http.post(`${this.uri}/lights/stop`, ({'stopLights': _stopLights}));
   }
+
 }
