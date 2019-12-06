@@ -89,3 +89,7 @@ font-weight: bold;
   background-color: rgb(3, 209, 106);
   float: right;
 }
+button{
+  cursor: none;
+
+}
