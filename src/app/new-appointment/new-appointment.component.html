@@ -1,186 +1,191 @@
 <div dirClickcounter>
-<mat-horizontal-stepper [linear]="isLinear" #stepper>
-  <mat-step [stepControl]="firstForm">
-    <form (ngSubmit)="dateSubmit(firstForm.value)" [formGroup]="firstForm">
-      <ng-template matStepLabel>Dato</ng-template>
-      <div class="flexBox">
-        <button mat-button matStepperPrevious id="deleteBttn" (click)="routeToHome()" *ngIf="editing == false">Anuller aftale</button>
-        <button mat-button matStepperPrevious id="deleteBttn" (click)="routeToHome()" *ngIf="editing == true">Anuller ændringer</button>
-        <div class="inputField">
-          <h4 class="inputField">Vælg en dato</h4>
-          <p id="vælgDate">Tryk på knappen til højre for at vælge en ny.</p>
-          <mat-form-field id="calField">
-            <input matInput readonly [matDatepicker]="picker" value="10/21/2019" placeholder="Du har valgt den" required
-              formControlName="firstCtrl">
-            <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
-            <mat-datepicker class="fixed-open" #picker opened="true"></mat-datepicker>
-          </mat-form-field>
-          <button mat-raised-button (click)="picker.open()" id="datePickerButton">Åben kalender</button>
-        </div>
-        <button mat-raised-button type="submit" id="firstNext" matStepperNext class="nextBttn"
-          color="primary">Næste</button>
-      </div>
-    </form>
-  </mat-step>
-
-  <mat-step [stepControl]="typeForm" [completed]="isTypeCompleted">
-    <form>
-      <ng-template matStepLabel>Aftale type</ng-template>
-      <div class="flexType">
-        <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
-        <div id=outerBox>
-          <div id="headerDiv">
-            <h4>Vælg type af aftale</h4>
-          </div>
-          <div class="cardDiv">
-            <mat-card id="fam" title="Familie" (click)="pickFam()">
-              <mat-card-header class="cardFlex1">
-                <div mat-card-avatar id="famImg" class="famImg"> </div>
-                <mat-card-title>Familie</mat-card-title>
-              </mat-card-header>
-            </mat-card>
-            <mat-card id="SCN" title="SCN" (click)="pickSCN()">
-              <mat-card-header>
-                <div mat-card-avatar id="SCNImg" class="SCNImg"> </div>
-                <mat-card-title>SCN</mat-card-title>
-              </mat-card-header>
-            </mat-card>
-          </div>
-          <div class="cardDiv">
-            <mat-card id="læge" title="læge" (click)="pickHealth()">
-              <mat-card-header>
-                <div mat-card-avatar id="healthImg" class="healthImg"> </div>
-                <mat-card-title>Læge</mat-card-title>
-              </mat-card-header>
-            </mat-card>
-            <mat-card id="bold" title="Underholdning" (click)="pickBall()">
-              <mat-card-header>
-                <div mat-card-avatar id="ballImg" class="ballImg"> </div>
-                <mat-card-title>Underholdning</mat-card-title>
-              </mat-card-header>
-            </mat-card>
-          </div>
-        </div>
-        <button mat-raised-button type="submit" matStepperNext class="nextBttn" color="primary" (click)="pickType()" >Næste</button>
-      </div>
-    </form>
-  </mat-step>
-
-  <mat-step [stepControl]="secondForm">
-    <form [formGroup]="secondForm" ng-model-options="{ updateOn: 'blur'}">
-      <ng-template matStepLabel>Beskrivelse</ng-template>
-      <div class="flexBox">
-        <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
-        <div id="noteBoxOOF" class="">
-          <div id="noteBox">
-            <h4>Indtast en beskrivelse</h4>
-            <mat-form-field id="noteText">
-              <input matInput #input maxlength="30" ng-model-options="{ updateOn: 'blur'}" class="input"
-                value="{{noteTekst}}" matInput placeholder="" [(ngModel)]="this.newappointmentservice.note"
-                formControlName="secondCtrl">
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstForm">
+      <form (ngSubmit)="dateSubmit(firstForm.value)" [formGroup]="firstForm">
+        <ng-template matStepLabel>Dato</ng-template>
+        <div class="flexBox">
+          <button mat-button matStepperPrevious id="deleteBttn" (click)="routeToHome()" *ngIf="editing == false">Anuller
+            aftale</button>
+          <button mat-button matStepperPrevious id="deleteBttn" (click)="routeToHome()" *ngIf="editing == true">Anuller
+            ændringer</button>
+          <div class="inputField">
+            <h4 class="inputField">Vælg en dato</h4>
+            <p id="vælgDate">Tryk på knappen til højre for at vælge en ny.</p>
+            <mat-form-field id="calField">
+              <input matInput readonly [matDatepicker]="picker" value="10/21/2019" placeholder="Du har valgt den"
+                required formControlName="firstCtrl">
+              <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
+              <mat-datepicker class="fixed-open" #picker opened="true"></mat-datepicker>
             </mat-form-field>
+            <button mat-raised-button (click)="picker.open()" id="datePickerButton">Åben kalender</button>
           </div>
+          <button mat-raised-button type="submit" id="firstNext" matStepperNext class="nextBttn"
+            color="primary">Næste</button>
         </div>
-        <button mat-button matStepperNext class="nextBttn">Næste</button>
-      </div>
-    </form>
-   <div class="keyboard1"></div>
-  </mat-step>
+      </form>
+    </mat-step>
 
-  <mat-step [stepControl]="thirdForm" [completed]="isTimeCompleted">
-    <form [formGroup]="thirdForm">
-      <ng-template matStepLabel>Tidspunkt</ng-template>
-      <div class="flexBox">
-        <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
-        <div id="timeBox">
-          <h4>Vælg tidspunkt</h4>
-          <button id="topButton" class="arrowUpBttn" (click)="hourUp()"><i class="material-icons">
-              keyboard_arrow_up
-            </i></button>
-          <button class="arrowUpBttn" (click)="minuteUp()"><i class="material-icons">
-              keyboard_arrow_up
-            </i></button>
-          <br>
-          <mat-form-field class="timeBox" id="timeBoxFlex">
-            <input id="timeInput" matInput placeholder="" value="{{s_hour}}:{{s_minutes}}" formControlName="thirdCtrl">
-          </mat-form-field>
-          <br>
-          <button mat-fab id="botButton" class="arrowDownBttn" (click)="hourDown()"><i class="material-icons">
-              keyboard_arrow_down
-            </i></button>
-          <button mat-fab class="arrowDownBttn" (click)="minuteDown()"><i class="material-icons">
-              keyboard_arrow_down
-            </i></button>
+    <mat-step [stepControl]="typeForm" [completed]="isTypeCompleted">
+      <form>
+        <ng-template matStepLabel>Aftale type</ng-template>
+        <div class="flexType">
+          <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
+          <div id=outerBox>
+            <div id="headerDiv">
+              <h4>Vælg type af aftale</h4>
+            </div>
+            <div class="cardDiv">
+              <mat-card id="fam" title="Familie" (click)="pickFam()">
+                <mat-card-header class="cardFlex1">
+                  <div mat-card-avatar id="famImg" class="famImg"> </div>
+                  <mat-card-title>Familie</mat-card-title>
+                </mat-card-header>
+              </mat-card>
+              <mat-card id="SCN" title="SCN" (click)="pickSCN()">
+                <mat-card-header>
+                  <div mat-card-avatar id="SCNImg" class="SCNImg"> </div>
+                  <mat-card-title>SCN</mat-card-title>
+                </mat-card-header>
+              </mat-card>
+            </div>
+            <div class="cardDiv">
+              <mat-card id="læge" title="læge" (click)="pickHealth()">
+                <mat-card-header>
+                  <div mat-card-avatar id="healthImg" class="healthImg"> </div>
+                  <mat-card-title>Læge</mat-card-title>
+                </mat-card-header>
+              </mat-card>
+              <mat-card id="bold" title="Underholdning" (click)="pickBall()">
+                <mat-card-header>
+                  <div mat-card-avatar id="ballImg" class="ballImg"> </div>
+                  <mat-card-title>Underholdning</mat-card-title>
+                </mat-card-header>
+              </mat-card>
+            </div>
+          </div>
+          <button mat-raised-button type="submit" matStepperNext class="nextBttn" color="primary"
+            (click)="pickType()">Næste</button>
         </div>
-        <button mat-button matStepperNext (click)="timeSubmit()" class="nextBttn">Næste</button>
-      </div>
+      </form>
+    </mat-step>
 
-    </form>
-  </mat-step>
-
-  <mat-step [stepControl]="fourthForm" [completed]="true">
-    <form [formGroup]="fourthForm">
-      <ng-template matStepLabel>Deltagere</ng-template>
-      <div class="flexBox" id="peopleBoxFlex">
-        <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
-        <div id="peopleBox">
-          <h4>Indtast deltagere</h4>
-          <mat-form-field id="textBox">
-            <input matInput #input maxlength="30" class="input" value="{{deltagerTekst}}" matInput placeholder=" "
-              [(ngModel)]="this.newappointmentservice.people" formControlName="fourthCtrl">
-          </mat-form-field>
-        </div>
-        <button mat-button matStepperNext class="nextBttn">Næste</button>
-      </div>
-      <div class="keyboard2"></div>
-    </form>
-  </mat-step>
-
-  <mat-step [stepControl]="fifthForm" [completed]="true">
-    <form [formGroup]="fifthForm">
-      <ng-template matStepLabel>Sted</ng-template>
-      <div class="flexBox" id="placeBoxFlex">
-        <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
-        <div id="placeBox">
-          <h4>Indtast sted</h4>
-          <mat-form-field class="content" id="whereBox">
-            <input matInput id="textBox" #input maxlength="30" class="input" value="{{stedTekst}}" matInput placeholder=" "
-              [(ngModel)]="this.newappointmentservice.place" formControlName="fifthCtrl">
-          </mat-form-field>
-        </div>
-        <div>
+    <mat-step [stepControl]="secondForm">
+      <form [formGroup]="secondForm" ng-model-options="{ updateOn: 'blur'}">
+        <ng-template matStepLabel>Beskrivelse</ng-template>
+        <div class="flexBox">
+          <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
+          <div id="noteBoxOOF" class="">
+            <div id="noteBox">
+              <h4>Indtast en beskrivelse</h4>
+              <mat-form-field id="noteText">
+                <input matInput #input maxlength="30" ng-model-options="{ updateOn: 'blur'}" class="input"
+                  value="{{noteTekst}}" matInput placeholder="" [(ngModel)]="this.newappointmentservice.note"
+                  formControlName="secondCtrl">
+              </mat-form-field>
+            </div>
+          </div>
           <button mat-button matStepperNext class="nextBttn">Næste</button>
         </div>
-      </div>
-    </form>
-    <div class="keyboard3"></div>
-  </mat-step>
+      </form>
+      <div class="keyboard1"></div>
+    </mat-step>
 
-  <mat-step>
-    <ng-template matStepLabel>Oversigt</ng-template>
-    <div class="flexBox" id="viewFlexBox">
-      <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
-      <div id="">
-        <div id="appointmentHeaderBox">
-          <em><b>
-              <h4>Din aftale er som følgende:</h4>
-            </b></em>
+    <mat-step [stepControl]="thirdForm" [completed]="isTimeCompleted">
+      <form [formGroup]="thirdForm">
+        <ng-template matStepLabel>Tidspunkt</ng-template>
+        <div class="flexBox">
+          <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
+          <div id="timeBox">
+            <h4>Vælg tidspunkt</h4>
+            <button id="topButton" class="arrowUpBttn" (click)="hourUp()"><i class="material-icons">
+                keyboard_arrow_up
+              </i></button>
+            <button class="arrowUpBttn" (click)="minuteUp()"><i class="material-icons">
+                keyboard_arrow_up
+              </i></button>
+            <br>
+            <mat-form-field class="timeBox" id="timeBoxFlex">
+              <input id="timeInput" matInput placeholder="" value="{{s_hour}}:{{s_minutes}}"
+                formControlName="thirdCtrl">
+            </mat-form-field>
+            <br>
+            <button mat-fab id="botButton" class="arrowDownBttn" (click)="hourDown()"><i class="material-icons">
+                keyboard_arrow_down
+              </i></button>
+            <button mat-fab class="arrowDownBttn" (click)="minuteDown()"><i class="material-icons">
+                keyboard_arrow_down
+              </i></button>
+          </div>
+          <button mat-button matStepperNext (click)="timeSubmit()" class="nextBttn">Næste</button>
         </div>
-        <div id="resumeDiv">
-          <b>Aftale med:</b> {{type}}<br>
-          <b>Dato:</b> {{realDate}}<br>
-          <b>Note:</b> {{this.newappointmentservice.note}}<br>
-          <b>Kl:</b> {{time}}<br>
-          <b>Deltagere:</b> {{this.newappointmentservice.people}}<br>
-          <b>Sted:</b> {{this.newappointmentservice.place}}<br>
-        </div>
-      </div>
-      <div>
-        <button mat-button class="nextBttn" (click)="saveAppointment()" *ngIf="editing == false">Gem aftale!</button>
-        <button mat-button class="nextBttn" (click)="saveAppointment()" *ngIf="editing == true">Gem ændringer!</button>
 
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="fourthForm" [completed]="true">
+      <form [formGroup]="fourthForm">
+        <ng-template matStepLabel>Deltagere</ng-template>
+        <div class="flexBox" id="peopleBoxFlex">
+          <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
+          <div id="peopleBox">
+            <h4>Indtast deltagere</h4>
+            <mat-form-field id="textBox">
+              <input matInput #input maxlength="30" class="input" value="{{deltagerTekst}}" matInput placeholder=" "
+                [(ngModel)]="this.newappointmentservice.people" formControlName="fourthCtrl">
+            </mat-form-field>
+          </div>
+          <button mat-button matStepperNext class="nextBttn">Næste</button>
+        </div>
+        <div class="keyboard2"></div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="fifthForm" [completed]="true">
+      <form [formGroup]="fifthForm">
+        <ng-template matStepLabel>Sted</ng-template>
+        <div class="flexBox" id="placeBoxFlex">
+          <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
+          <div id="placeBox">
+            <h4>Indtast sted</h4>
+            <mat-form-field class="content" id="whereBox">
+              <input matInput id="textBox" #input maxlength="30" class="input" value="{{stedTekst}}" matInput
+                placeholder=" " [(ngModel)]="this.newappointmentservice.place" formControlName="fifthCtrl">
+            </mat-form-field>
+          </div>
+          <div>
+            <button mat-button matStepperNext class="nextBttn">Næste</button>
+          </div>
+        </div>
+      </form>
+      <div class="keyboard3"></div>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Oversigt</ng-template>
+      <div class="flexBox" id="viewFlexBox">
+        <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
+        <div id="">
+          <div id="appointmentHeaderBox">
+            <em><b>
+                <h4>Din aftale er som følgende:</h4>
+              </b></em>
+          </div>
+          <div id="resumeDiv">
+            <b>Aftale med:</b> {{type}}<br>
+            <b>Dato:</b> {{realDate}}<br>
+            <b>Note:</b> {{this.newappointmentservice.note}}<br>
+            <b>Kl:</b> {{time}}<br>
+            <b>Deltagere:</b> {{this.newappointmentservice.people}}<br>
+            <b>Sted:</b> {{this.newappointmentservice.place}}<br>
+          </div>
+        </div>
+        <div>
+          <button mat-button class="nextBttn" (click)="saveAppointment()" *ngIf="editing == false">Gem aftale!</button>
+          <button mat-button class="nextBttn" (click)="saveAppointment()" *ngIf="editing == true">Gem
+            ændringer!</button>
+
+        </div>
       </div>
-    </div>
-  </mat-step>
-</mat-horizontal-stepper>
+    </mat-step>
+  </mat-horizontal-stepper>
 </div>

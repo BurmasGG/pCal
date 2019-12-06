@@ -6,6 +6,8 @@ import { AppointmentService } from '../newAppointment.service';
 import { EventService } from '../event.service';
 import { Event } from '../event.model';
 import { ReminderService } from '../reminder.service';
+import {Router} from '@angular/router';
+
 
 @Component({
   selector: 'app-home-view',
@@ -19,8 +21,10 @@ export class HomeViewComponent implements OnInit {
     private reminderService: ReminderService,
     public eventView: EventViewComponent,
     private eventService: EventService,
-    private navservice: NavService,
-    private newappointmentservice: AppointmentService
+    public navservice: NavService,
+    private appointmentservice: AppointmentService,
+    private router: Router,
+
   ) { }
 
   ngOnInit() {
@@ -62,6 +66,15 @@ export class HomeViewComponent implements OnInit {
 
   displayMonthName;
   displayDateName;
+
+  routeToAppointment() {
+    this.router.navigate(['/makeAppointment']);
+    this.appointmentservice.inAppointment = true;
+  }
+  routeToHome() {
+    this.router.navigate(['/home']);
+    this.appointmentservice.clearAll();
+  }
 
   ClearSortedEvents(){
     // clear array

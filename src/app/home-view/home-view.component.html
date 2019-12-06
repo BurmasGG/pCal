@@ -1,17 +1,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-
-<div id="calTop">
-<p id="leftMonthName" class="inline">{{prevMonthName}}</p>
-<!--<h1 id="calHeader" class="inline">5 døgns oversigt</h1>-->
-<p id="rightMonthName" class="inline">{{nextMonthName}}</p>
+<div dirClickcounter id="navBar">
+  <button class="weekBttn" id="homeBttn" (click)="routeToHome()">Hjem</button>
+  <button (click)="RefreshView('back')" class="weekBttn" id="backWeek">Forrige uge</button>
+  <button (click)="RefreshView('next')" class="weekBttn" id="nextWeek">Næste uge</button>
+  <button mat-button id="newPlan"(click)="routeToAppointment()">Ny aftale</button>
+  <h1 id="header">5 dages overblik</h1>
 </div>
-  <div id="calendarDiv" dirClickcounter>
+<div id="calTop">
+  <p id="leftMonthName" class="inline">{{prevMonthName}}</p>
+  <!--<h1 id="calHeader" class="inline">5 døgns oversigt</h1>-->
+  <p id="rightMonthName" class="inline">{{nextMonthName}}</p>
+</div>
+<div id="calendarDiv" dirClickcounter>
   <div class="dayDiv" *ngFor="let day of dayTitles; let i = index">
     <p><b>{{day}}</b></p>
     <hr>
     <span *ngIf="eventsSorted">
-      <div class="event {{event.type}}" *ngFor="let event of eventsSorted[i]; let j = index" (click)="eventView.ShowEvent(i, j, eventsSorted)">
-        <img class="img {{event.type}}" >
+      <div class="event {{event.type}}" *ngFor="let event of eventsSorted[i]; let j = index"
+        (click)="eventView.ShowEvent(i, j, eventsSorted)">
+        <img class="img {{event.type}}">
         <p id="note">{{event.note}}</p>
         <p id="time" hidden>{{event.time}}</p>
         <p id="date" hidden>{{event.date}}</p>
@@ -20,8 +27,4 @@
       </div>
     </span>
   </div>
-</div>
-<div dirClickcounter>
-<button (click)="RefreshView('back')" class="weekBttn" id="backWeek">Forrige uge</button>
-<button (click)="RefreshView('next')" class="weekBttn" id="nextWeek">Næste uge</button>
 </div>
