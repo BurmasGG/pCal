@@ -117,6 +117,9 @@ export class NewAppointmentComponent implements OnInit {
           break;
         }
       }
+
+      this.s_hour = this.hour.toString();
+      this.s_minutes = this.minutes.toString();
     }
   }
 
