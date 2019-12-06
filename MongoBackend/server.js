@@ -195,7 +195,7 @@ router.route('/lights/start').get((req, res) => {
   LED22 = new Gpio(22, 'out'),
   LED18 = new Gpio(18, 'out'); // use Gpio on pin 4 and specify that is is output
   leds = [LED04, LED17, LED27, LED22, LED18]; */
-  ledInterval = setInterval(blinkLED, 100);
+  ledInterval = setInterval(blinkLED, 500);
   });
 
 router.route('/lights/stop').get((req, res) => {
@@ -209,7 +209,7 @@ router.route('/lights/stop').get((req, res) => {
   //  stopFlowingLeds();
 });
  function blinkLED() { //blinking function
-  if (LED4.readSync() === 0) { //Check if the pin is of (0)
+  if (LED04.readSync() === 0) { //Check if the pin is of (0)
     LED04.writeSync(1); //set the pin tate to on (1)
     LED17.writeSync(1); //set the pin tate to on (1)
     LED27.writeSync(1); //set the pin tate to on (1)
