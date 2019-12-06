@@ -16,7 +16,7 @@ LED22 = new Gpio(22, 'out'),
 LED18 = new Gpio(18, 'out'); // use Gpio on pin 4 and specify that is is output
 var leds = [LED04, LED17, LED27, LED22, LED18];*/
 var indexCount;
-dir;
+var dir;
 var LED04,
 LED17,
 LED27,
