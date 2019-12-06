@@ -9,7 +9,14 @@ let Event = require('./models/event');
 let ClickCounter = require('./models/clickcounter');
 
 var Gpio = require('onoff').Gpio; //include onoff
-var LED = new Gpio(4, 'out'); // use Gpio on pin 4 and specify that is is output
+var LED = new Gpio(4, 'out'),
+LED17 = new Gpio(17, 'out'),
+LED27 = new Gpio(27, 'out'),
+LED22 = new Gpio(22, 'out'),
+LED18 = new Gpio(18, 'out'); // use Gpio on pin 4 and specify that is is output
+var leds = [LED04, LED17, LED27, LED22, LED18];
+var indexCount = 0;
+dir = "up";
 var ledInterval;
 
 const app = express();
@@ -173,13 +180,14 @@ router.route('/clickcounter/update').get((req, res) => {
 
 router.route('/lights/start').get((req, res) => {
   // CODE TO START LIGHTS HERE
-  ledInterval = setInterval(blinkLED, 500);
+  ledInterval = setInterval(flowingLeds, 100);
   });
 
 router.route('/lights/stop').get((req, res) => {
   // CODE TO STOP LIGHTS HERE
-    clearInterval(ledInterval);
-    LED.writeSync(0);
+  //  clearInterval(ledInterval);
+  //  LED.writeSync(0);
+    stopFlowingLeds();
 });
 
 function blinkLED() { //blinking function
@@ -189,6 +197,24 @@ function blinkLED() { //blinking function
     LED.writeSync(0); // turn of LED
   }
 }
+
+function flowingLeds() { //function for flowing Leds
+  leds.forEach(function(currentValue) { //for each item in array
+    currentValue.writeSync(0); //turn off LED
+  });
+  if (indexCount == 0) dir = "up"; //set flow direction to "up" if the count reaches zero
+  if (indexCount >= leds.length) dir = "down"; //set flow direction to "down" if the count reaches 7
+  if (dir == "down") indexCount--; //count downwards if direction is down
+  leds[indexCount].writeSync(1); //turn on LED that where array index matches count
+  if (dir == "up") indexCount++ //count upwards if direction is up
+};
+
+function stopFlowingLeds() {
+    clearInterval(ledInterval);
+    leds.forEach(function(currentValue) { //for each LED
+      currentValue.writeSync(0);
+      });
+};
 
 
 //to attach the middleware to the router
