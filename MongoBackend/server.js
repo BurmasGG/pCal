@@ -9,22 +9,11 @@ let Event = require('./models/event');
 let ClickCounter = require('./models/clickcounter');
 
 var Gpio = require('onoff').Gpio; //include onoff
-/*
-var LED04 = new Gpio(4, 'out'),
-LED17 = new Gpio(17, 'out'),
-LED27 = new Gpio(27, 'out'),
-LED22 = new Gpio(22, 'out'),
-LED18 = new Gpio(18, 'out'); // use Gpio on pin 4 and specify that is is output
-var leds = [LED04, LED17, LED27, LED22, LED18];
-var indexCount;
-var dir; */
-
 var LED04,
 LED17,
 LED27,
 LED22,
 LED18; // use Gpio on pin 4 and specify that is is output
-//var leds;
 
 var ledInterval;
 
@@ -189,14 +178,11 @@ router.route('/clickcounter/update').get((req, res) => {
 
 router.route('/lights/start').get((req, res) => {
   // CODE TO START LIGHTS HERE
-  /* var indexCount = 0;
-  dir = "up"; */
   LED04 = new Gpio(4, 'out'),
   LED17 = new Gpio(17, 'out'),
   LED27 = new Gpio(27, 'out'),
   LED22 = new Gpio(22, 'out'),
   LED18 = new Gpio(18, 'out'); // use Gpio on pin 4 and specify that is is output
-  //leds = [LED04, LED17, LED27, LED22, LED18];
   ledInterval = setInterval(blinkLED, 500);
   });
 
@@ -214,8 +200,14 @@ router.route('/lights/stop').get((req, res) => {
     LED27.unexport();
     LED22.unexport();
     LED18.unexport();
-  //  stopFlowingLeds();
+    LED04 = null;
+    LED17 = null;
+    LED27 = null;
+    LED22 = null;
+    LED18 = null;
 });
+
+
  function blinkLED() { //blinking function
   if (LED04.readSync() === 0) { //Check if the pin is of (0)
     LED04.writeSync(1); //set the pin tate to on (1)
@@ -231,27 +223,6 @@ router.route('/lights/stop').get((req, res) => {
     LED18.writeSync(0);
   }
 }
-
-function flowingLeds() { //function for flowing Leds
-  leds.forEach(function(currentValue) { //for each item in array
-    currentValue.writeSync(0); //turn off LED
-  });
-  if (indexCount == 0) dir = "up"; //set flow direction to "up" if the count reaches zero
-  if (indexCount >= leds.length) dir = "down"; //set flow direction to "down" if the count reaches 7
-  if (dir == "down") indexCount--; //count downwards if direction is down
-  leds[indexCount].writeSync(1); //turn on LED that where array index matches count
-  if (dir == "up") indexCount++ //count upwards if direction is up
-};
-
-function stopFlowingLeds() {
-    clearInterval(ledInterval);
-    leds.forEach(function(currentValue) { //for each LED
-      currentValue.writeSync(0);
-      currentValue.unexport(); //unexport GPIO
-      });
-};
-
-
 //to attach the middleware to the router
 app.use('/', router);
 //Callback function, that the server is running on port 4000
