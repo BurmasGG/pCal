@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 let Event = require('./models/event');
 let ClickCounter = require('./models/clickcounter');
 
-
+var Gpio = require('onoff').Gpio; //include onoff
 LED04 = new Gpio(4, 'out'),
 LED17 = new Gpio(17, 'out'),
 LED27 = new Gpio(27, 'out'),
