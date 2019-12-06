@@ -203,6 +203,7 @@ router.route('/lights/start').get((req, res) => {
 router.route('/lights/stop').get((req, res) => {
   // CODE TO STOP LIGHTS HERE
     clearInterval(ledInterval);
+    ledInterval = null;
     LED04.writeSync(0); // turn of LED
     LED17.writeSync(0);
     LED27.writeSync(0);
