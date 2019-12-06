@@ -14,7 +14,7 @@ mat-datepicker{
   width: 100px;
   font-weight: bold;
   top: 0;
-  background-color: rgb(3, 209, 106);
+  background-color: #82DE7E;
   cursor: none;
 
 }
@@ -23,7 +23,7 @@ mat-datepicker{
   width: 100px;
   font-weight: bold;
   top: 0;
-  background-color: rgb(255, 217, 1);
+  background-color: #F7DE3B;
   cursor: none;
 
 }
@@ -32,9 +32,8 @@ mat-datepicker{
   width: 100px;
   font-weight: bold;
   top: 0;
-  background-color: red;
+  background-color: #E0352D;
   cursor: none;
-
 }
 #datePickerButton{
   width: 150px;
@@ -191,24 +190,28 @@ mat-datepicker{
   height: 20%;
 }
 #SCN {
-  background-color: rgb(96, 119, 221);
+  /*background-color: rgb(96, 119, 221);*/
+  background-color: #5B93F5;
   width: 45%;
   height: 80%;
 }
 #fam {
-  background-color: chartreuse;
+  /*background-color: chartreuse;*/
+  background-color: #3DE343;
   width: 45%;
   height: 80%;
   margin-right: 3%;
   margin-bottom: 3%;
 }
 #bold {
-  background-color: chocolate;
+  /*background-color: chocolate;*/
+  background-color: #FA8D35;
   width: 45%;
   height: 80%;
 }
 #læge {
-  background-color: rgb(196, 9, 9);
+  /*background-color: rgb(196, 9, 9);*/
+  background-color: #F03616;
   width: 45%;
   height: 80%;
   margin-right: 3%;
@@ -265,12 +268,13 @@ mat-datepicker{
 }
 
 .simple-keyboard.hg-theme-default.hg-layout-default{
-  border: 5px solid rgb(0, 0, 0, 0.7);
+  border: 2px solid #53575C; /* rgb(0, 0, 0, 0.7);*/
   border-radius: 0px;
   margin: 0px;
   width: calc(100%);
   font-size: 26px;
-  background-color: black;
+  /*background-color: black;*/
+  background-color: #53575C;
   font-weight: bold;
   cursor: none !important;
 

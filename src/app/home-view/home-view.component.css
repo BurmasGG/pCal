@@ -15,14 +15,14 @@
   float: left;
   text-align: left;
   width: 20%;
-  padding-top: 22px;
+  padding-top: 0px;
 }
 
 #rightMonthName {
   float: right;
   text-align: right;
   width: 20%;
-  padding-top: 22px;
+  padding-top: 0px;
 }
 
 #calendarDiv{
@@ -38,7 +38,8 @@
 }
 
 .event.Familie {
-  background-color: chartreuse;
+  /*background-color: chartreuse;*/
+  background-color: #3DE343;
 }
 .img.Familie {
   width: 24px;
@@ -48,7 +49,8 @@
 }
 
 .event.SCN {
-  background-color: rgb(96, 119, 221);
+ /* background-color: rgb(96, 119, 221);*/
+ background-color: #5B93F5;
 }
 .img.SCN {
   width: 24px;
@@ -58,7 +60,8 @@
 }
 
 .event.Sundhedsvæsenet {
-  background-color: rgb(196, 9, 9);
+  /*background-color: rgb(196, 9, 9);*/
+  background-color: #F03616;
 }
 .img.Sundhedsvæsenet {
   width: 24px;
@@ -68,7 +71,8 @@
 }
 
 .event.Underholdning {
-  background-color: chocolate;
+  /*background-color: chocolate;*/
+  background-color: #FA8D35;
 }
 .img.Underholdning {
   width: 24px;
@@ -82,11 +86,13 @@ height: 50px;
 font-weight: bold;
 }
 #backWeek{
-  background-color: rgb(255, 217, 1);
+  /*background-color: rgb(255, 217, 1);*/
+  background-color: #F7DE3B;
   float: left;
 }
 #nextWeek{
-  background-color: rgb(3, 209, 106);
+  /*background-color: rgb(3, 209, 106);*/
+  background-color: #82DE7E;
   float: right;
 }
 button{
