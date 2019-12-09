@@ -99,8 +99,6 @@ THE SOFTWARE.
 
 @angular/material/stepper
 
-@angular/material/toolbar
-
 @angular/platform-browser
 MIT
 
