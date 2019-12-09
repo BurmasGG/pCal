@@ -98,6 +98,7 @@ export class HomeViewComponent implements OnInit {
 
   public UpdateEventListFive() { // _year, _month, _day
     this.ClearSortedEvents();
+    let _year = this.reminderService.curYear;
     let _day = this.reminderService.curDay;
     let _month = this.reminderService.curMonth;
 
@@ -229,6 +230,7 @@ export class HomeViewComponent implements OnInit {
   {
     let daysOfMonth;
 
+    console.log(month, this.displayMonth, this.displayYear);
     if (month > 12 )
     {
       month = 1;
@@ -261,7 +263,9 @@ export class HomeViewComponent implements OnInit {
       });
     }
 
+
     this.displayMonth = month;
+    console.log(month, this.displayMonth, this.displayYear)
     return daysOfMonth;
   }
 
@@ -272,7 +276,7 @@ export class HomeViewComponent implements OnInit {
       //console.log("Exceeded month by: " + (dayToDisplayFrom - this.maxDays) + " days");
       dayToDisplayFrom = dayToDisplayFrom - this.maxDays;
       //console.log("New dayToDisplayFrom: " + dayToDisplayFrom);
-  }
+    } 
 
     this.dayTitles = []; // reset titles
     let j = 0; // what date to display, when going over or under the days of the month
@@ -308,18 +312,18 @@ export class HomeViewComponent implements OnInit {
     //  -- Future weeks -- DONE
     if (operation == "next") // not 'else if', because we want to be able to enter from code above
     {
-      if (this.justChangedMonthBack)
-      {
-       // console.log("Next after Just moved BACK, month + 1")
-        this.maxDays = this.GetMaxDaysOfMonth(this.displayMonth + 1);
-        this.justChangedMonthNext = true;
-        newMonth = true;
-      }
-      else
-      {
-       this.months[0] = this.displayMonth;
-      }
-      this.justChangedMonthBack = false;
+      // if (this.justChangedMonthBack)
+      // {
+      //  // console.log("Next after Just moved BACK, month + 1")
+      //   this.maxDays = this.GetMaxDaysOfMonth(this.displayMonth + 1);
+      //   this.justChangedMonthNext = true;
+      //   newMonth = true;
+      // }
+      // else
+      // {
+      //  this.months[0] = this.displayMonth;
+      // }
+      // this.justChangedMonthBack = false;
 
       for (let i = 0; i < this.daysToDisplay; i++)
       {
@@ -360,63 +364,63 @@ export class HomeViewComponent implements OnInit {
       }
     }
     // -- Past weeks
-    else if (operation == "back")
-    {
-      if (this.justChangedMonthNext)
-      {
-        this.maxDays = this.GetMaxDaysOfMonth(this.displayMonth - 1);
-        this.justChangedMonthBack = true;
-        newMonth = true;
-      }
-      // else
-      // {
-      //   this.nextMonthName = this.GetMonthName(this.displayMonth);
-      // }
-      this.justChangedMonthNext = false;
+    // else if (operation == "back")
+    // {
+    //   if (this.justChangedMonthNext)
+    //   {
+    //     this.maxDays = this.GetMaxDaysOfMonth(this.displayMonth - 1);
+    //     this.justChangedMonthBack = true;
+    //     newMonth = true;
+    //   }
+    //   // else
+    //   // {
+    //   //   this.nextMonthName = this.GetMonthName(this.displayMonth);
+    //   // }
+    //   this.justChangedMonthNext = false;
 
-      for (let i = this.daysToDisplay; i > 0; i--) // 'reverse' for-loop
-      {
+    //   for (let i = this.daysToDisplay; i > 0; i--) // 'reverse' for-loop
+    //   {
 
-        if ((dayToDisplayFrom - i) == this.reminderService.curDay && this.b_WithinMonth() && this.reminderService.curYear == this.displayYear)
-        {
-          this.dayTitles.push(this.today);
-        }
-        else if (dayToDisplayFrom - i < 1) // Going into previous month?
-        {
-          if (!newMonth)
-          {
-            this.maxDays = this.GetMaxDaysOfMonth(this.displayMonth - 1); // update month
-            this.months[0] = this.displayMonth;
-            newMonth = true; // moved into another month
-          }
+    //     if ((dayToDisplayFrom - i) == this.reminderService.curDay && this.b_WithinMonth() && this.reminderService.curYear == this.displayYear)
+    //     {
+    //       this.dayTitles.push(this.today);
+    //     }
+    //     else if (dayToDisplayFrom - i < 1) // Going into previous month?
+    //     {
+    //       if (!newMonth)
+    //       {
+    //         this.maxDays = this.GetMaxDaysOfMonth(this.displayMonth - 1); // update month
+    //         this.months[0] = this.displayMonth;
+    //         newMonth = true; // moved into another month
+    //       }
 
-          // Check for Today when moved into new month
-          let day = this.maxDays + (dayToDisplayFrom - i);
-          if ((day == this.reminderService.curDay) && this.b_WithinMonth() && this.reminderService.curYear == this.displayYear)
-          {
-            this.dayTitles.push(this.today);
-          }
-          else
-          {
-            this.dayTitles.push(day + "/" + this.displayMonth); // max days of month - days exceeded into new month
-          }
-        }
-        else // still within minimum days
-        {
-          let day = dayToDisplayFrom - i;
-          this.dayTitles.push(day + "/" + this.displayMonth); // simple (e.g. 22 - 1)
-        }
-      }
+    //       // Check for Today when moved into new month
+    //       let day = this.maxDays + (dayToDisplayFrom - i);
+    //       if ((day == this.reminderService.curDay) && this.b_WithinMonth() && this.reminderService.curYear == this.displayYear)
+    //       {
+    //         this.dayTitles.push(this.today);
+    //       }
+    //       else
+    //       {
+    //         this.dayTitles.push(day + "/" + this.displayMonth); // max days of month - days exceeded into new month
+    //       }
+    //     }
+    //     else // still within minimum days
+    //     {
+    //       let day = dayToDisplayFrom - i;
+    //       this.dayTitles.push(day + "/" + this.displayMonth); // simple (e.g. 22 - 1)
+    //     }
+    //   }
 
-      if (newMonth)
-      {
-        this.justChangedMonthBack = true;
-      }
-      else
-      {
-        this.justChangedMonthBack = false;
-      }
-    }
+    //   if (newMonth)
+    //   {
+    //     this.justChangedMonthBack = true;
+    //   }
+    //   else
+    //   {
+    //     this.justChangedMonthBack = false;
+    //   }
+    // }
 
     // Update the current displayed date variable
     if (this.dayTitles[0] == this.today)
@@ -503,8 +507,8 @@ export class HomeViewComponent implements OnInit {
         this.months[1] = Number(lastDayMonth);
       }
     }
-    this.prevMonthName = this.GetMonthName(this.months[0]);
-    this.nextMonthName = this.GetMonthName(this.months[1]);
+    // this.prevMonthName = this.GetMonthName(this.months[0]);
+    // this.nextMonthName = this.GetMonthName(this.months[1]);
   }
 
   b_WithinMonth()
