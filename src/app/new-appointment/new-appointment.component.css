@@ -10,7 +10,7 @@ mat-datepicker{
   cursor: none !important;
 }
 .nextBttn {
-  height: 150px;
+  height: 145px;
   width: 100px;
   font-weight: bold;
   top: 0;
@@ -19,7 +19,7 @@ mat-datepicker{
 
 }
 .backBttn {
-  height: 150px;
+  height: 145px;
   width: 100px;
   font-weight: bold;
   top: 0;
