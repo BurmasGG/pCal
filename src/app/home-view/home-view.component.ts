@@ -31,7 +31,6 @@ export class HomeViewComponent implements OnInit {
     this.reminderService.GetTodayDate();
     this.navservice.wasHome = true;
 
-    console.log(this.displayDate);
 
     // Init default values
     this.maxDays = this.GetMaxDaysOfMonth(this.reminderService.curMonth);
@@ -81,7 +80,7 @@ export class HomeViewComponent implements OnInit {
     this.eventsSorted = [];
     if (this.displayDate == this.reminderService.curDay)
     {
-          console.log("Current Week CLEARED");
+          ////console.log("Current Week CLEARED");
           this.reminderService.eventsCurWeek = [];
     }
 
@@ -128,7 +127,7 @@ export class HomeViewComponent implements OnInit {
               if (this.displayDate == this.reminderService.curDay)
               {
                 this.reminderService.eventsCurWeek[dayInt].push(e);
-                console.log("added " + e.note + " to eventsCurWeek[" + dayInt + "]")
+                ////console.log("added " + e.note + " to eventsCurWeek[" + dayInt + "]")
               }
             }
           });
@@ -219,7 +218,7 @@ export class HomeViewComponent implements OnInit {
       this.displayYear = this.reminderService.curYear;
     }
     else {
-      console.log("ERROR: unknown 'operation' in 'RefreshView' (home-view-component).");
+      ////console.log("ERROR: unknown 'operation' in 'RefreshView' (home-view-component).");
       return;
     }
 
@@ -230,7 +229,7 @@ export class HomeViewComponent implements OnInit {
   {
     let daysOfMonth;
 
-    console.log(month, this.displayMonth, this.displayYear);
+    //console.log(month, this.displayMonth, this.displayYear);
     if (month > 12 )
     {
       month = 1;
@@ -265,17 +264,17 @@ export class HomeViewComponent implements OnInit {
 
 
     this.displayMonth = month;
-    console.log(month, this.displayMonth, this.displayYear)
+    //console.log(month, this.displayMonth, this.displayYear)
     return daysOfMonth;
   }
 
   UpdateDayTitles(dayToDisplayFrom, operation){
-    //console.log("justChangedNext: " + this.justChangedMonthNext + ", Date to Display from: " + dayToDisplayFrom + ", operation = " + operation)
+    ////console.log("justChangedNext: " + this.justChangedMonthNext + ", Date to Display from: " + dayToDisplayFrom + ", operation = " + operation)
     if (dayToDisplayFrom > this.maxDays && this.justChangedMonthNext)
     {
-      //console.log("Exceeded month by: " + (dayToDisplayFrom - this.maxDays) + " days");
+      ////console.log("Exceeded month by: " + (dayToDisplayFrom - this.maxDays) + " days");
       dayToDisplayFrom = dayToDisplayFrom - this.maxDays;
-      //console.log("New dayToDisplayFrom: " + dayToDisplayFrom);
+      ////console.log("New dayToDisplayFrom: " + dayToDisplayFrom);
     } 
 
     this.dayTitles = []; // reset titles
@@ -292,7 +291,7 @@ export class HomeViewComponent implements OnInit {
       {
         if (dayToDisplayFrom + i > this.maxDays) // Moving straight into another month ?
         {
-          //console.log("Moving into next month immediately, month + 1")
+          ////console.log("Moving into next month immediately, month + 1")
           operation = "next"; // change operation
           this.daysToDisplay = this.maxDaysToDisplay - i; // adjust days to display based on how many has already been displayed
           this.maxDays = this.GetMaxDaysOfMonth(this.displayMonth + 1)
@@ -314,7 +313,7 @@ export class HomeViewComponent implements OnInit {
     {
       // if (this.justChangedMonthBack)
       // {
-      //  // console.log("Next after Just moved BACK, month + 1")
+      //  // //console.log("Next after Just moved BACK, month + 1")
       //   this.maxDays = this.GetMaxDaysOfMonth(this.displayMonth + 1);
       //   this.justChangedMonthNext = true;
       //   newMonth = true;
@@ -331,7 +330,7 @@ export class HomeViewComponent implements OnInit {
         {
           if (newMonth == false && this.justChangedMonthNext == false) // only do this ones
           {
-           // console.log("NEXT exceeding max days, month + 1");
+           // //console.log("NEXT exceeding max days, month + 1");
             this.maxDays = this.GetMaxDaysOfMonth(this.displayMonth + 1);
             newMonth = true; // moved into another month
           }
@@ -445,7 +444,7 @@ export class HomeViewComponent implements OnInit {
   {
     if (this.reminderService.curDay != Number(this.reminderService.date.getUTCDate))
     {
-      console.log("Day has changed, refreshing eventsList!")
+      //console.log("Day has changed, refreshing eventsList!")
 
       this.RefreshView('home');
     }
