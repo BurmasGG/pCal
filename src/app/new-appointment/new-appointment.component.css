@@ -36,9 +36,9 @@ mat-datepicker{
   cursor: none;
 }
 #datePickerButton{
-  width: 150px;
+  width: 250px;
   height: 90px;
-  margin-left: 220px;
+  font-size: 135%;
 }
 #calField {
   font-size: 25px;
@@ -141,6 +141,10 @@ mat-datepicker{
   flex: 0.5;
 }
 
+#vælgDate {
+  font-size: 125%;
+}
+
 .inputField {
   align-content: center;
   width: 50%;
@@ -190,14 +194,12 @@ mat-datepicker{
   height: 20%;
 }
 #SCN {
-  /*background-color: rgb(96, 119, 221);*/
-  background-color: #5B93F5;
+  background-color: rgb(129, 226, 255);
   width: 45%;
   height: 80%;
 }
 #fam {
-  /*background-color: chartreuse;*/
-  background-color: #3DE343;
+  background-color: rgb(70, 255, 70);
   width: 45%;
   height: 80%;
   margin-right: 3%;
@@ -211,7 +213,7 @@ mat-datepicker{
 }
 #læge {
   /*background-color: rgb(196, 9, 9);*/
-  background-color: #F03616;
+  background-color: rgb(200, 165, 255);
   width: 45%;
   height: 80%;
   margin-right: 3%;
@@ -281,5 +283,6 @@ mat-datepicker{
 }
 button{
   cursor: none;
+  font-size: 120%;
 }
 

@@ -1,6 +1,35 @@
 body {
     text-align: center;
     position: relative;
+    word-wrap: break-word;
+}
+
+p span {
+  width: 24px;
+  height: 24px;
+  padding-left: 24px;
+  padding-top: 5px;
+  margin-left: 5px;
+}
+
+.eventType{
+  height: 24px;
+}
+
+.img.Familie {
+  background: url("src/assets/img/fam.png") left top no-repeat;
+}
+
+.img.SCN {
+  background: url("src/assets/img/smiley.png") left top no-repeat;
+}
+
+.img.Sundhedsvæsenet {
+  background: url("src/assets/img/heart.png") left top no-repeat;
+}
+
+.img.Underholdning {
+  background: url("src/assets/img/football.png") left top no-repeat;
 }
 
 button {
@@ -49,10 +78,11 @@ button {
     position: absolute;
     bottom: 15px;
     left: 38%;
+    width: 25%;
 }
 
 .event.SCN {
-  background-color: #5B93F5;
+  background-color: rgb(129, 226, 255);
 }
 .img.SCN {
   width: 24px;
@@ -61,10 +91,10 @@ button {
   background: url("src/assets/img/smiley.png") left top no-repeat;
 }
 .event.Familie {
-  background-color: #3DE343;
+  background-color: rgb(70, 255, 70);
 }
 .event.Sundhedsvæsenet {
-  background-color: #F03616;
+  background-color: rgb(200, 165, 255);
 }
 .img.Sundhedsvæsenet {
   width: 24px;
