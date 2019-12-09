@@ -27,7 +27,7 @@
 
 #calendarDiv{
   width: 100%;
-  height: 100%;
+  height: 90%;
   display: flex;
   justify-content: space-between;
 }
@@ -98,6 +98,7 @@ font-weight: bold;
 #homeBttn{
   background-color: #82DE7E;
   float: left;
+  font-size: 15px;
 }
 button{
   cursor: none;
@@ -109,7 +110,7 @@ button{
   background: #8cceff;
 }
 #header{
-  margin-left: 30%;
+  margin-left: 32%;
 }
 #newPlan{
   background-color: #E0352D;
@@ -120,4 +121,7 @@ button{
   height: 70px;
   width: 100px;
 
+}
+#dateText{
+  font-size: 20px;
 }

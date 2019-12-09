@@ -2,12 +2,12 @@
 <div dirClickcounter id="navBar">
   <button class="weekBttn" id="homeBttn" (click)="RefreshView('home')">Hjem</button>
   <button (click)="RefreshView('next')" class="weekBttn" id="nextWeek">Næste uge</button>
-  <button mat-button id="newPlan"(click)="routeToAppointment()">Ny aftale</button>
+  <button mat-button id="newPlan" (click)="routeToAppointment()">Ny aftale</button>
   <h1 id="header">5 dages overblik</h1>
 </div>
 <div id="calendarDiv" dirClickcounter>
   <div class="dayDiv" *ngFor="let day of dayTitles; let i = index">
-    <p><b>{{day}}</b></p>
+    <p id="dateText"><b>{{day}}</b></p>
     <hr>
     <span *ngIf="eventsSorted">
       <div class="event {{event.type}}" *ngFor="let event of eventsSorted[i]; let j = index"
