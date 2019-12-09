@@ -6,7 +6,7 @@ var LED23 = new Gpio(23, 'out'), //use declare variables for all the GPIO output
   LED18 = new Gpio(18, 'out');
 
 //Put all the LED variables in an array
-var leds = [LED023, LED17, LED27, LED22, LED18];
+var leds = [LED23, LED17, LED27, LED22, LED18];
 var indexCount = 0; //a counter
 dir = "up"; //variable for flowing direction
 
