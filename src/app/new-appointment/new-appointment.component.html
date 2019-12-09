@@ -10,14 +10,14 @@
             ændringer</button>
           <div class="inputField">
             <h4 class="inputField">Vælg en dato</h4>
-            <p id="vælgDate">Tryk på knappen til højre for at vælge en ny.</p>
+            <p id="vælgDate">Tryk på knappen nede til højre for at vælge en dato.</p>
             <mat-form-field id="calField">
               <input matInput readonly [matDatepicker]="picker" value="10/21/2019" placeholder="Du har valgt den"
                 required formControlName="firstCtrl">
               <!-- <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle> -->
               <mat-datepicker class="fixed-open" #picker opened="true"></mat-datepicker>
             </mat-form-field>
-            <button mat-raised-button (click)="picker.open()" id="datePickerButton">Åben kalender</button>
+            <button mat-raised-button (click)="picker.open()" id="datePickerButton">Klik for at vælge dato</button>
           </div>
           <button mat-raised-button type="submit" id="firstNext" matStepperNext class="nextBttn"
             color="primary">Næste</button>

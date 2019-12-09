@@ -1,19 +1,19 @@
-<body class="event {{data.type}}">
+<body class="event {{data.type}}" dirClickcounter>
   <!-- Clicked event layout -->
-  <div *ngIf="data.isNoti == false" dirClickcounter> 
+  <div *ngIf="data.isNoti == 'false'"> 
       <h3 >{{data.type}}</h3>
       <h2 >{{data.note}}</h2>
       <h3><b>Den</b> {{data.day}}/{{data.month}}/{{data.year}}</h3>
       <h3><b>Kl.</b> {{data.time}}</h3>
       <h3 *ngIf=data.people><b>Med:</b> {{data.people}}</h3>
       <h3 *ngIf=data.place><b>Ved:</b> {{data.place}}</h3>
-      <button id='butDelete' (click)="ReturnResult('delete')" [mat-dialog-close]>Slet</button>
+      <button class='inline right bad' (click)="ReturnResult('delete')" [mat-dialog-close]>Slet</button>
       <button id='butEdit' (click)="ReturnResult('edit')" [mat-dialog-close]>Redigér</button>
-      <button id='butClose' [mat-dialog-close]>Luk</button>
+      <button class='inline left' [mat-dialog-close]>Luk</button>
   </div>
 
   <!-- Notification layout -->
-  <div *ngIf="data.isNoti == true" dirClickcounter>
+  <div *ngIf="data.isNoti == 'true'">
     <h3 >Du har en aftale i dag</h3>
     <h3><b>Kl.</b> {{data.time}}</h3>
     <h2 >{{data.note}}</h2>
@@ -25,4 +25,24 @@
       <button id="closeNotifier" [mat-dialog-close]>Ok!</button>
     </div>
   </div>
+
+  <!-- Confirm Delete/Edit Layout -->
+  <div *ngIf="data.isNoti == 'delete' || data.isNoti == 'edit'">
+
+    <div *ngIf="data.isNoti == 'delete'">
+      <h1>Slet aftale?</h1>
+      <p></p>
+      <h3>Er du sikker på du vil slette '{{data.note}}' den {{data.day}}/{{data.month}}?</h3>
+      <button class="inline right bad" (click)="ReturnResult('del_yes')" [mat-dialog-close]>Ja, slet</button>
+    </div>
+
+    <div *ngIf="data.isNoti == 'edit'">
+      <h1>Ændre aftale?</h1>
+      <p></p>
+      <h3>Er du sikker på du vil lave ændringer i aftalen '{{data.note}}' den {{data.day}}/{{data.month}}?</h3>
+      <button class="inline right" (click)="ReturnResult('edit_yes')" [mat-dialog-close]>Ja, ændre</button>
+    </div>
+
+    <button class="inline left" (click)="ReturnResult('no')" [mat-dialog-close]>Nej, afbryd</button>
+    </div>
 </body>

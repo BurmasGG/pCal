@@ -6,7 +6,7 @@ body{
 mat-datepicker{
   cursor: none !important;
 }
-.mat-calendar-body-cell-content, .ng-star-inserted, .hg-button, .hg-standardBtn{
+.mat-calendar-body-cell-content, .ng-star-inserted, .hg-button, .hg-standardBtn, input{
   cursor: none !important;
 }
 .nextBttn {

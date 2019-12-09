@@ -5,6 +5,7 @@ import { EventService } from '../event.service';
 import { NewAppointmentComponent } from '../new-appointment/new-appointment.component';
 import { Router } from '@angular/router';
 import { AppointmentService } from '../newAppointment.service';
+import { isNullOrUndefined } from 'util';
 
 @Component({
   selector: 'app-event-view',
@@ -30,7 +31,7 @@ export class EventViewComponent {
       disableClose: false,
 
       data: {
-        isNoti: false,
+        isNoti: 'false',
         id: this.e._id,
         notify: this.e.notify,
         type: this.e.type,
@@ -47,21 +48,38 @@ export class EventViewComponent {
     dialogRef.afterClosed().subscribe(_result => {
       const dialogResult = dialogRef.componentInstance.dialogResult; // result received from "event dialog"
 
-      if (dialogResult == "delete") {
-        if (confirm("Sikker på du vil slette '" + this.e.note + "'?")) {
-          this.eventService.DeleteEvent(this.e._id).subscribe((data: Event[]) => {
+      if (!isNullOrUndefined(dialogResult)) {
+        
+        let confirmRef = this.dialog.open(EventDialogComponent, {
+          autoFocus: true,
+          disableClose: false,
+    
+          data: {
+            isNoti: dialogResult,
+            id: this.e._id,
+            note: this.e.note,
+            month: this.e.month,
+            day: this.e.day,
+            type: this.e.type
+          }
+        });
+
+        confirmRef.afterClosed().subscribe(_result => {
+          const confirmResult = confirmRef.componentInstance.dialogResult; // result received from "event dialog"
+
+          if (confirmResult == "del_yes") 
+          {
+            this.eventService.DeleteEvent(this.e._id).subscribe((data: Event[]) => {
             console.log(data);
             window.location.reload();
-          });
-        }
-      }
-      else if (dialogResult == "edit") {
-        if (confirm("Sikker på du vil lave ændringer i '" + this.e.note + "'?")) {
-          // call newAppointment med bool "editing = true" og this.e._id;
-          //this.eventInfo = "true-" + this.e._id + "-" + this.e.type + "-" + this.e.note + "-" + this.e.year + "-" + this.e.month + "-" + this.e.day  + "-" + this.e.people  + "-" + this.e.place;
-          this.appService.SetValues(this.e);
-          this.router.navigate(['/makeAppointment']);
-        }
+            });
+          }
+          else if (confirmResult == "edit_yes")
+          {
+            this.appService.SetValues(this.e); // parse event values
+            this.router.navigate(['/makeAppointment']);
+          }
+        });
       }
     });
   }

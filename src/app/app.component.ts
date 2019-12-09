@@ -78,7 +78,7 @@ export class AppComponent {
       disableClose: false,
 
       data: {
-        isNoti: true,
+        isNoti: 'true',
         id: e._id,
         type: e.type,
         note: e.note,

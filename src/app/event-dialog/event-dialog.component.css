@@ -8,15 +8,25 @@ button {
     font-size: 150%;
     height: 80px;
     width: 100px;
+    cursor: none;
+}
+
+.inline {
+  bottom: 15px;
 }
 
 #butEdit {
-    bottom: 0px;
-    left: 15px;
+  bottom: 0px;
+  left: 15px;
 }
 
-#butClose {
-    bottom: 0px;
+.left {
+  float: left;
+  left: 15px;
+}
+
+.right {
+    float: right;
     right: 15px;
 }
 
@@ -27,17 +37,21 @@ button {
   height: 125px;
 }
 
-#butDelete {
+.bad {
+  background-color: #E0352D;
+}
+
+.good {
+  background-color: rgb(0, 230, 40);
+}
+
+#butEdit {
     position: absolute;
-    top: 0px;
-    right: -17px;
-    background-color: #E0352D;
-    /*background-color: red;*/
-    /*background: url(); Trashcan Icon*/
+    bottom: 15px;
+    left: 38%;
 }
 
 .event.SCN {
-  /*background-color: rgb(96, 119, 221);*/
   background-color: #5B93F5;
 }
 .img.SCN {
@@ -45,14 +59,11 @@ button {
   height: 24px;
   padding-left: 24px;
   background: url("src/assets/img/smiley.png") left top no-repeat;
-  /*background-color: blue;*/
 }
 .event.Familie {
-  /*background-color: chartreuse;*/
   background-color: #3DE343;
 }
 .event.Sundhedsvæsenet {
-  /*background-color: rgb(196, 9, 9);*/
   background-color: #F03616;
 }
 .img.Sundhedsvæsenet {
@@ -63,7 +74,6 @@ button {
 }
 
 .event.Underholdning {
-  /*background-color: chocolate;*/
   background-color: #FA8D35;
 }
 .img.Underholdning {
@@ -71,9 +81,4 @@ button {
   height: 24px;
   padding-left: 24px;
   background: url("src/assets/img/football.png") left top no-repeat;
-}
-
-button{
-  cursor: none;
-
 }
