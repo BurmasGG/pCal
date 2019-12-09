@@ -9,7 +9,7 @@ let Event = require('./models/event');
 let ClickCounter = require('./models/clickcounter');
 
 var Gpio = require('onoff').Gpio; //include onoff
-LED04 = new Gpio(4, 'out'),
+LED04 = new Gpio(23, 'out'),
 LED17 = new Gpio(17, 'out'),
 LED27 = new Gpio(27, 'out'),
 LED22 = new Gpio(22, 'out'),
@@ -188,7 +188,7 @@ router.route('/lights/stop').post((req, res) => {
   console.log("req param stop: " + req.body.stopLights)
   if(req.body.stopLights == true){
     clearInterval(ledInterval);
-    LED04.writeSync(0); // turn of LED
+    LED23.writeSync(0); // turn of LED
     LED17.writeSync(0);
     LED27.writeSync(0);
     LED22.writeSync(0);
@@ -199,14 +199,14 @@ router.route('/lights/stop').post((req, res) => {
 
 
  function blinkLED() { //blinking function
-  if (LED04.readSync() === 0) { //Check if the pin is of (0)
-    LED04.writeSync(1); //set the pin tate to on (1)
+  if (LED23.readSync() === 0) { //Check if the pin is of (0)
+    LED23.writeSync(1); //set the pin tate to on (1)
     LED17.writeSync(1); //set the pin tate to on (1)
     LED27.writeSync(1); //set the pin tate to on (1)
     LED22.writeSync(1); //set the pin tate to on (1)
     LED18.writeSync(1); //set the pin tate to on (1)
   }else{
-    LED04.writeSync(0); // turn of LED
+    LED23.writeSync(0); // turn of LED
     LED17.writeSync(0);
     LED27.writeSync(0);
     LED22.writeSync(0);
