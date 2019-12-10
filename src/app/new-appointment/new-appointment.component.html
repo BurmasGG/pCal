@@ -96,24 +96,16 @@
           <button mat-button matStepperPrevious class="backBttn">Tilbage</button>
           <div id="timeBox">
             <h4>Vælg tidspunkt</h4>
-            <button id="topButton" class="arrowUpBttn" (click)="hourUp()"><i class="material-icons">
-                keyboard_arrow_up
-              </i></button>
-            <button class="arrowUpBttn" (click)="minuteUp()"><i class="material-icons">
-                keyboard_arrow_up
-              </i></button>
+            <button id="topButton" class="arrowUpBttn" (click)="hourUp()">^</button>
+            <button class="arrowUpBttn" (click)="minuteUp()">^</button>
             <br>
             <mat-form-field class="timeBox" id="timeBoxFlex">
               <input id="timeInput" matInput placeholder="" value="{{s_hour}}:{{s_minutes}}"
                 formControlName="thirdCtrl">
             </mat-form-field>
             <br>
-            <button mat-fab id="botButton" class="arrowDownBttn" (click)="hourDown()"><i class="material-icons">
-                keyboard_arrow_down
-              </i></button>
-            <button mat-fab class="arrowDownBttn" (click)="minuteDown()"><i class="material-icons">
-                keyboard_arrow_down
-              </i></button>
+            <button mat-fab id="botButton" class="arrowDownBttn" (click)="hourDown()">v</button>
+            <button mat-fab class="arrowDownBttn" (click)="minuteDown()">v</button>
           </div>
           <button mat-button matStepperNext (click)="timeSubmit()" class="nextBttn">Næste</button>
         </div>
