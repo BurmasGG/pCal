@@ -15,6 +15,15 @@ export class ClickcounterDirective {
       // needs 'subscribe' or else nothing happens.
       console.log("Updating click: " + data['event'])
     });
+
+    this.eventService.PrintData().subscribe((data: any) => {
+      let eventAmount = 0;
+      for (let index = 0; index < data.length; index++) {
+        eventAmount += 1;
+      }
+
+      console.log("Total amount of events: " + eventAmount);
+    });
   }
 
 }
