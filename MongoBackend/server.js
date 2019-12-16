@@ -175,6 +175,18 @@ router.route('/clickcounter/update').get((req, res) => {
   });
 });
 
+router.route('/printData').get((req, res) => {
+  Event.find((err, events) =>{
+	  //checking for errors
+    if (err)
+		//printing out the information of error object
+      console.log(err);
+    else
+		//send back reponse in json format containing the events
+      res.json(events);
+  });
+});
+
 router.route('/lights/start').post((req, res) => {
   console.log("req param start: " + req.body.startLights)
   if(req.body.startLights == true){
